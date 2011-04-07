@@ -1,0 +1,7 @@
+Waf executable version: 1.6.3
+
+=== How to install ===
+$ waf configure build
+# waf install
+or directly in root:
+# waf configure build install
