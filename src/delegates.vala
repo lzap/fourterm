@@ -18,4 +18,5 @@
 namespace Delegates
 {
 	public delegate void Void();
+	public delegate void String(string a);
 }

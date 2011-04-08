@@ -49,5 +49,7 @@ public class MainWindow : Gtk.Window
 
 		this.destroy.connect(Gtk.main_quit);
 		this.terminal.child_exited.connect(Gtk.main_quit);
+
+		this.terminal.active_signals((title) => this.title = title);
 	}
 }

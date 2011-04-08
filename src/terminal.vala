@@ -24,17 +24,19 @@ public class Terminal : Vte.Terminal
         this.background_transparent = false;
         this.scroll_on_keystroke = true;
 
-		this.active_signals();
-
 		// FIXME: fork_command is deprecated. Use fork_command_full instead.
 		this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
         //this.fork_command_full(Vte.PtyFlags.DEFAULT, null, {}, null, GLib.SpawnFlags.FILE_AND_ARGV_ZERO, this.gne, cpid);
 		//bool Vte.Terminal.fork_command_full (Vte.PtyFlags pty_flags, string? working_directory, string[]? argv, string[]? envv, GLib.SpawnFlags spawn_flags, GLib.SpawnChildSetupFunc child_setup, GLib.Pid child_pid)
 	}
 
-	public void active_signals()
+	public void active_signals(Delegates.String title_changed)
 	{
 		this.button_press_event.connect(this.display_menu);
+		this.window_title_changed.connect(() => title_changed(this.window_title));
+
+		this.context_menu.active_signals(() => this.copy_clipboard(),
+										 () => this.paste_clipboard());
 	}
 
 	public int calcul_width(int column_count)
