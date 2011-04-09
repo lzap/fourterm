@@ -1,6 +1,9 @@
 Waf executable version: 1.6.3
 Waf executable license: BSD
 
+If you want to compile the binary on debug or release, change the corresponding variable in wscript file.
+By default, the variable is True for a reel version and False for developpement version.
+
 === How to install ===
 If you have not abready installed Waf, replace 'waf' by './waf' in the followed commands:
 

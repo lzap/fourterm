@@ -17,7 +17,8 @@
 
 namespace Pictures
 {
-	public static const string[] logo =
+	// Original ValaTerm logo in 300x188
+	public const string[] logo =
 	{
 		"300 188 1385 2",
 		"  	c None",

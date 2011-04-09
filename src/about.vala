@@ -21,7 +21,7 @@ public class About : Gtk.AboutDialog
 	{
 		this.transient_for = parent_window;
 		this.program_name = "ValaTerm";
-		this.version = "0.0.1";
+		this.version = "0.1";
 		this.copyright = "Copyright © 2010 Jacques-Pascal Deplaix";
 		this.comments = _("ValaTerm is a lightweigth terminal written in Vala");
 		this.logo = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);

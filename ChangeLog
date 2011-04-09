@@ -1,3 +1,11 @@
+0.1
+===
+
+ * Add copy and paste to the context menu
+ * Main window title adapts to the terminal content
+ * Change the foregroud and background color to severally Black and White
+ * Set FreeMono as default font
+
 0.0.1
 =====
 

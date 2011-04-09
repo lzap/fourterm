@@ -2,9 +2,9 @@
 # -*-coding:utf-8 -*
 
 APPNAME = 'valaterm'
-VERSION = '0.0.1'
+VERSION = '0.1'
 
-release = False
+release = True
 
 if release is True:
     cflags = ['-pipe', '-O2']
