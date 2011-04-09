@@ -1,3 +1,14 @@
 ValaTerm is a lightweight terminal written in Vala.
-This project use Vala programming language, GTK+, Vte and Waf.
-To intall, see the INSTALL file.
+
+Build Requirements
+==================
+
+ * valac (>= 0.12.0)
+ * gcc
+
+Run Requirements
+================
+
+ * glib-2.0
+ * gtk+-2.0
+ * vte
