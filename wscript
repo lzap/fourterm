@@ -4,7 +4,7 @@
 APPNAME = 'valaterm'
 VERSION = '0.1'
 
-release = True
+release = False
 
 if release is True:
     cflags = ['-pipe', '-O2']
