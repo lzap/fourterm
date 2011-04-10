@@ -17,11 +17,13 @@
 
 public class Menubar : Gtk.MenuBar
 {
-	private Gtk.MenuItem item_about = new Gtk.MenuItem.with_label("About");
+	private Gtk.ImageMenuItem item_about = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.ABOUT, null);
 	private Gtk.MenuItem item_preferences = new Gtk.MenuItem.with_label("Preferences");
 
 	public Menubar()
 	{
+		this.item_about.label = "About";
+
 		var menu_edit = new Gtk.MenuItem.with_label("Edit");
 		var submenu_edit = new Gtk.Menu();
 
@@ -33,9 +35,6 @@ public class Menubar : Gtk.MenuBar
 
 		menu_help.set_submenu(submenu_help);
 		submenu_help.append(this.item_about);
-
-		// Just an exemple:
-		// menuitem.set_related_action(new Gtk.Action("f", "fg", null, null));
 
 		this.append(menu_edit);
 		this.append(menu_help);
