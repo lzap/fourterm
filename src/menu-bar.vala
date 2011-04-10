@@ -18,23 +18,32 @@
 public class Menubar : Gtk.MenuBar
 {
 	private Gtk.MenuItem item_about = new Gtk.MenuItem.with_label("About");
+	private Gtk.MenuItem item_preferences = new Gtk.MenuItem.with_label("Preferences");
 
 	public Menubar()
 	{
-		var menu_file = new Gtk.MenuItem.with_label("Help");
-		var menu = new Gtk.Menu();
+		var menu_edit = new Gtk.MenuItem.with_label("Edit");
+		var submenu_edit = new Gtk.Menu();
+
+		menu_edit.set_submenu(submenu_edit);
+		submenu_edit.append(this.item_preferences);
+
+		var menu_help = new Gtk.MenuItem.with_label("Help");
+		var submenu_help = new Gtk.Menu();
+
+		menu_help.set_submenu(submenu_help);
+		submenu_help.append(this.item_about);
 
 		// Just an exemple:
 		// menuitem.set_related_action(new Gtk.Action("f", "fg", null, null));
 
-		menu_file.set_submenu(menu);
-		menu.append(this.item_about);
-
-		this.append(menu_file);
+		this.append(menu_edit);
+		this.append(menu_help);
 	}
 
-	public void active_signals(Delegates.Void about)
+	public void active_signals(Delegates.Void about, Delegates.Void preferences)
 	{
 		this.item_about.activate.connect(() => about());
+		this.item_preferences.activate.connect(() => preferences());
 	}
 }

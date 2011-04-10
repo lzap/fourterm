@@ -52,6 +52,7 @@ def build(bld):
         cflags        = cflags,
         valaflags     = valaflags,
         source        = ['src/about.vala',
+                         'src/configurations-window.vala',
                          'src/context-menu.vala',
                          'src/delegates.vala',
                          'src/main.vala',
