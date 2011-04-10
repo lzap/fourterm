@@ -19,10 +19,12 @@ public class Menubar : Gtk.MenuBar
 {
 	private Gtk.ImageMenuItem item_about = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.ABOUT, null);
 	private Gtk.MenuItem item_preferences = new Gtk.MenuItem.with_label("Preferences");
+	private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
 	public Menubar()
 	{
 		this.item_about.label = "About";
+		this.item_about.accel_group = this.accel_group;
 
 		var menu_edit = new Gtk.MenuItem.with_label("Edit");
 		var submenu_edit = new Gtk.Menu();
@@ -40,8 +42,11 @@ public class Menubar : Gtk.MenuBar
 		this.append(menu_help);
 	}
 
-	public void active_signals(Delegates.Void about, Delegates.Void preferences)
+	public void active_signals(Delegates.AccelGroup add_accel_group,
+							   Delegates.Void about, Delegates.Void preferences)
 	{
+		add_accel_group(this.accel_group);
+
 		this.item_about.activate.connect(() => about());
 		this.item_preferences.activate.connect(() => preferences());
 	}

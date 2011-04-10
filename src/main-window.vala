@@ -45,7 +45,8 @@ public class MainWindow : Gtk.Window
 
 	private void active_signals()
 	{
-		this.menubar.active_signals(() => About.display(this),
+		this.menubar.active_signals(this.add_accel_group,
+									() => About.display(this),
 									() => ConfigurationsWindow.display(this));
 
 		this.destroy.connect(Gtk.main_quit);
