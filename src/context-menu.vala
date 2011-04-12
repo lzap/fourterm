@@ -17,11 +17,14 @@
 
 public class ContextMenu : Gtk.Menu
 {
-	Gtk.MenuItem item_copy = new Gtk.MenuItem.with_label(_("Copy"));
-	Gtk.MenuItem item_paste = new Gtk.MenuItem.with_label(_("Paste"));
+	Gtk.ImageMenuItem item_copy = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.COPY, null);
+	Gtk.ImageMenuItem item_paste = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PASTE, null);
 
 	public ContextMenu()
 	{
+		this.item_copy.label = _("Copy");
+		this.item_paste.label = _("Paste");
+
 		this.append(this.item_copy);
 		this.append(this.item_paste);
 	}
