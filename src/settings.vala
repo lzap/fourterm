@@ -17,39 +17,46 @@
 
 public class Settings
 {
+	private static ConfigFile file;
+
+	private static const string TERMINAL_FONT_GROUP = "Terminal";
+	private static const string TERMINAL_FONT_NAME = "Font";
+	private static string terminal_font_value;
+
 	public static void init()
 	{
-		var file = new ConfigFile();
+		terminal_font_value = "FreeMono";
+		file = new ConfigFile(
+			{
+				TERMINAL_FONT_GROUP, TERMINAL_FONT_NAME, terminal_font_value
+			});
 
 		try
 		{
-			Settings._terminal_font = file.get_string("Terminal", "Font");
+			terminal_font_value = file.get_string(TERMINAL_FONT_GROUP,
+												  TERMINAL_FONT_NAME);
 		}
 		catch(GLib.KeyFileError error)
 		{
 		}
 	}
 
-	private static string? _terminal_font = null;
 	public static unowned string terminal_font
 	{
 		get
 		{
-			if(Settings._terminal_font == null)
-			{
-				return "FreeMono";
-			}
-
-			return Settings._terminal_font;
+			return terminal_font_value;
 		}
 
 		set
 		{
-			Settings._terminal_font = value;
+			if(value != terminal_font_value)
+			{
+				terminal_font_value = value;
 
-			var file = new ConfigFile();
-			file.set_string("Terminal", "Font", value);
-			file.write();
+				file.set_string(TERMINAL_FONT_GROUP, TERMINAL_FONT_NAME, value);
+				file.write();
+			}
 		}
 	}
 }

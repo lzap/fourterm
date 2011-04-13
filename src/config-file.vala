@@ -17,14 +17,19 @@
 
 public class ConfigFile : GLib.KeyFile
 {
-    public ConfigFile()
+    public ConfigFile(string[] default_settings)
     {
         try
         {
             this.load_from_file(this.filename(), KeyFileFlags.NONE);
         }
-        catch(Error error)
+        catch(GLib.Error error)
         {
+			if(error is GLib.FileError.NOENT)
+			{
+				this.set_string(default_settings[0], default_settings[1],
+								default_settings[2]);
+			}
         }
     }
 
@@ -34,7 +39,7 @@ public class ConfigFile : GLib.KeyFile
         {
             FileUtils.set_contents(this.filename(), this.to_data());
         }
-        catch(FileError error)
+        catch(GLib.FileError error)
         {
         }
     }
@@ -46,6 +51,14 @@ public class ConfigFile : GLib.KeyFile
 		if(!FileUtils.test(path, FileTest.EXISTS))
 		{
 			DirUtils.create(path, 0700);
+		}
+
+		string file = path + "config.ini";
+
+		if(!FileUtils.test(file, FileTest.EXISTS))
+		{
+			// Create the file
+			FileStream.open(file, "w");
 		}
 
 		return path + "config.ini";
