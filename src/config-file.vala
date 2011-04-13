@@ -15,13 +15,39 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-void main(string[] args)
+public class ConfigFile : GLib.KeyFile
 {
-	Gtk.init(ref args);
-	Settings.init();
+    public ConfigFile()
+    {
+        try
+        {
+            this.load_from_file(this.filename(), KeyFileFlags.NONE);
+        }
+        catch(Error error)
+        {
+        }
+    }
 
-	var window = new MainWindow();
-	window.display();
+    public void write()
+    {
+        try
+        {
+            FileUtils.set_contents(this.filename(), this.to_data());
+        }
+        catch(FileError error)
+        {
+        }
+    }
 
-	Gtk.main();
+	private string filename()
+	{
+		string path = GLib.Environment.get_user_config_dir() + "/valaterm/";
+
+		if(!FileUtils.test(path, FileTest.EXISTS))
+		{
+			DirUtils.create(path, 0700);
+		}
+
+		return path + "config.ini";
+	}
 }

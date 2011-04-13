@@ -43,7 +43,7 @@ public class Terminal : Vte.Terminal
 
         this.background_transparent = false;
         this.scroll_on_keystroke = true;
-		this.set_font_from_string("FreeMono");
+		this.set_font_from_string(Settings.terminal_font);
 		this.set_colors({ 0, 0, 0, 0 },
 						{ 0, 0xffff, 0xffff, 0xffff },
 						color);
