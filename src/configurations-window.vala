@@ -17,18 +17,46 @@
 
 public class ConfigurationsWindow : Gtk.Dialog
 {
+	private Gtk.FontButton font_chooser = new Gtk.FontButton();
+
+	private Delegates.String font_changed;
+
 	private ConfigurationsWindow(MainWindow parent_window)
 	{
 		this.transient_for = parent_window;
+
+		this.vbox.pack_start(this.font_chooser);
 
 		this.add_buttons(Gtk.Stock.OK, Gtk.ResponseType.OK,
 						 Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
 	}
 
-	public static void display(MainWindow parent_window)
+	private void active_signals(Delegates.String font_changed)
+	{
+		this.font_changed = font_changed;
+	}
+
+	public static void display(MainWindow parent_window,
+							   Delegates.String font_changed)
 	{
 		var window = new ConfigurationsWindow(parent_window);
-		window.run();
-		window.destroy();
+		window.active_signals(font_changed);
+		window.show_all();
+	}
+
+	protected override void response(int response_id)
+	{
+		if(response_id == Gtk.ResponseType.OK)
+		{
+			this.ok_clicked();
+		}
+
+		this.destroy();
+	}
+
+	private void ok_clicked()
+	{
+		Settings.terminal_font = this.font_chooser.font_name;
+		this.font_changed(Settings.terminal_font);
 	}
 }

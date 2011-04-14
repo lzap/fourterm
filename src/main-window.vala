@@ -47,7 +47,8 @@ public class MainWindow : Gtk.Window
 	{
 		this.menubar.active_signals(this.add_accel_group,
 									() => About.display(this),
-									() => ConfigurationsWindow.display(this),
+									() => ConfigurationsWindow.display(this,
+																	   (font) => this.terminal.set_font_from_string(font)),
 									() => this.terminal.reset(true, true));
 
 		this.destroy.connect(Gtk.main_quit);
