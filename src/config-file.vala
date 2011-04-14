@@ -17,7 +17,7 @@
 
 public class ConfigFile : GLib.KeyFile
 {
-    public ConfigFile(string[] default_settings)
+    public ConfigFile(SettingKey[] default_settings)
     {
         try
         {
@@ -27,8 +27,12 @@ public class ConfigFile : GLib.KeyFile
         {
 			if(error is GLib.FileError.NOENT)
 			{
-				this.set_string(default_settings[0], default_settings[1],
-								default_settings[2]);
+				foreach(SettingKey setting in default_settings)
+				{
+					this.set_string(setting.group,
+									setting.name,
+									setting.value);
+				}
 			}
         }
     }

@@ -18,23 +18,17 @@
 public class Settings
 {
 	private static ConfigFile file;
-
-	private static const string TERMINAL_FONT_GROUP = "Terminal";
-	private static const string TERMINAL_FONT_NAME = "Font";
-	private static string terminal_font_value;
+	private static SettingKey terminal_font_key;
 
 	public static void init()
 	{
-		terminal_font_value = "FreeMono";
-		file = new ConfigFile(
-			{
-				TERMINAL_FONT_GROUP, TERMINAL_FONT_NAME, terminal_font_value
-			});
+		terminal_font_key = new SettingKey("Terminal", "Font", "FreeMono");
+		file = new ConfigFile({ terminal_font_key });
 
 		try
 		{
-			terminal_font_value = file.get_string(TERMINAL_FONT_GROUP,
-												  TERMINAL_FONT_NAME);
+			terminal_font_key.value = file.get_string(terminal_font_key.group,
+													  terminal_font_key.name);
 		}
 		catch(GLib.KeyFileError error)
 		{
@@ -45,16 +39,18 @@ public class Settings
 	{
 		get
 		{
-			return terminal_font_value;
+			return terminal_font_key.value;
 		}
 
 		set
 		{
-			if(value != terminal_font_value)
+			if(value != terminal_font_key.value)
 			{
-				terminal_font_value = value;
+				terminal_font_key.value = value;
 
-				file.set_string(TERMINAL_FONT_GROUP, TERMINAL_FONT_NAME, value);
+				file.set_string(terminal_font_key.group,
+								terminal_font_key.name,
+								value);
 				file.write();
 			}
 		}
