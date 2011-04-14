@@ -37,22 +37,7 @@ public class Settings
 
 	public static unowned string terminal_font
 	{
-		get
-		{
-			return terminal_font_key.value;
-		}
-
-		set
-		{
-			if(value != terminal_font_key.value)
-			{
-				terminal_font_key.value = value;
-
-				file.set_string(terminal_font_key.group,
-								terminal_font_key.name,
-								value);
-				file.write();
-			}
-		}
+		get { return terminal_font_key.value; }
+		set { terminal_font_key.save_value(file, value); }
 	}
 }
