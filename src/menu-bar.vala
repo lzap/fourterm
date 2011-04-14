@@ -18,14 +18,18 @@
 public class Menubar : Gtk.MenuBar
 {
 	private Gtk.ImageMenuItem item_about = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.ABOUT, null);
-	private Gtk.MenuItem item_preferences = new Gtk.MenuItem.with_label("Preferences");
-	private Gtk.MenuItem item_clear = new Gtk.MenuItem.with_label("Clear");
+	private Gtk.ImageMenuItem item_preferences = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PREFERENCES, null);
+	private Gtk.ImageMenuItem item_clear = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLEAR, null);
 	private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
 	public Menubar()
 	{
+		this.item_clear.label = "Clear";
+		this.item_preferences.label = "Preferences";
 		this.item_about.label = "About";
-		this.item_about.accel_group = this.accel_group;
+
+		// Just an exemple:
+		// this.item.accel_group = this.accel_group;
 
 		var menu_edit = new Gtk.MenuItem.with_label("Edit");
 		var submenu_edit = new Gtk.Menu();
