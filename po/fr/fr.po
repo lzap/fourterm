@@ -1,0 +1,60 @@
+# French ValaTerm translation.
+# Copyright (C) 2011 Free Software Foundation, Inc
+# This file is distributed under the same license as the ValaTerm package.
+# Jacques-Pascal Deplaix <jp.deplaix@gmail.com>, 2011.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: valaterm 0.1\n"
+"POT-Creation-Date: 2011-04-15 21:07+0200\n"
+"PO-Revision-Date: 2011-04-15 21:22+0200\n"
+"Last-Translator: Jacques-Pascal Deplaix <jp.deplaix@gmail.com>\n"
+"Language: fr\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: src/about.vala:26
+msgid "ValaTerm is a lightweigth terminal written in Vala"
+msgstr "ValaTerm est un terminal léger écris en Vala"
+
+#: src/configurations-window.vala:26
+msgid "ValaTerm Preferences"
+msgstr "Préférences de ValaTerm"
+
+#: src/configurations-window.vala:31
+msgid "Police:"
+msgstr ""
+
+#: src/context-menu.vala:25
+msgid "Copy"
+msgstr "Copier"
+
+#: src/context-menu.vala:26
+msgid "Paste"
+msgstr "Coller"
+
+#: src/menu-bar.vala:27
+msgid "Clear"
+msgstr "Effacer"
+
+#: src/menu-bar.vala:28
+msgid "Preferences"
+msgstr "Préférences"
+
+#: src/menu-bar.vala:29
+msgid "About"
+msgstr "À propos"
+
+#: src/menu-bar.vala:34
+msgid "Edit"
+msgstr "Édition"
+
+#: src/menu-bar.vala:39
+msgid "Tools"
+msgstr "Outils"
+
+#: src/menu-bar.vala:44
+msgid "Help"
+msgstr "Aide"
