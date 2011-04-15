@@ -43,7 +43,20 @@ def configure(conf):
     conf.env.LIBDIR = '/usr/lib'
     conf.env.BINDIR = '/usr/bin'
 
+from waflib.Task import Task
+
+class Translate(Task):
+    def run(self):
+        return self.exec_command('msgfmt %s -o %s' % (self.inputs[0].abspath(),
+                                                      self.outputs[0].abspath()))
+
 def build(bld):
+    trans = Translate(env = bld.env)
+    trans.set_inputs(bld.path.find_resource('po/fr/fr.po'))
+    trans.set_outputs(bld.path.find_resource('po/fr/{0}.mo'.format(APPNAME)))
+
+    bld.add_to_group(trans)
+
     prog = bld.program(
         packages      = ['gtk+-2.0', 'vte'],
         target        = APPNAME,
@@ -63,3 +76,5 @@ def build(bld):
                          'src/setting-key.vala',
                          'src/settings.vala',
                          'src/terminal.vala'])
+
+    bld.install_files('${PREFIX}/share/locale/fr/LC_MESSAGES', 'po/fr/{0}.mo'.format(APPNAME))
