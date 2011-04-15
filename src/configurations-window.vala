@@ -25,6 +25,7 @@ public class ConfigurationsWindow : Gtk.Dialog
 	{
 		this.title = _("ValaTerm Preferences");
 		this.transient_for = parent_window;
+		this.font_chooser.font_name = Settings.terminal_font;
 
 		var font_box = new Gtk.HBox(false, 1);
 		font_box.pack_start(new Gtk.Label(_("Police:")));
