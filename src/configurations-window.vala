@@ -23,9 +23,14 @@ public class ConfigurationsWindow : Gtk.Dialog
 
 	private ConfigurationsWindow(MainWindow parent_window)
 	{
+		this.title = _("ValaTerm Preferences");
 		this.transient_for = parent_window;
 
-		this.vbox.pack_start(this.font_chooser);
+		var font_box = new Gtk.HBox(false, 1);
+		font_box.pack_start(new Gtk.Label(_("Police:")));
+		font_box.pack_start(this.font_chooser);
+
+		this.vbox.pack_start(font_box);
 
 		this.add_buttons(Gtk.Stock.OK, Gtk.ResponseType.OK,
 						 Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
