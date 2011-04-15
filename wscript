@@ -53,7 +53,7 @@ class Translate(Task):
 def build(bld):
     trans = Translate(env = bld.env)
     trans.set_inputs(bld.path.find_resource('po/fr/fr.po'))
-    trans.set_outputs(bld.path.find_resource('po/fr/{0}.mo'.format(APPNAME)))
+    trans.set_outputs(bld.path.find_resource('po/fr/%s.mo' % (APPNAME)))
 
     bld.add_to_group(trans)
 
@@ -61,7 +61,7 @@ def build(bld):
         packages      = ['gtk+-2.0', 'vte'],
         target        = APPNAME,
         uselib        = ['gtk+', 'vte', 'glib'],
-        defines       = 'GETTEXT_PACKAGE="{0}"'.format(APPNAME),
+        defines       = 'GETTEXT_PACKAGE="%s"' % (APPNAME),
         cflags        = cflags,
         valaflags     = valaflags,
         source        = ['src/about.vala',
@@ -77,4 +77,4 @@ def build(bld):
                          'src/settings.vala',
                          'src/terminal.vala'])
 
-    bld.install_files('${PREFIX}/share/locale/fr/LC_MESSAGES', 'po/fr/{0}.mo'.format(APPNAME))
+    bld.install_files('${PREFIX}/share/locale/fr/LC_MESSAGES', 'po/fr/%s.mo' % (APPNAME))
