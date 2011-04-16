@@ -48,7 +48,8 @@ public class MainWindow : Gtk.Window
 		this.menubar.active_signals(this.add_accel_group,
 									() => About.display(this),
 									() => ConfigurationsWindow.display(this,
-																	   (font) => this.terminal.set_font_from_string(font)),
+																	   (font) => this.terminal.set_font_from_string(font),
+																	   (color) => this.terminal.set_color_background(color)),
 									() => this.terminal.reset(true, true),
 									() => this.terminal.copy_clipboard(),
 									() => this.terminal.paste_clipboard());

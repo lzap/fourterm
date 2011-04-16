@@ -19,16 +19,20 @@ public class Settings
 {
 	private static ConfigFile file;
 	private static SettingKey terminal_font_key;
+	private static SettingKey terminal_background_color_key;
 
 	public static void init()
 	{
 		terminal_font_key = new SettingKey("Terminal", "Font", "FreeMono");
+		terminal_background_color_key = new SettingKey("Terminal", "Background Color", "#ffffffffffff");
 		file = new ConfigFile({ terminal_font_key });
 
 		try
 		{
 			terminal_font_key.value = file.get_string(terminal_font_key.group,
 													  terminal_font_key.name);
+			terminal_background_color_key.value = file.get_string(terminal_background_color_key.group,
+																  terminal_background_color_key.name);
 		}
 		catch(GLib.KeyFileError error)
 		{
@@ -39,5 +43,20 @@ public class Settings
 	{
 		get { return terminal_font_key.value; }
 		set { terminal_font_key.save_value(file, value); }
+	}
+
+	public static unowned Gdk.Color terminal_background_color
+	{
+		get
+		{
+			Gdk.Color color;
+			Gdk.Color.parse(terminal_background_color_key.value, out color);
+			return color;
+		}
+
+		set
+		{
+			terminal_background_color_key.save_value(file, value.to_string());
+		}
 	}
 }
