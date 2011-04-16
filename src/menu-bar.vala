@@ -17,11 +17,16 @@
 
 public class Menubar : Gtk.MenuBar
 {
-	private Gtk.ImageMenuItem item_about = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.ABOUT, null);
-	private Gtk.ImageMenuItem item_preferences = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PREFERENCES, null);
-	private Gtk.ImageMenuItem item_clear = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLEAR, null);
-	private Gtk.ImageMenuItem item_copy = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.COPY, null);
-	private Gtk.ImageMenuItem item_paste = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PASTE, null);
+	private Gtk.ImageMenuItem item_about = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.ABOUT,
+																			null);
+	private Gtk.ImageMenuItem item_preferences = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PREFERENCES,
+																				  null);
+	private Gtk.ImageMenuItem item_clear = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLEAR,
+																			null);
+	private Gtk.ImageMenuItem item_copy = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.COPY,
+																		   null);
+	private Gtk.ImageMenuItem item_paste = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PASTE,
+																			null);
 	private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
 	public Menubar()

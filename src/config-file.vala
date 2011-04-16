@@ -29,10 +29,12 @@ public class ConfigFile : GLib.KeyFile
 			{
 				foreach(SettingKey setting in default_settings)
 				{
-					this.set_string(setting.group,
-									setting.name,
-									setting.value);
+					this.set_string(setting.group, setting.name, setting.value);
 				}
+			}
+			else
+			{
+				// FIXME: Do something !
 			}
         }
     }
@@ -45,26 +47,36 @@ public class ConfigFile : GLib.KeyFile
         }
         catch(GLib.FileError error)
         {
+			// FIXME: Do something !
         }
     }
 
 	private string filename()
 	{
 		string path = GLib.Environment.get_user_config_dir() + "/valaterm/";
-
-		if(!FileUtils.test(path, FileTest.EXISTS))
-		{
-			DirUtils.create(path, 0700);
-		}
+		this.verify_dir(path);
 
 		string file = path + "config.ini";
+		this.verify_file(file);
 
+		return file;
+	}
+
+	private void verify_dir(string dir)
+	{
+		if(!FileUtils.test(dir, FileTest.EXISTS))
+		{
+			// Create the dir
+			DirUtils.create(dir, 0700);
+		}
+	}
+
+	private void verify_file(string file)
+	{
 		if(!FileUtils.test(file, FileTest.EXISTS))
 		{
 			// Create the file
 			FileStream.open(file, "w");
 		}
-
-		return path + "config.ini";
 	}
 }

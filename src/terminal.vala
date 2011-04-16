@@ -21,6 +21,9 @@ public class Terminal : Vte.Terminal
 
 	public Terminal()
 	{
+        this.background_transparent = false;
+        this.scroll_on_keystroke = true;
+
 		const Gdk.Color[] color =
 		{
 			{ 0, 0x2e2e, 0x3434, 0x3636 },
@@ -41,8 +44,6 @@ public class Terminal : Vte.Terminal
 			{ 0, 0xeeee, 0xeeee, 0xecec }
 		};
 
-        this.background_transparent = false;
-        this.scroll_on_keystroke = true;
 		this.set_font_from_string(Settings.font);
 		this.set_colors(Settings.foreground_color,
 						Settings.background_color,
@@ -50,8 +51,6 @@ public class Terminal : Vte.Terminal
 
 		// FIXME: fork_command is deprecated. Use fork_command_full instead.
 		this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
-        //this.fork_command_full(Vte.PtyFlags.DEFAULT, null, {}, null, GLib.SpawnFlags.FILE_AND_ARGV_ZERO, this.gne, cpid);
-		//bool Vte.Terminal.fork_command_full (Vte.PtyFlags pty_flags, string? working_directory, string[]? argv, string[]? envv, GLib.SpawnFlags spawn_flags, GLib.SpawnChildSetupFunc child_setup, GLib.Pid child_pid)
 	}
 
 	public void active_signals(Delegates.String title_changed)

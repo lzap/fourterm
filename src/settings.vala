@@ -27,12 +27,11 @@ public class Settings
 		font_key = new SettingKey("Terminal", "Font", "FreeMono");
 		background_color_key = new SettingKey("Terminal", "Background Color", "#ffffffffffff");
 		foreground_color_key = new SettingKey("Terminal", "Foreground Color", "#000000000000");
-		file = new ConfigFile({ font_key, background_color_key });
+		file = new ConfigFile({ font_key, background_color_key, foreground_color_key });
 
 		try
 		{
-			font_key.value = file.get_string(font_key.group,
-											 font_key.name);
+			font_key.value = file.get_string(font_key.group, font_key.name);
 			background_color_key.value = file.get_string(background_color_key.group,
 														 background_color_key.name);
 			foreground_color_key.value = file.get_string(foreground_color_key.group,
@@ -40,6 +39,7 @@ public class Settings
 		}
 		catch(GLib.KeyFileError error)
 		{
+			// FIXME: Do something !
 		}
 	}
 
@@ -54,6 +54,7 @@ public class Settings
 		get
 		{
 			Gdk.Color color;
+			// FIXME: this function return a boolean to check if the function has failed.
 			Gdk.Color.parse(background_color_key.value, out color);
 			return color;
 		}
@@ -69,6 +70,7 @@ public class Settings
 		get
 		{
 			Gdk.Color color;
+			// FIXME: this function return a boolean to check if the function has failed.
 			Gdk.Color.parse(foreground_color_key.value, out color);
 			return color;
 		}

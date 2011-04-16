@@ -26,8 +26,8 @@ public class MainWindow : Gtk.Window
 		this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
 
 		var scrolled_window = new Gtk.ScrolledWindow(null, null);
-		scrolled_window.add(this.terminal);
 		scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+		scrolled_window.add(this.terminal);
 
 		var main_box = new Gtk.VBox(false, 1);
 		main_box.pack_start(this.menubar, false);
@@ -45,12 +45,18 @@ public class MainWindow : Gtk.Window
 
 	private void active_signals()
 	{
+		// Just for set it more shorter
+		Delegates.Void configurations_window = () =>
+		{
+			ConfigurationsWindow.display(this,
+										 (font) => this.terminal.set_font_from_string(font),
+										 (color) => this.terminal.set_color_background(color),
+										 (color) => this.terminal.set_color_foreground(color));
+		};
+
 		this.menubar.active_signals(this.add_accel_group,
 									() => About.display(this),
-									() => ConfigurationsWindow.display(this,
-																	   (font) => this.terminal.set_font_from_string(font),
-																	   (color) => this.terminal.set_color_background(color),
-																	   (color) => this.terminal.set_color_foreground(color)),
+									configurations_window,
 									() => this.terminal.reset(true, true),
 									() => this.terminal.copy_clipboard(),
 									() => this.terminal.paste_clipboard());

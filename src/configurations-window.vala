@@ -29,6 +29,7 @@ public class ConfigurationsWindow : Gtk.Dialog
 	{
 		this.title = _("ValaTerm Preferences");
 		this.transient_for = parent_window;
+
 		this.font_chooser.font_name = Settings.font;
 		this.background_color_chooser.color = Settings.background_color;
 		this.foreground_color_chooser.color = Settings.foreground_color;
@@ -68,7 +69,9 @@ public class ConfigurationsWindow : Gtk.Dialog
 							   Delegates.Color foreground_color_changed)
 	{
 		var window = new ConfigurationsWindow(parent_window);
-		window.active_signals(font_changed, background_color_changed, foreground_color_changed);
+		window.active_signals(font_changed,
+							  background_color_changed,
+							  foreground_color_changed);
 		window.show_all();
 	}
 
@@ -90,7 +93,6 @@ public class ConfigurationsWindow : Gtk.Dialog
 		Settings.background_color = this.background_color_chooser.color;
 		this.background_color_changed(Settings.background_color);
 
-		
 		Settings.foreground_color = this.foreground_color_chooser.color;
 		this.foreground_color_changed(Settings.foreground_color);
 	}
