@@ -17,7 +17,7 @@ msgstr ""
 
 #: src/about.vala:26
 msgid "ValaTerm is a lightweigth terminal written in Vala"
-msgstr "ValaTerm est un terminal léger écris en Vala"
+msgstr "ValaTerm est un terminal léger écrit en Vala"
 
 #: src/configurations-window.vala:26
 msgid "ValaTerm Preferences"
