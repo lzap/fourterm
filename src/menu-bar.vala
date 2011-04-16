@@ -61,12 +61,16 @@ public class Menubar : Gtk.MenuBar
 	public void active_signals(Delegates.AccelGroup add_accel_group,
 							   Delegates.Void about,
 							   Delegates.Void preferences,
-							   Delegates.Void clear)
+							   Delegates.Void clear,
+							   Delegates.Void copy,
+							   Delegates.Void paste)
 	{
 		add_accel_group(this.accel_group);
 
 		this.item_about.activate.connect(() => about());
 		this.item_preferences.activate.connect(() => preferences());
 		this.item_clear.activate.connect(() => clear());
+		this.item_copy.activate.connect(() => copy());
+		this.item_paste.activate.connect(() => paste());
 	}
 }

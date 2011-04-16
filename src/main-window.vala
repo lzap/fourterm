@@ -49,7 +49,9 @@ public class MainWindow : Gtk.Window
 									() => About.display(this),
 									() => ConfigurationsWindow.display(this,
 																	   (font) => this.terminal.set_font_from_string(font)),
-									() => this.terminal.reset(true, true));
+									() => this.terminal.reset(true, true),
+									() => this.terminal.copy_clipboard(),
+									() => this.terminal.paste_clipboard());
 
 		this.destroy.connect(Gtk.main_quit);
 		this.terminal.child_exited.connect(Gtk.main_quit);
