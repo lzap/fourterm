@@ -37,6 +37,7 @@ public class Menubar : Gtk.MenuBar
 		var submenu_edit = new Gtk.Menu();
 		menu_edit.set_submenu(submenu_edit);
 		submenu_edit.append(this.item_copy);
+		submenu_edit.append(new Gtk.SeparatorMenuItem());
 		submenu_edit.append(this.item_preferences);
 
 		var menu_tools = new Gtk.MenuItem.with_label(_("Tools"));
