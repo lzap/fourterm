@@ -34,7 +34,7 @@ public class ConfigurationsWindow : Gtk.Dialog
 		this.foreground_color_chooser.color = Settings.foreground_color;
 
 		var font_box = new Gtk.HBox(true, 10);
-		font_box.pack_start(new Gtk.Label(_("Police:")));
+		font_box.pack_start(new Gtk.Label(_("Font:")));
 		font_box.pack_start(this.font_chooser);
 
 		var background_color_box = new Gtk.HBox(true, 10);

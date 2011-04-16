@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: valaterm 0.1\n"
-"POT-Creation-Date: 2011-04-16 14:28+0200\n"
-"PO-Revision-Date: 2011-04-16 14:39+0200\n"
+"POT-Creation-Date: 2011-04-16 15:23+0200\n"
+"PO-Revision-Date: 2011-04-16 15:29+0200\n"
 "Last-Translator: Jacques-Pascal Deplaix <jp.deplaix@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -24,8 +24,8 @@ msgid "ValaTerm Preferences"
 msgstr "Préférences de ValaTerm"
 
 #: src/configurations-window.vala:37
-msgid "Police:"
-msgstr ""
+msgid "Font:"
+msgstr "Police:"
 
 #: src/configurations-window.vala:41
 msgid "Background color:"
