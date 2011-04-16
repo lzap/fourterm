@@ -27,8 +27,8 @@ public class ConfigurationsWindow : Gtk.Dialog
 	{
 		this.title = _("ValaTerm Preferences");
 		this.transient_for = parent_window;
-		this.font_chooser.font_name = Settings.terminal_font;
-		this.background_color_chooser.color = Settings.terminal_background_color;
+		this.font_chooser.font_name = Settings.font;
+		this.background_color_chooser.color = Settings.background_color;
 
 		var font_box = new Gtk.HBox(false, 1);
 		font_box.pack_start(new Gtk.Label(_("Police:")));
@@ -73,10 +73,10 @@ public class ConfigurationsWindow : Gtk.Dialog
 
 	private void ok_clicked()
 	{
-		Settings.terminal_font = this.font_chooser.font_name;
-		this.font_changed(Settings.terminal_font);
+		Settings.font = this.font_chooser.font_name;
+		this.font_changed(Settings.font);
 
-		Settings.terminal_background_color = this.background_color_chooser.color;
-		this.background_color_changed(Settings.terminal_background_color);
+		Settings.background_color = this.background_color_chooser.color;
+		this.background_color_changed(Settings.background_color);
 	}
 }

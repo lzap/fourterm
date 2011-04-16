@@ -43,9 +43,9 @@ public class Terminal : Vte.Terminal
 
         this.background_transparent = false;
         this.scroll_on_keystroke = true;
-		this.set_font_from_string(Settings.terminal_font);
+		this.set_font_from_string(Settings.font);
 		this.set_colors({ 0, 0, 0, 0 },
-						Settings.terminal_background_color,
+						Settings.background_color,
 						color);
 
 		// FIXME: fork_command is deprecated. Use fork_command_full instead.

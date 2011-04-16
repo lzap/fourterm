@@ -39,13 +39,13 @@ public class Settings
 		}
 	}
 
-	public static unowned string terminal_font
+	public static unowned string font
 	{
 		get { return font_key.value; }
 		set { font_key.save_value(file, value); }
 	}
 
-	public static unowned Gdk.Color terminal_background_color
+	public static unowned Gdk.Color background_color
 	{
 		get
 		{
