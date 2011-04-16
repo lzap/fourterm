@@ -33,15 +33,15 @@ public class ConfigurationsWindow : Gtk.Dialog
 		this.background_color_chooser.color = Settings.background_color;
 		this.foreground_color_chooser.color = Settings.foreground_color;
 
-		var font_box = new Gtk.HBox(false, 1);
+		var font_box = new Gtk.HBox(true, 10);
 		font_box.pack_start(new Gtk.Label(_("Police:")));
 		font_box.pack_start(this.font_chooser);
 
-		var background_color_box = new Gtk.HBox(false, 1);
+		var background_color_box = new Gtk.HBox(true, 10);
 		background_color_box.pack_start(new Gtk.Label(_("Background color:")));
 		background_color_box.pack_start(this.background_color_chooser);
 
-		var foreground_color_box = new Gtk.HBox(false, 1);
+		var foreground_color_box = new Gtk.HBox(true, 10);
 		foreground_color_box.pack_start(new Gtk.Label(_("Foreground color:")));
 		foreground_color_box.pack_start(this.foreground_color_chooser);
 
