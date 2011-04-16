@@ -29,11 +29,11 @@ msgstr ""
 
 #: src/configurations-window.vala:41
 msgid "Background color:"
-msgstr "Couleur d'arrière-plan"
+msgstr "Couleur d'arrière-plan:"
 
 #: src/configurations-window.vala:45
 msgid "Foreground color:"
-msgstr "Couleur du texte"
+msgstr "Couleur du texte:"
 
 #: src/context-menu.vala:25 src/menu-bar.vala:32
 msgid "Copy"
