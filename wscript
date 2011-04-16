@@ -53,7 +53,7 @@ class Translate(Task):
 def build(bld):
     trans = Translate(env = bld.env)
     trans.set_inputs(bld.path.find_resource('po/fr/fr.po'))
-    trans.set_outputs(bld.path.find_resource('po/fr/%s.mo' % (APPNAME)))
+    trans.set_outputs(bld.path.find_or_declare('po/fr/%s.mo' % (APPNAME)))
 
     bld.add_to_group(trans)
 
