@@ -20,6 +20,7 @@ public class Menubar : Gtk.MenuBar
 	private Gtk.ImageMenuItem item_about = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.ABOUT, null);
 	private Gtk.ImageMenuItem item_preferences = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PREFERENCES, null);
 	private Gtk.ImageMenuItem item_clear = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLEAR, null);
+	private Gtk.ImageMenuItem item_copy = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.COPY, null);
 	private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
 	public Menubar()
@@ -27,6 +28,7 @@ public class Menubar : Gtk.MenuBar
 		this.item_clear.label = _("Clear");
 		this.item_preferences.label = _("Preferences");
 		this.item_about.label = _("About");
+		this.item_copy.label = _("Copy");
 
 		// Just an exemple:
 		// this.item.accel_group = this.accel_group;
@@ -34,6 +36,7 @@ public class Menubar : Gtk.MenuBar
 		var menu_edit = new Gtk.MenuItem.with_label(_("Edit"));
 		var submenu_edit = new Gtk.Menu();
 		menu_edit.set_submenu(submenu_edit);
+		submenu_edit.append(this.item_copy);
 		submenu_edit.append(this.item_preferences);
 
 		var menu_tools = new Gtk.MenuItem.with_label(_("Tools"));
