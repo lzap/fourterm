@@ -44,7 +44,7 @@ public class Terminal : Vte.Terminal
         this.background_transparent = false;
         this.scroll_on_keystroke = true;
 		this.set_font_from_string(Settings.font);
-		this.set_colors({ 0, 0, 0, 0 },
+		this.set_colors(Settings.foreground_color,
 						Settings.background_color,
 						color);
 
