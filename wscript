@@ -77,4 +77,4 @@ def build(bld):
                          'src/settings.vala',
                          'src/terminal.vala'])
 
-    bld.install_files('${PREFIX}/share/locale/fr/LC_MESSAGES', 'po/fr/%s.mo' % (APPNAME))
+    bld.install_files('${PREFIX}/share/locale/fr/LC_MESSAGES', 'build/po/fr/%s.mo' % (APPNAME))
