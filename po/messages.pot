@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-15 21:07+0200\n"
+"POT-Creation-Date: 2011-04-16 14:28+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,42 +21,50 @@ msgstr ""
 msgid "ValaTerm is a lightweigth terminal written in Vala"
 msgstr ""
 
-#: src/configurations-window.vala:26
+#: src/configurations-window.vala:30
 msgid "ValaTerm Preferences"
 msgstr ""
 
-#: src/configurations-window.vala:31
+#: src/configurations-window.vala:37
 msgid "Police:"
 msgstr ""
 
-#: src/context-menu.vala:25
+#: src/configurations-window.vala:41
+msgid "Background color:"
+msgstr ""
+
+#: src/configurations-window.vala:45
+msgid "Foreground color:"
+msgstr ""
+
+#: src/context-menu.vala:25 src/menu-bar.vala:32
 msgid "Copy"
 msgstr ""
 
-#: src/context-menu.vala:26
+#: src/context-menu.vala:26 src/menu-bar.vala:33
 msgid "Paste"
 msgstr ""
 
-#: src/menu-bar.vala:27
+#: src/menu-bar.vala:29
 msgid "Clear"
 msgstr ""
 
-#: src/menu-bar.vala:28
+#: src/menu-bar.vala:30
 msgid "Preferences"
 msgstr ""
 
-#: src/menu-bar.vala:29
+#: src/menu-bar.vala:31
 msgid "About"
 msgstr ""
 
-#: src/menu-bar.vala:34
+#: src/menu-bar.vala:38
 msgid "Edit"
 msgstr ""
 
-#: src/menu-bar.vala:39
+#: src/menu-bar.vala:46
 msgid "Tools"
 msgstr ""
 
-#: src/menu-bar.vala:44
+#: src/menu-bar.vala:51
 msgid "Help"
 msgstr ""
