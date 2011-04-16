@@ -1,3 +1,14 @@
+0.2
+===
+
+ * PKGBUILD file (archlinux package) added to the project
+ * Configurations window added to the menu with font, background and foreground color parameter
+ * The Git reposistory moves from GitHub to Gitorious
+ * Add stock icons to menu items
+ * Clear item added to the menu bar
+ * Parameters are saved in ~/.config/valaterm/config.ini
+ * French translation added
+
 0.1
 ===
 
