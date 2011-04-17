@@ -17,6 +17,8 @@
 
 public class MainWindow : Gtk.Window
 {
+	static uint window_count = 0;
+
 	private Menubar menubar = new Menubar();
 	private Terminal terminal = new Terminal();
 
@@ -24,6 +26,8 @@ public class MainWindow : Gtk.Window
 	{
 		this.title = "ValaTerm";
 		this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
+
+		this.window_count++;
 
 		var scrolled_window = new Gtk.ScrolledWindow(null, null);
 		scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
@@ -45,25 +49,39 @@ public class MainWindow : Gtk.Window
 
 	private void active_signals()
 	{
-		// Just for set it more shorter
-		Delegates.Void configurations_window = () =>
-		{
-			ConfigurationsWindow.display(this,
-										 (font) => this.terminal.set_font_from_string(font),
-										 (color) => this.terminal.set_color_background(color),
-										 (color) => this.terminal.set_color_foreground(color));
-		};
-
 		this.menubar.active_signals(this.add_accel_group,
 									() => About.display(this),
-									configurations_window,
+									() => ConfigurationsWindow.display(this,
+										 this.terminal.set_font_from_string,
+										 this.terminal.set_color_background,
+										 this.terminal.set_color_foreground),
 									() => this.terminal.reset(true, true),
 									() => this.terminal.copy_clipboard(),
 									() => this.terminal.paste_clipboard());
 
-		this.destroy.connect(Gtk.main_quit);
-		this.terminal.child_exited.connect(Gtk.main_quit);
+		this.destroy.connect(this.exit);
+		this.terminal.child_exited.connect(this.exit);
 
-		this.terminal.active_signals((title) => this.title = title);
+		this.terminal.active_signals((title) => this.title = title,
+									 this.new_window);
+	}
+
+	private void exit()
+	{
+		if(this.window_count == 1)
+		{
+			Gtk.main_quit();
+		}
+		else
+		{
+			this.window_count--;
+			this.destroy();
+		}
+	}
+
+	private void new_window()
+	{
+		var window = new MainWindow();
+		window.display();
 	}
 }

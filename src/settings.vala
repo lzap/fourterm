@@ -24,29 +24,16 @@ public class Settings
 
 	public static void init()
 	{
-		font_key = new SettingKey("Terminal", "Font", "FreeMono");
-		background_color_key = new SettingKey("Terminal", "Background Color", "#ffffffffffff");
-		foreground_color_key = new SettingKey("Terminal", "Foreground Color", "#000000000000");
-		file = new ConfigFile({ font_key, background_color_key, foreground_color_key });
-
-		try
-		{
-			font_key.value = file.get_string(font_key.group, font_key.name);
-			background_color_key.value = file.get_string(background_color_key.group,
-														 background_color_key.name);
-			foreground_color_key.value = file.get_string(foreground_color_key.group,
-														 foreground_color_key.name);
-		}
-		catch(GLib.KeyFileError error)
-		{
-			// FIXME: Do something !
-		}
+		file = new ConfigFile();
+		font_key = new SettingKey(file, "Terminal", "Font", "FreeMono 10");
+		background_color_key = new SettingKey(file, "Terminal", "Background Color", "#ffffffffffff");
+		foreground_color_key = new SettingKey(file, "Terminal", "Foreground Color", "#000000000000");
 	}
 
 	public static unowned string font
 	{
 		get { return font_key.value; }
-		set { font_key.save_value(file, value); }
+		set { font_key.save_value(value); }
 	}
 
 	public static unowned Gdk.Color background_color
@@ -61,7 +48,7 @@ public class Settings
 
 		set
 		{
-			background_color_key.save_value(file, value.to_string());
+			background_color_key.save_value(value.to_string());
 		}
 	}
 
@@ -77,7 +64,7 @@ public class Settings
 
 		set
 		{
-			foreground_color_key.save_value(file, value.to_string());
+			foreground_color_key.save_value(value.to_string());
 		}
 	}
 }

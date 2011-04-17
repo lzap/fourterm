@@ -21,21 +21,34 @@ public class SettingKey
 	public string name { get; private set; }
 	public string value { get; set; }
 
-	public SettingKey(string group, string name, string value)
+	private unowned ConfigFile file;
+
+	public SettingKey(ConfigFile file, string group, string name, string value)
 	{
+		this.file = file;
 		this.group = group;
 		this.name = name;
 		this.value = value;
+
+		try
+		{
+			this.value = this.file.get_string(this.group, this.name);
+		}
+		catch(GLib.KeyFileError error)
+		{
+			// Use default values
+			this.file.set_string(this.group, this.name, this.value);
+		}
 	}
 
-	public void save_value(ConfigFile file, string value)
+	public void save_value(string value)
 	{
 		if(value != this.value)
 		{
 			this.value = value;
 
-			file.set_string(this.group, this.name, this.value);
-			file.write();
+			this.file.set_string(this.group, this.name, this.value);
+			this.file.write();
 		}
 	}
 }

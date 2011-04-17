@@ -53,13 +53,14 @@ public class Terminal : Vte.Terminal
 		this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
 	}
 
-	public void active_signals(Delegates.String title_changed)
+	public void active_signals(Delegates.String title_changed, Delegates.Void new_window)
 	{
 		this.button_press_event.connect(this.display_menu);
 		this.window_title_changed.connect(() => title_changed(this.window_title));
 
 		this.context_menu.active_signals(() => this.copy_clipboard(),
-										 () => this.paste_clipboard());
+										 () => this.paste_clipboard(),
+										 () => new_window());
 	}
 
 	public int calcul_width(int column_count)

@@ -21,19 +21,24 @@ public class ContextMenu : Gtk.Menu
 																		   null);
 	private Gtk.ImageMenuItem item_paste = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PASTE,
 																			null);
+	private Gtk.ImageMenuItem item_new_window = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.NEW,
+																			null);
 
 	public ContextMenu()
 	{
 		this.item_copy.label = _("Copy");
 		this.item_paste.label = _("Paste");
+		this.item_new_window.label = _("New Window");
 
 		this.append(this.item_copy);
 		this.append(this.item_paste);
+		this.append(this.item_new_window);
 	}
 
-	public void active_signals(Delegates.Void copy, Delegates.Void paste)
+	public void active_signals(Delegates.Void copy, Delegates.Void paste, Delegates.Void new_window)
 	{
 		this.item_copy.activate.connect(() => copy());
 		this.item_paste.activate.connect(() => paste());
+		this.item_new_window.activate.connect(() => new_window());
 	}
 }
