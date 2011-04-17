@@ -48,9 +48,6 @@ public class Terminal : Vte.Terminal
 		this.set_colors(Settings.foreground_color,
 						Settings.background_color,
 						color);
-
-		// FIXME: fork_command is deprecated. Use fork_command_full instead.
-		this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
 	}
 
 	public void active_signals(Delegates.String title_changed, Delegates.Void new_window)
@@ -61,6 +58,12 @@ public class Terminal : Vte.Terminal
 		this.context_menu.active_signals(() => this.copy_clipboard(),
 										 () => this.paste_clipboard(),
 										 () => new_window());
+	}
+
+	public void active_shell()
+	{
+		// FIXME: fork_command is deprecated. Use fork_command_full instead.
+		this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
 	}
 
 	public int calcul_width(int column_count)

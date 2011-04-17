@@ -45,6 +45,9 @@ public class MainWindow : Gtk.Window
 	{
 		this.show_all();
 		this.resize(this.terminal.calcul_width(80), this.terminal.calcul_height(24));
+
+		// Do that after resize because Vte add rows if the main window is too small...
+		this.terminal.active_shell();
 	}
 
 	private void active_signals()
