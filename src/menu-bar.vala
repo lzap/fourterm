@@ -23,6 +23,7 @@ public class Menubar : Gtk.MenuBar
 	private Gtk.ImageMenuItem item_copy = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.COPY, null);
 	private Gtk.ImageMenuItem item_paste = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PASTE, null);
 	private Gtk.ImageMenuItem item_new_window = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.NEW, null);
+	private Gtk.ImageMenuItem item_quit = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.QUIT, null);
 	private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
 	public Menubar()
@@ -33,6 +34,7 @@ public class Menubar : Gtk.MenuBar
 		this.item_copy.label = _("Copy");
 		this.item_paste.label = _("Paste");
 		this.item_new_window.label = _("New Window");
+		this.item_quit.label = _("Quit");
 
 		// Just an exemple:
 		// this.item.accel_group = this.accel_group;
@@ -41,6 +43,8 @@ public class Menubar : Gtk.MenuBar
 		var submenu_file = new Gtk.Menu();
 		menu_file.set_submenu(submenu_file);
 		submenu_file.append(this.item_new_window);
+		submenu_file.append(new Gtk.SeparatorMenuItem());
+		submenu_file.append(this.item_quit);
 
 		var menu_edit = new Gtk.MenuItem.with_label(_("Edit"));
 		var submenu_edit = new Gtk.Menu();
@@ -72,7 +76,8 @@ public class Menubar : Gtk.MenuBar
 							   Delegates.Void clear,
 							   Delegates.Void copy,
 							   Delegates.Void paste,
-							   Delegates.Void new_window)
+							   Delegates.Void new_window,
+							   Delegates.Void quit)
 	{
 		add_accel_group(this.accel_group);
 
@@ -82,5 +87,6 @@ public class Menubar : Gtk.MenuBar
 		this.item_copy.activate.connect(() => copy());
 		this.item_paste.activate.connect(() => paste());
 		this.item_new_window.activate.connect(() => new_window());
+		this.item_quit.activate.connect(() => quit());
 	}
 }

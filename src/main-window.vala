@@ -17,7 +17,7 @@
 
 public class MainWindow : Gtk.Window
 {
-	static uint window_count = 0;
+	private static uint window_count = 0;
 
 	private Menubar menubar = new Menubar();
 	private Terminal terminal = new Terminal();
@@ -61,10 +61,12 @@ public class MainWindow : Gtk.Window
 									() => this.terminal.reset(true, true),
 									() => this.terminal.copy_clipboard(),
 									() => this.terminal.paste_clipboard(),
-									this.new_window);
+									this.new_window,
+									() => this.destroy());
 
+		// Use this.destroy() instead of this.exit()
 		this.destroy.connect(this.exit);
-		this.terminal.child_exited.connect(this.exit);
+		this.terminal.child_exited.connect(() => this.destroy());
 
 		this.terminal.active_signals((title) => this.title = title,
 									 this.new_window);
@@ -72,7 +74,7 @@ public class MainWindow : Gtk.Window
 
 	private void exit()
 	{
-		if(this.window_count == 1)
+		if(this.window_count < 2)
 		{
 			Gtk.main_quit();
 		}
