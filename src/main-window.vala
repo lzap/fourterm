@@ -60,7 +60,8 @@ public class MainWindow : Gtk.Window
 										 this.terminal.set_color_foreground),
 									() => this.terminal.reset(true, true),
 									() => this.terminal.copy_clipboard(),
-									() => this.terminal.paste_clipboard());
+									() => this.terminal.paste_clipboard(),
+									this.new_window);
 
 		this.destroy.connect(this.exit);
 		this.terminal.child_exited.connect(this.exit);
