@@ -32,6 +32,7 @@ public class ContextMenu : Gtk.Menu
 
 		this.append(this.item_copy);
 		this.append(this.item_paste);
+		this.append(new Gtk.SeparatorMenuItem());
 		this.append(this.item_new_window);
 	}
 
