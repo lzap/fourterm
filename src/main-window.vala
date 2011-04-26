@@ -24,6 +24,7 @@ public class MainWindow : Gtk.Window
 
 	public MainWindow()
 	{
+		// FIXME: The window title keep this title instead of the shell title.
 		this.title = "ValaTerm";
 		this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
 
