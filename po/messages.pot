@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-04-16 15:23+0200\n"
+"POT-Creation-Date: 2011-04-26 20:53+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,46 +25,58 @@ msgstr ""
 msgid "ValaTerm Preferences"
 msgstr ""
 
-#: src/configurations-window.vala:37
+#: src/configurations-window.vala:38
 msgid "Font:"
 msgstr ""
 
-#: src/configurations-window.vala:41
+#: src/configurations-window.vala:42
 msgid "Background color:"
 msgstr ""
 
-#: src/configurations-window.vala:45
+#: src/configurations-window.vala:46
 msgid "Foreground color:"
 msgstr ""
 
-#: src/context-menu.vala:25 src/menu-bar.vala:32
+#: src/context-menu.vala:29 src/menu-bar.vala:34
 msgid "Copy"
 msgstr ""
 
-#: src/context-menu.vala:26 src/menu-bar.vala:33
+#: src/context-menu.vala:30 src/menu-bar.vala:35
 msgid "Paste"
 msgstr ""
 
-#: src/menu-bar.vala:29
-msgid "Clear"
-msgstr ""
-
-#: src/menu-bar.vala:30
-msgid "Preferences"
+#: src/context-menu.vala:31 src/menu-bar.vala:36
+msgid "New Window"
 msgstr ""
 
 #: src/menu-bar.vala:31
+msgid "Clear"
+msgstr ""
+
+#: src/menu-bar.vala:32
+msgid "Preferences"
+msgstr ""
+
+#: src/menu-bar.vala:33
 msgid "About"
 msgstr ""
 
-#: src/menu-bar.vala:38
+#: src/menu-bar.vala:37
+msgid "Quit"
+msgstr ""
+
+#: src/menu-bar.vala:42
+msgid "File"
+msgstr ""
+
+#: src/menu-bar.vala:49
 msgid "Edit"
 msgstr ""
 
-#: src/menu-bar.vala:46
+#: src/menu-bar.vala:57
 msgid "Tools"
 msgstr ""
 
-#: src/menu-bar.vala:51
+#: src/menu-bar.vala:62
 msgid "Help"
 msgstr ""

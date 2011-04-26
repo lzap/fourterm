@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: valaterm 0.2\n"
-"POT-Creation-Date: 2011-04-16 15:23+0200\n"
-"PO-Revision-Date: 2011-04-16 18:47+0200\n"
+"POT-Creation-Date: 2011-04-26 20:53+0200\n"
+"PO-Revision-Date: 2011-04-26 21:05+0200\n"
 "Last-Translator: Jacques-Pascal Deplaix <jp.deplaix@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -23,46 +23,58 @@ msgstr "ValaTerm est un terminal léger écrit en Vala"
 msgid "ValaTerm Preferences"
 msgstr "Préférences de ValaTerm"
 
-#: src/configurations-window.vala:37
+#: src/configurations-window.vala:38
 msgid "Font:"
 msgstr "Police:"
 
-#: src/configurations-window.vala:41
+#: src/configurations-window.vala:42
 msgid "Background color:"
 msgstr "Couleur d'arrière-plan:"
 
-#: src/configurations-window.vala:45
+#: src/configurations-window.vala:46
 msgid "Foreground color:"
 msgstr "Couleur du texte:"
 
-#: src/context-menu.vala:25 src/menu-bar.vala:32
+#: src/context-menu.vala:29 src/menu-bar.vala:34
 msgid "Copy"
 msgstr "Copier"
 
-#: src/context-menu.vala:26 src/menu-bar.vala:33
+#: src/context-menu.vala:30 src/menu-bar.vala:35
 msgid "Paste"
 msgstr "Coller"
 
-#: src/menu-bar.vala:29
+#: src/context-menu.vala:31 src/menu-bar.vala:36
+msgid "New Window"
+msgstr "Nouvelle Fenêtre"
+
+#: src/menu-bar.vala:31
 msgid "Clear"
 msgstr "Effacer"
 
-#: src/menu-bar.vala:30
+#: src/menu-bar.vala:32
 msgid "Preferences"
 msgstr "Préférences"
 
-#: src/menu-bar.vala:31
+#: src/menu-bar.vala:33
 msgid "About"
 msgstr "À propos"
 
-#: src/menu-bar.vala:38
+#: src/menu-bar.vala:37
+msgid "Quit"
+msgstr "Quitter"
+
+#: src/menu-bar.vala:42
+msgid "File"
+msgstr "Fichier"
+
+#: src/menu-bar.vala:49
 msgid "Edit"
 msgstr "Édition"
 
-#: src/menu-bar.vala:46
+#: src/menu-bar.vala:57
 msgid "Tools"
 msgstr "Outils"
 
-#: src/menu-bar.vala:51
+#: src/menu-bar.vala:62
 msgid "Help"
 msgstr "Aide"
