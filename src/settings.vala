@@ -21,6 +21,7 @@ public class Settings
 	private static SettingKey font_key;
 	private static SettingKey background_color_key;
 	private static SettingKey foreground_color_key;
+	private static SettingKey scrollback_lines_key;
 
 	public static void init()
 	{
@@ -28,6 +29,7 @@ public class Settings
 		font_key = new SettingKey(file, "Terminal", "Font", "FreeMono 10");
 		background_color_key = new SettingKey(file, "Terminal", "Background Color", "#ffffffffffff");
 		foreground_color_key = new SettingKey(file, "Terminal", "Foreground Color", "#000000000000");
+		scrollback_lines_key = new SettingKey(file, "Terminal", "Scrollback-Lines", "500");
 	}
 
 	public static unowned string font
@@ -66,5 +68,11 @@ public class Settings
 		{
 			foreground_color_key.save_value(value.to_string());
 		}
+	}
+
+	public static unowned int scrollback_lines
+	{
+		get { return scrollback_lines_key.value.to_int(); }
+		set { scrollback_lines_key.save_value(value.to_string()); }
 	}
 }

@@ -44,6 +44,7 @@ public class Terminal : Vte.Terminal
 			{ 0, 0xeeee, 0xeeee, 0xecec }
 		};
 
+		this.scrollback_lines = Settings.scrollback_lines;
 		this.set_font_from_string(Settings.font);
 		this.set_colors(Settings.foreground_color,
 						Settings.background_color,
