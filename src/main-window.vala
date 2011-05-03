@@ -55,10 +55,12 @@ public class MainWindow : Gtk.Window
 	{
 		this.menubar.active_signals(this.add_accel_group,
 									() => About.display(this),
-									() => ConfigurationsWindow.display(this,
-										 this.terminal.set_font_from_string,
-										 this.terminal.set_color_background,
-										 this.terminal.set_color_foreground),
+									() => ConfigurationsWindow.display(
+										this,
+										this.terminal.set_font_from_string,
+										this.terminal.set_color_background,
+										this.terminal.set_color_foreground,
+										this.terminal.set_scrollback_lines),
 									() => this.terminal.reset(true, true),
 									() => this.terminal.copy_clipboard(),
 									() => this.terminal.paste_clipboard(),

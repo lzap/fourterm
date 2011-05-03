@@ -21,4 +21,5 @@ namespace Delegates
 	public delegate void String(string a);
 	public delegate void AccelGroup(Gtk.AccelGroup a);
 	public delegate void Color(Gdk.Color a);
+	public delegate void Long(long a);
 }

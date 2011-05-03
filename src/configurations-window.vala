@@ -20,10 +20,12 @@ public class ConfigurationsWindow : Gtk.Dialog
 	private Gtk.FontButton font_chooser = new Gtk.FontButton();
 	private Gtk.ColorButton background_color_chooser = new Gtk.ColorButton();
 	private Gtk.ColorButton foreground_color_chooser = new Gtk.ColorButton();
+	private Gtk.SpinButton scrollback_lines_chooser = new Gtk.SpinButton.with_range(-1, 10000, 1);
 
 	private Delegates.String font_changed;
 	private Delegates.Color background_color_changed;
 	private Delegates.Color foreground_color_changed;
+	private Delegates.Long scrollback_lines_changed;
 
 	private ConfigurationsWindow(MainWindow parent_window)
 	{
@@ -33,6 +35,7 @@ public class ConfigurationsWindow : Gtk.Dialog
 		this.font_chooser.font_name = Settings.font;
 		this.background_color_chooser.color = Settings.background_color;
 		this.foreground_color_chooser.color = Settings.foreground_color;
+		this.scrollback_lines_chooser.value = Settings.scrollback_lines;
 
 		var font_box = new Gtk.HBox(true, 10);
 		font_box.pack_start(new Gtk.Label(_("Font:")));
@@ -46,9 +49,14 @@ public class ConfigurationsWindow : Gtk.Dialog
 		foreground_color_box.pack_start(new Gtk.Label(_("Foreground color:")));
 		foreground_color_box.pack_start(this.foreground_color_chooser);
 
+		var scrollback_lines_box = new Gtk.HBox(true, 10);
+		scrollback_lines_box.pack_start(new Gtk.Label(_("Scrollback lines:")));
+		scrollback_lines_box.pack_start(this.scrollback_lines_chooser);
+
 		this.vbox.pack_start(font_box);
 		this.vbox.pack_start(background_color_box);
 		this.vbox.pack_start(foreground_color_box);
+		this.vbox.pack_start(scrollback_lines_box);
 
 		this.add_buttons(Gtk.Stock.OK, Gtk.ResponseType.OK,
 						 Gtk.Stock.CANCEL, Gtk.ResponseType.CANCEL);
@@ -56,22 +64,26 @@ public class ConfigurationsWindow : Gtk.Dialog
 
 	private void active_signals(Delegates.String font_changed,
 								Delegates.Color background_color_changed,
-								Delegates.Color foreground_color_changed)
+								Delegates.Color foreground_color_changed,
+								Delegates.Long scrollback_lines_changed)
 	{
 		this.font_changed = font_changed;
 		this.background_color_changed = background_color_changed;
 		this.foreground_color_changed = foreground_color_changed;
+		this.scrollback_lines_changed = scrollback_lines_changed;
 	}
 
 	public static void display(MainWindow parent_window,
 							   Delegates.String font_changed,
 							   Delegates.Color background_color_changed,
-							   Delegates.Color foreground_color_changed)
+							   Delegates.Color foreground_color_changed,
+							   Delegates.Long scrollback_lines_changed)
 	{
 		var window = new ConfigurationsWindow(parent_window);
 		window.active_signals(font_changed,
 							  background_color_changed,
-							  foreground_color_changed);
+							  foreground_color_changed,
+							  scrollback_lines_changed);
 		window.show_all();
 	}
 
@@ -95,5 +107,8 @@ public class ConfigurationsWindow : Gtk.Dialog
 
 		Settings.foreground_color = this.foreground_color_chooser.color;
 		this.foreground_color_changed(Settings.foreground_color);
+
+		Settings.scrollback_lines = this.scrollback_lines_chooser.get_value_as_int();
+		this.scrollback_lines_changed(Settings.scrollback_lines);
 	}
 }

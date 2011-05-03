@@ -72,7 +72,7 @@ public class Settings
 
 	public static unowned int scrollback_lines
 	{
-		get { return scrollback_lines_key.value.to_int(); }
+		get { return int.parse(scrollback_lines_key.value); }
 		set { scrollback_lines_key.save_value(value.to_string()); }
 	}
 }
