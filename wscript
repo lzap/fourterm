@@ -5,12 +5,14 @@ APPNAME = 'valaterm'
 VERSION = '0.2'
 
 release = False
+# Add /usr/local/include for compilation under OpenBSD
+cflags = ['-pipe', '-I/usr/local/include']
 
 if release is True:
-    cflags = ['-pipe', '-O2']
+    cflags.append('-O2')
     valaflags = '--thread'
 else:
-    cflags = ['-pipe', '-g']
+    cflags.append('-g')
     valaflags = ['--fatal-warnings', '-g']
 
 top = '.'
