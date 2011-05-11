@@ -41,9 +41,11 @@ def configure(conf):
         uselib_store    = 'vte',
         atleast_version = '0.26',
         args            = '--cflags --libs')
-    conf.env.PREFIX = '/usr'
-    conf.env.LIBDIR = '/usr/lib'
-    conf.env.BINDIR = '/usr/bin'
+
+    if release == True:
+        conf.env.PREFIX = '/usr'
+        conf.env.LIBDIR = '/usr/lib'
+        conf.env.BINDIR = '/usr/bin'
 
 from waflib.Task import Task
 
