@@ -23,7 +23,7 @@ def options(opt):
     opt.load('vala')
 
 def configure(conf):
-    conf.load('compiler_c')
+    conf.load(['compiler_c', 'gnu_dirs', 'intltool'])
     conf.load('vala', funs = '')
     conf.check_vala(min_version = (0, 12, 0))
     conf.check_cfg(
@@ -43,23 +43,11 @@ def configure(conf):
         args            = '--cflags --libs')
 
     if release == True:
-        conf.env.PREFIX = '/usr'
-        conf.env.LIBDIR = '/usr/lib'
+        conf.env.LOCALEDIR = '/usr/share/locale'
         conf.env.BINDIR = '/usr/bin'
 
-from waflib.Task import Task
-
-class Translate(Task):
-    def run(self):
-        return self.exec_command('msgfmt %s -o %s' % (self.inputs[0].abspath(),
-                                                      self.outputs[0].abspath()))
-
 def build(bld):
-    trans = Translate(env = bld.env)
-    trans.set_inputs(bld.path.find_resource('po/fr/fr.po'))
-    trans.set_outputs(bld.path.find_or_declare('po/fr/%s.mo' % (APPNAME)))
-
-    bld.add_to_group(trans)
+    bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
     prog = bld.program(
         packages      = ['gtk+-2.0', 'vte'],
@@ -80,5 +68,3 @@ def build(bld):
                          'src/setting-key.vala',
                          'src/settings.vala',
                          'src/terminal.vala'])
-
-    bld.install_files('${PREFIX}/share/locale/fr/LC_MESSAGES', 'build/po/fr/%s.mo' % (APPNAME))
