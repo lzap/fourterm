@@ -37,21 +37,16 @@ public class ConfigurationsWindow : Gtk.Dialog
 		this.foreground_color_chooser.color = Settings.foreground_color;
 		this.scrollback_lines_chooser.value = Settings.scrollback_lines;
 
-		var font_box = new Gtk.HBox(true, 10);
-		font_box.pack_start(new Gtk.Label(_("Font:")));
-		font_box.pack_start(this.font_chooser);
+		var font_box = new ParameterBox(_("Font:"), this.font_chooser);
 
-		var background_color_box = new Gtk.HBox(true, 10);
-		background_color_box.pack_start(new Gtk.Label(_("Background color:")));
-		background_color_box.pack_start(this.background_color_chooser);
+		var background_color_box = new ParameterBox(_("Background color:"),
+													this.background_color_chooser);
 
-		var foreground_color_box = new Gtk.HBox(true, 10);
-		foreground_color_box.pack_start(new Gtk.Label(_("Foreground color:")));
-		foreground_color_box.pack_start(this.foreground_color_chooser);
+		var foreground_color_box = new ParameterBox(_("Foreground color:"),
+													this.foreground_color_chooser);
 
-		var scrollback_lines_box = new Gtk.HBox(true, 10);
-		scrollback_lines_box.pack_start(new Gtk.Label(_("Scrollback lines:")));
-		scrollback_lines_box.pack_start(this.scrollback_lines_chooser);
+		var scrollback_lines_box = new ParameterBox(_("Scrollback lines:"),
+													this.scrollback_lines_chooser);
 
 		this.vbox.pack_start(font_box);
 		this.vbox.pack_start(background_color_box);
