@@ -27,8 +27,8 @@ public class Settings
 	{
 		file = new ConfigFile();
 		font_key = new SettingKey(file, "Terminal", "Font", "FreeMono 10");
-		background_color_key = new SettingKey(file, "Terminal", "Background Color", "#ffffffffffff");
-		foreground_color_key = new SettingKey(file, "Terminal", "Foreground Color", "#000000000000");
+		background_color_key = new SettingKey(file, "Terminal", "Background-Color", "#ffffffffffff");
+		foreground_color_key = new SettingKey(file, "Terminal", "Foreground-Color", "#000000000000");
 		scrollback_lines_key = new SettingKey(file, "Terminal", "Scrollback-Lines", "500");
 	}
 
