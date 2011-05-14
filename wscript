@@ -60,6 +60,7 @@ def build(bld):
                          'src/context-menu.vala',
                          'src/default-dialog.vala',
                          'src/delegates.vala',
+                         'src/image-menu-item.vala',
                          'src/main.vala',
                          'src/main-window.vala',
                          'src/menu-bar.vala',

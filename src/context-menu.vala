@@ -17,19 +17,12 @@
 
 public class ContextMenu : Gtk.Menu
 {
-	private Gtk.ImageMenuItem item_copy = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.COPY,
-																		   null);
-	private Gtk.ImageMenuItem item_paste = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PASTE,
-																			null);
-	private Gtk.ImageMenuItem item_new_window = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.NEW,
-																			null);
+	private ImageMenuItem item_copy = new ImageMenuItem(Gtk.Stock.COPY);
+	private ImageMenuItem item_paste = new ImageMenuItem(Gtk.Stock.PASTE);
+	private ImageMenuItem item_new_window = new ImageMenuItem(Gtk.Stock.NEW, _("New Window"));
 
 	public ContextMenu()
 	{
-		this.item_copy.label = _("Copy");
-		this.item_paste.label = _("Paste");
-		this.item_new_window.label = _("New Window");
-
 		this.append(this.item_copy);
 		this.append(this.item_paste);
 		this.append(new Gtk.SeparatorMenuItem());
