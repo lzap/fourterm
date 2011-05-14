@@ -37,8 +37,10 @@ def configure(conf):
         args            = '--cflags --libs')
 
     # Add /usr/local/include for compilation under OpenBSD
-    conf.env.CFLAGS = ['-pipe', '-I/usr/local/include']
+    conf.env.CFLAGS = ['-pipe', '-I/usr/local/include', '-include', 'config.h']
     conf.define('GETTEXT_PACKAGE', APPNAME)
+    conf.define('VERSION', VERSION)
+    conf.write_config_header('config.h')
 
     if conf.options.debug == True:
         conf.env.CFLAGS.append('-g')
@@ -50,8 +52,9 @@ def configure(conf):
 def build(bld):
     bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
-    prog = bld.program(
-        packages      = ['gtk+-2.0', 'vte'],
+    bld.program(
+        packages      = ['gtk+-2.0', 'vte', 'config'],
+        vapi_dirs     = 'vapi',
         target        = APPNAME,
         uselib        = ['gtk+', 'vte', 'glib'],
         source        = ['src/about.vala',
