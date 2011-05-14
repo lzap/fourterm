@@ -58,6 +58,7 @@ def build(bld):
                          'src/config-file.vala',
                          'src/configurations-window.vala',
                          'src/context-menu.vala',
+                         'src/default-dialog.vala',
                          'src/delegates.vala',
                          'src/main.vala',
                          'src/main-window.vala',
