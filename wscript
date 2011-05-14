@@ -64,6 +64,7 @@ def build(bld):
                          'src/main.vala',
                          'src/main-window.vala',
                          'src/menu-bar.vala',
+                         'src/menu-item.vala',
                          'src/parameter-box.vala',
                          'src/pictures.vala',
                          'src/setting-key.vala',

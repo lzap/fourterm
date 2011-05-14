@@ -17,52 +17,36 @@
 
 public class Menubar : Gtk.MenuBar
 {
-	private Gtk.ImageMenuItem item_about = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.ABOUT, null);
-	private Gtk.ImageMenuItem item_preferences = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PREFERENCES, null);
-	private Gtk.ImageMenuItem item_clear = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.CLEAR, null);
-	private Gtk.ImageMenuItem item_copy = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.COPY, null);
-	private Gtk.ImageMenuItem item_paste = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.PASTE, null);
-	private Gtk.ImageMenuItem item_new_window = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.NEW, null);
-	private Gtk.ImageMenuItem item_quit = new Gtk.ImageMenuItem.from_stock(Gtk.Stock.QUIT, null);
+	private ImageMenuItem item_about = new ImageMenuItem(Gtk.Stock.ABOUT);
+	private ImageMenuItem item_preferences = new ImageMenuItem(Gtk.Stock.PREFERENCES);
+	private ImageMenuItem item_clear = new ImageMenuItem(Gtk.Stock.CLEAR);
+	private ImageMenuItem item_copy = new ImageMenuItem(Gtk.Stock.COPY);
+	private ImageMenuItem item_paste = new ImageMenuItem(Gtk.Stock.PASTE);
+	private ImageMenuItem item_new_window = new ImageMenuItem(Gtk.Stock.NEW, _("New Window"));
+	private ImageMenuItem item_quit = new ImageMenuItem(Gtk.Stock.QUIT);
 	private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
 
 	public Menubar()
 	{
-		this.item_clear.label = _("Clear");
-		this.item_preferences.label = _("Preferences");
-		this.item_about.label = _("About");
-		this.item_copy.label = _("Copy");
-		this.item_paste.label = _("Paste");
-		this.item_new_window.label = _("New Window");
-		this.item_quit.label = _("Quit");
-
 		// Just an exemple:
 		// this.item.accel_group = this.accel_group;
 
-		var menu_file = new Gtk.MenuItem.with_label(_("File"));
-		var submenu_file = new Gtk.Menu();
-		menu_file.set_submenu(submenu_file);
-		submenu_file.append(this.item_new_window);
-		submenu_file.append(new Gtk.SeparatorMenuItem());
-		submenu_file.append(this.item_quit);
+		var menu_file = new MenuItem(_("File"), {
+				this.item_new_window,
+				new Gtk.SeparatorMenuItem(),
+				this.item_quit});
 
-		var menu_edit = new Gtk.MenuItem.with_label(_("Edit"));
-		var submenu_edit = new Gtk.Menu();
-		menu_edit.set_submenu(submenu_edit);
-		submenu_edit.append(this.item_copy);
-		submenu_edit.append(this.item_paste);
-		submenu_edit.append(new Gtk.SeparatorMenuItem());
-		submenu_edit.append(this.item_preferences);
+		var menu_edit = new MenuItem(_("Edit"), {
+				this.item_copy,
+				this.item_paste,
+				new Gtk.SeparatorMenuItem(),
+				this.item_preferences});
 
-		var menu_tools = new Gtk.MenuItem.with_label(_("Tools"));
-		var submenu_tools = new Gtk.Menu();
-		menu_tools.set_submenu(submenu_tools);
-		submenu_tools.append(this.item_clear);
+		var menu_tools = new MenuItem(_("Tools"), {
+				this.item_clear});
 
-		var menu_help = new Gtk.MenuItem.with_label(_("Help"));
-		var submenu_help = new Gtk.Menu();
-		menu_help.set_submenu(submenu_help);
-		submenu_help.append(this.item_about);
+		var menu_help = new MenuItem(_("Help"), {
+				this.item_about});
 
 		this.append(menu_file);
 		this.append(menu_edit);
