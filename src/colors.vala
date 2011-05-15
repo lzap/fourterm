@@ -17,8 +17,8 @@
 
 public class Colors
 {
-	public static Gdk.Color white { get { return Colors.parse("#ffffffffffff"); } }
-	public static Gdk.Color black { get { return Colors.parse("#000000000000"); } }
+	public static Gdk.Color white { get { return Colors.parse("white"); } }
+	public static Gdk.Color black { get { return Colors.parse("black"); } }
 
 	public static Gdk.Color parse(string color)
 	{
