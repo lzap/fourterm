@@ -58,6 +58,7 @@ def build(bld):
         target        = APPNAME,
         uselib        = ['gtk+', 'vte', 'glib'],
         source        = ['src/about.vala',
+                         'src/colors.vala',
                          'src/config-file.vala',
                          'src/configurations-window.vala',
                          'src/context-menu.vala',
@@ -70,6 +71,5 @@ def build(bld):
                          'src/menu-item.vala',
                          'src/parameter-box.vala',
                          'src/pictures.vala',
-                         'src/setting-key.vala',
                          'src/settings.vala',
                          'src/terminal.vala'])

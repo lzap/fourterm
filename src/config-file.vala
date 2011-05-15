@@ -29,6 +29,44 @@ public class ConfigFile : GLib.KeyFile
         }
     }
 
+	public bool test_key(string group, string key)
+	{
+		try
+		{
+			return this.has_key(group, key);
+		}
+		catch(GLib.KeyFileError error)
+		{
+			return false;
+		}
+	}
+
+	public string get_string_key(string group, string key)
+	{
+		try
+		{
+		    return this.get_string(group, key);
+		}
+		catch(GLib.KeyFileError error)
+		{
+			// FIXME: Do something !
+			return "";
+		}
+	}
+
+	public int get_integer_key(string group, string key)
+	{
+		try
+		{
+			return this.get_integer(group, key);
+		}
+		catch(GLib.KeyFileError error)
+		{
+			// FIXME: Do something !
+			return 0;
+		}
+	}
+
     public void write()
     {
         try

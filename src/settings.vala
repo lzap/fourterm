@@ -9,7 +9,7 @@
 ** This program is distributed in the hope that it will be useful,
 ** but WITHOUT ANY WARRANTY; without even the implied warranty of
 ** MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-** GNU General Public License for more details.
+xo** GNU General Public License for more details.
 **
 ** You should have received a copy of the GNU General Public License
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
@@ -18,61 +18,52 @@
 public class Settings
 {
 	private static ConfigFile file;
-	private static SettingKey font_key;
-	private static SettingKey background_color_key;
-	private static SettingKey foreground_color_key;
-	private static SettingKey scrollback_lines_key;
+
+	private const string TERMINAL = "Terminal";
+	private const string FONT = "Font";
+	private const string BACKGROUND_COLOR = "Background-Color";
+	private const string FOREGROUND_COLOR = "Foreground-Color";
+	private const string SCROLLBACK_LINES = "Scrollback-Lines";
 
 	public static void init()
 	{
 		file = new ConfigFile();
-		font_key = new SettingKey(file, "Terminal", "Font", "FreeMono 10");
-		background_color_key = new SettingKey(file, "Terminal", "Background-Color", "#ffffffffffff");
-		foreground_color_key = new SettingKey(file, "Terminal", "Foreground-Color", "#000000000000");
-		scrollback_lines_key = new SettingKey(file, "Terminal", "Scrollback-Lines", "500");
+		init_value(TERMINAL, FONT, () => font = "FreeMono 10");
+		init_value(TERMINAL, BACKGROUND_COLOR, () => background_color = Colors.white);
+		init_value(TERMINAL, FOREGROUND_COLOR, () => foreground_color = Colors.black);
+		init_value(TERMINAL, SCROLLBACK_LINES, () => scrollback_lines = 500);
 	}
 
-	public static unowned string font
+	private static void init_value(string group, string name, Delegates.Void error_func)
 	{
-		get { return font_key.value; }
-		set { font_key.save_value(value); }
-	}
-
-	public static unowned Gdk.Color background_color
-	{
-		get
+		if(file.test_key(group, name) != true)
 		{
-			Gdk.Color color;
-			// FIXME: this function return a boolean to check if the function has failed.
-			Gdk.Color.parse(background_color_key.value, out color);
-			return color;
-		}
-
-		set
-		{
-			background_color_key.save_value(value.to_string());
+			error_func();
 		}
 	}
 
-	public static unowned Gdk.Color foreground_color
+	public static string font
 	{
-		get
-		{
-			Gdk.Color color;
-			// FIXME: this function return a boolean to check if the function has failed.
-			Gdk.Color.parse(foreground_color_key.value, out color);
-			return color;
-		}
-
-		set
-		{
-			foreground_color_key.save_value(value.to_string());
-		}
+		// FIXME: Why owned (only) here ???
+		owned get { return file.get_string_key(TERMINAL, FONT); }
+		set { file.set_string(TERMINAL, FONT, value); file.write(); }
 	}
 
-	public static unowned int scrollback_lines
+	public static Gdk.Color background_color
 	{
-		get { return int.parse(scrollback_lines_key.value); }
-		set { scrollback_lines_key.save_value(value.to_string()); }
+		get { return Colors.parse(file.get_string_key(TERMINAL, BACKGROUND_COLOR)); }
+		set { file.set_string(TERMINAL, BACKGROUND_COLOR, value.to_string()); file.write(); }
+	}
+
+	public static Gdk.Color foreground_color
+	{
+		get { return Colors.parse(file.get_string_key(TERMINAL, FOREGROUND_COLOR)); }
+		set { file.set_string(TERMINAL, FOREGROUND_COLOR, value.to_string()); file.write(); }
+	}
+
+	public static int scrollback_lines
+	{
+		get { return file.get_integer_key(TERMINAL, SCROLLBACK_LINES); }
+		set { file.set_integer(TERMINAL, SCROLLBACK_LINES, value); file.write(); }
 	}
 }

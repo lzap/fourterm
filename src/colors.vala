@@ -15,40 +15,16 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-public class SettingKey
+public class Colors
 {
-	public string group { get; private set; }
-	public string name { get; private set; }
-	public string value { get; set; }
+	public static Gdk.Color white { get { return Colors.parse("#ffffffffffff"); } }
+	public static Gdk.Color black { get { return Colors.parse("#000000000000"); } }
 
-	private unowned ConfigFile file;
-
-	public SettingKey(ConfigFile file, string group, string name, string value)
+	public static Gdk.Color parse(string color)
 	{
-		this.file = file;
-		this.group = group;
-		this.name = name;
-		this.value = value;
-
-		try
-		{
-			this.value = this.file.get_string(this.group, this.name);
-		}
-		catch(GLib.KeyFileError error)
-		{
-			// Use default values
-			this.file.set_string(this.group, this.name, this.value);
-		}
-	}
-
-	public void save_value(string value)
-	{
-		if(value != this.value)
-		{
-			this.value = value;
-
-			this.file.set_string(this.group, this.name, this.value);
-			this.file.write();
-		}
+		Gdk.Color value;
+		// FIXME: this function return a boolean to check if the function has failed.
+		Gdk.Color.parse(color, out value);
+		return value;
 	}
 }
