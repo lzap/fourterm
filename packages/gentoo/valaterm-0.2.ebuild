@@ -23,7 +23,7 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
 src_configure() {
-	./waf configure || die "Configure failed !"
+	./waf configure --prefix=/usr || die "Configure failed !"
 }
 
 src_compile() {
