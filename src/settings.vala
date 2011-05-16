@@ -25,47 +25,33 @@ public class Settings
 	private const string FOREGROUND_COLOR = "Foreground-Color";
 	private const string SCROLLBACK_LINES = "Scrollback-Lines";
 
-	private delegate void SetDefaultValue();
-
 	public static void init()
 	{
 		file = new ConfigFile();
-		init_value(TERMINAL, FONT, () => font = "FreeMono 10");
-		init_value(TERMINAL, BACKGROUND_COLOR, () => background_color = Colors.white);
-		init_value(TERMINAL, FOREGROUND_COLOR, () => foreground_color = Colors.black);
-		init_value(TERMINAL, SCROLLBACK_LINES, () => scrollback_lines = 500);
-	}
-
-	private static void init_value(string group, string name, SetDefaultValue error_func)
-	{
-		if(file.test_key(group, name) != true)
-		{
-			error_func();
-		}
 	}
 
 	public static string font
 	{
 		// FIXME: Why owned (only) here ???
-		owned get { return file.get_string_key(TERMINAL, FONT); }
+		owned get { return file.get_string_key(TERMINAL, FONT, "FreeMono 10"); }
 		set { file.set_string(TERMINAL, FONT, value); file.write(); }
 	}
 
 	public static Gdk.Color background_color
 	{
-		get { return Colors.parse(file.get_string_key(TERMINAL, BACKGROUND_COLOR)); }
+		get { return Colors.parse(file.get_string_key(TERMINAL, BACKGROUND_COLOR, Colors.white.to_string())); }
 		set { file.set_string(TERMINAL, BACKGROUND_COLOR, value.to_string()); file.write(); }
 	}
 
 	public static Gdk.Color foreground_color
 	{
-		get { return Colors.parse(file.get_string_key(TERMINAL, FOREGROUND_COLOR)); }
+		get { return Colors.parse(file.get_string_key(TERMINAL, FOREGROUND_COLOR, Colors.black.to_string())); }
 		set { file.set_string(TERMINAL, FOREGROUND_COLOR, value.to_string()); file.write(); }
 	}
 
 	public static int scrollback_lines
 	{
-		get { return file.get_integer_key(TERMINAL, SCROLLBACK_LINES); }
+		get { return file.get_integer_key(TERMINAL, SCROLLBACK_LINES, 500); }
 		set { file.set_integer(TERMINAL, SCROLLBACK_LINES, value); file.write(); }
 	}
 }

@@ -29,19 +29,7 @@ public class ConfigFile : GLib.KeyFile
         }
     }
 
-	public bool test_key(string group, string key)
-	{
-		try
-		{
-			return this.has_key(group, key);
-		}
-		catch(GLib.KeyFileError error)
-		{
-			return false;
-		}
-	}
-
-	public string get_string_key(string group, string key)
+	public string get_string_key(string group, string key, string default_value)
 	{
 		try
 		{
@@ -50,11 +38,12 @@ public class ConfigFile : GLib.KeyFile
 		catch(GLib.KeyFileError error)
 		{
 			// FIXME: Do something !
-			return "";
+			this.set_string(group, key, default_value);
+			return default_value;
 		}
 	}
 
-	public int get_integer_key(string group, string key)
+	public int get_integer_key(string group, string key, int default_value)
 	{
 		try
 		{
@@ -63,7 +52,8 @@ public class ConfigFile : GLib.KeyFile
 		catch(GLib.KeyFileError error)
 		{
 			// FIXME: Do something !
-			return 0;
+			this.set_integer(group, key, default_value);
+			return default_value;
 		}
 	}
 
