@@ -21,18 +21,24 @@ public class ContextMenu : Gtk.Menu
 	private ImageMenuItem item_paste = new ImageMenuItem(Gtk.Stock.PASTE);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Gtk.Stock.NEW, _("New Window"));
 
+	public signal void copy();
+	public signal void paste();
+	public signal void new_window();
+
 	public ContextMenu()
 	{
 		this.append(this.item_copy);
 		this.append(this.item_paste);
 		this.append(new Gtk.SeparatorMenuItem());
 		this.append(this.item_new_window);
+
+		this.active_signals();
 	}
 
-	public void active_signals(Delegates.Void copy, Delegates.Void paste, Delegates.Void new_window)
+	private void active_signals()
 	{
-		this.item_copy.activate.connect(() => copy());
-		this.item_paste.activate.connect(() => paste());
-		this.item_new_window.activate.connect(() => new_window());
+		this.item_copy.activate.connect(() => this.copy());
+		this.item_paste.activate.connect(() => this.paste());
+		this.item_new_window.activate.connect(() => this.new_window());
 	}
 }

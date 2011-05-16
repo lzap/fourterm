@@ -22,12 +22,12 @@ public class ConfigurationsWindow : DefaultDialog
 	private Gtk.ColorButton foreground_color_chooser = new Gtk.ColorButton();
 	private Gtk.SpinButton scrollback_lines_chooser = new Gtk.SpinButton.with_range(-1, 10000, 1);
 
-	private Delegates.String font_changed;
-	private Delegates.Color background_color_changed;
-	private Delegates.Color foreground_color_changed;
-	private Delegates.Long scrollback_lines_changed;
+	public signal void font_changed(string font);
+	public signal void background_color_changed(Gdk.Color color);
+	public signal void foreground_color_changed(Gdk.Color color);
+	public signal void scrollback_lines_changed(long lines);
 
-	private ConfigurationsWindow(MainWindow parent_window)
+	public ConfigurationsWindow(MainWindow parent_window)
 	{
 		this.title = _("ValaTerm Preferences");
 		this.transient_for = parent_window;
@@ -52,31 +52,6 @@ public class ConfigurationsWindow : DefaultDialog
 		this.vbox.pack_start(background_color_box);
 		this.vbox.pack_start(foreground_color_box);
 		this.vbox.pack_start(scrollback_lines_box);
-	}
-
-	private void active_signals(Delegates.String font_changed,
-								Delegates.Color background_color_changed,
-								Delegates.Color foreground_color_changed,
-								Delegates.Long scrollback_lines_changed)
-	{
-		this.font_changed = font_changed;
-		this.background_color_changed = background_color_changed;
-		this.foreground_color_changed = foreground_color_changed;
-		this.scrollback_lines_changed = scrollback_lines_changed;
-	}
-
-	public static void display(MainWindow parent_window,
-							   Delegates.String font_changed,
-							   Delegates.Color background_color_changed,
-							   Delegates.Color foreground_color_changed,
-							   Delegates.Long scrollback_lines_changed)
-	{
-		var window = new ConfigurationsWindow(parent_window);
-		window.active_signals(font_changed,
-							  background_color_changed,
-							  foreground_color_changed,
-							  scrollback_lines_changed);
-		window.show_all();
 	}
 
 	protected override void ok_clicked()

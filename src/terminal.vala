@@ -20,6 +20,9 @@ public class Terminal : Vte.Terminal
 	private ContextMenu context_menu = new ContextMenu();
 	private GLib.Pid? child_pid = null;
 
+	public signal void title_changed(string title);
+	public signal void new_window();
+
 	public Terminal()
 	{
         this.background_transparent = false;
@@ -50,16 +53,18 @@ public class Terminal : Vte.Terminal
 		this.set_colors(Settings.foreground_color,
 						Settings.background_color,
 						color);
+
+		this.active_signals();
 	}
 
-	public void active_signals(Delegates.String title_changed, Delegates.Void new_window)
+	private void active_signals()
 	{
 		this.button_press_event.connect(this.display_menu);
-		this.window_title_changed.connect(() => title_changed(this.window_title));
+		this.window_title_changed.connect(() => this.title_changed(this.window_title));
 
-		this.context_menu.active_signals(() => this.copy_clipboard(),
-										 () => this.paste_clipboard(),
-										 () => new_window());
+		this.context_menu.copy.connect(() => this.copy_clipboard());
+		this.context_menu.paste.connect(() => this.paste_clipboard());
+		this.context_menu.new_window.connect(() => this.new_window());
 	}
 
 	public void active_shell()

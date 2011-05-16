@@ -25,6 +25,8 @@ public class Settings
 	private const string FOREGROUND_COLOR = "Foreground-Color";
 	private const string SCROLLBACK_LINES = "Scrollback-Lines";
 
+	private delegate void SetDefaultValue();
+
 	public static void init()
 	{
 		file = new ConfigFile();
@@ -34,7 +36,7 @@ public class Settings
 		init_value(TERMINAL, SCROLLBACK_LINES, () => scrollback_lines = 500);
 	}
 
-	private static void init_value(string group, string name, Delegates.Void error_func)
+	private static void init_value(string group, string name, SetDefaultValue error_func)
 	{
 		if(file.test_key(group, name) != true)
 		{

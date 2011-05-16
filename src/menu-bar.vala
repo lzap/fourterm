@@ -24,13 +24,17 @@ public class Menubar : Gtk.MenuBar
 	private ImageMenuItem item_paste = new ImageMenuItem(Gtk.Stock.PASTE);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Gtk.Stock.NEW, _("New Window"));
 	private ImageMenuItem item_quit = new ImageMenuItem(Gtk.Stock.QUIT);
-	private Gtk.AccelGroup accel_group = new Gtk.AccelGroup();
+
+	public signal void about();
+	public signal void preferences();
+	public signal void clear();
+	public signal void copy();
+	public signal void paste();
+	public signal void new_window();
+	public signal void quit();
 
 	public Menubar()
 	{
-		// Just an exemple:
-		// this.item.accel_group = this.accel_group;
-
 		var menu_file = new MenuItem(_("File"), {
 				this.item_new_window,
 				new Gtk.SeparatorMenuItem(),
@@ -52,25 +56,18 @@ public class Menubar : Gtk.MenuBar
 		this.append(menu_edit);
 		this.append(menu_tools);
 		this.append(menu_help);
+
+		this.active_signals();
 	}
 
-	public void active_signals(Delegates.AccelGroup add_accel_group,
-							   Delegates.Void about,
-							   Delegates.Void preferences,
-							   Delegates.Void clear,
-							   Delegates.Void copy,
-							   Delegates.Void paste,
-							   Delegates.Void new_window,
-							   Delegates.Void quit)
+	private void active_signals()
 	{
-		add_accel_group(this.accel_group);
-
-		this.item_about.activate.connect(() => about());
-		this.item_preferences.activate.connect(() => preferences());
-		this.item_clear.activate.connect(() => clear());
-		this.item_copy.activate.connect(() => copy());
-		this.item_paste.activate.connect(() => paste());
-		this.item_new_window.activate.connect(() => new_window());
-		this.item_quit.activate.connect(() => quit());
+		this.item_about.activate.connect(() => this.about());
+		this.item_preferences.activate.connect(() => this.preferences());
+		this.item_clear.activate.connect(() => this.clear());
+		this.item_copy.activate.connect(() => this.copy());
+		this.item_paste.activate.connect(() => this.paste());
+		this.item_new_window.activate.connect(() => this.new_window());
+		this.item_quit.activate.connect(() => this.quit());
 	}
 }

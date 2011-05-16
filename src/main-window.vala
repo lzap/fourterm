@@ -53,26 +53,28 @@ public class MainWindow : Gtk.Window
 
 	private void active_signals()
 	{
-		this.menubar.active_signals(this.add_accel_group,
-									() => About.display(this),
-									() => ConfigurationsWindow.display(
-										this,
-										this.terminal.set_font_from_string,
-										this.terminal.set_color_background,
-										this.terminal.set_color_foreground,
-										this.terminal.set_scrollback_lines),
-									() => this.terminal.reset(true, true),
-									() => this.terminal.copy_clipboard(),
-									() => this.terminal.paste_clipboard(),
-									this.new_window,
-									this.exit);
+		this.menubar.about.connect(() => About.display(this));
+		this.menubar.preferences.connect(() =>
+		{
+			var dialog = new ConfigurationsWindow(this);
+			dialog.font_changed.connect(this.terminal.set_font_from_string);
+			dialog.background_color_changed.connect(this.terminal.set_color_background);
+			dialog.foreground_color_changed.connect(this.terminal.set_color_foreground);
+			dialog.scrollback_lines_changed.connect(this.terminal.set_scrollback_lines);
+			dialog.show_all();
+		});
+		this.menubar.clear.connect(() => this.terminal.reset(true, true));
+		this.menubar.copy.connect(() => this.terminal.copy_clipboard());
+		this.menubar.paste.connect(() => this.terminal.paste_clipboard());
+		this.menubar.new_window.connect(this.new_window);
+		this.menubar.quit.connect(this.exit);
 
 		this.delete_event.connect(this.on_delete);
 		this.destroy.connect(this.on_destroy);
 		this.terminal.child_exited.connect(this.exit);
 
-		this.terminal.active_signals((title) => this.title = title,
-									 this.new_window);
+		this.terminal.title_changed.connect(this.set_title);
+		this.terminal.new_window.connect(this.new_window);
 	}
 
 	private void on_destroy()
