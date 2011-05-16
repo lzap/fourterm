@@ -65,17 +65,17 @@ public class MainWindow : Gtk.Window
 									() => this.terminal.copy_clipboard(),
 									() => this.terminal.paste_clipboard(),
 									this.new_window,
-									() => this.destroy());
+									this.exit);
 
-		// Use this.destroy() instead of this.exit()
-		this.destroy.connect(this.exit);
-		this.terminal.child_exited.connect(() => this.destroy());
+		this.delete_event.connect(this.on_delete);
+		this.destroy.connect(this.on_destroy);
+		this.terminal.child_exited.connect(this.exit);
 
 		this.terminal.active_signals((title) => this.title = title,
 									 this.new_window);
 	}
 
-	private void exit()
+	private void on_destroy()
 	{
 		if(this.window_count < 2)
 		{
@@ -84,8 +84,34 @@ public class MainWindow : Gtk.Window
 		else
 		{
 			this.window_count--;
+		}
+	}
+
+	private void exit()
+	{
+		if(this.on_delete() == false)
+		{
 			this.destroy();
 		}
+	}
+
+	private bool on_delete()
+	{
+		bool return_value = false;
+
+		if(this.terminal.has_foreground_process())
+		{
+			var dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK_CANCEL, "There is still a process running in this terminal. Closing the window will kill it.");
+
+			if(dialog.run() == Gtk.ResponseType.CANCEL)
+			{
+				return_value = true;
+			}
+
+			dialog.destroy();
+		}
+
+		return return_value;
 	}
 
 	private void new_window()

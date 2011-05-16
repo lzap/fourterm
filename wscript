@@ -53,7 +53,7 @@ def build(bld):
     bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
     bld.program(
-        packages      = ['gtk+-2.0', 'vte', 'config'],
+        packages      = ['gtk+-2.0', 'vte', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
         uselib        = ['gtk+', 'vte', 'glib'],

@@ -18,6 +18,7 @@
 public class Terminal : Vte.Terminal
 {
 	private ContextMenu context_menu = new ContextMenu();
+	private GLib.Pid? child_pid = null;
 
 	public Terminal()
 	{
@@ -64,7 +65,7 @@ public class Terminal : Vte.Terminal
 	public void active_shell()
 	{
 		// FIXME: fork_command is deprecated. Use fork_command_full instead.
-		this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
+		this.child_pid = this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
 	}
 
 	public int calcul_width(int column_count)
@@ -88,5 +89,11 @@ public class Terminal : Vte.Terminal
 		}
 
 		return false;
+	}
+
+	public bool has_foreground_process()
+	{
+		int fgpid = Posix.tcgetpgrp(this.pty);
+		return fgpid != this.child_pid && fgpid != -1;
 	}
 }
