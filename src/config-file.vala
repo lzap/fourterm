@@ -57,6 +57,20 @@ public class ConfigFile : GLib.KeyFile
 		}
 	}
 
+	public Gdk.Color get_color_key(string group, string key, Gdk.Color default_value)
+	{
+		try
+		{
+		    return Colors.parse(this.get_string(group, key));
+		}
+		catch(GLib.KeyFileError error)
+		{
+			// FIXME: Do something !
+			this.set_string(group, key, default_value.to_string());
+			return default_value;
+		}
+	}
+
     public void write()
     {
         try

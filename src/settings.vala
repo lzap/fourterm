@@ -39,13 +39,13 @@ public class Settings
 
 	public static Gdk.Color background_color
 	{
-		get { return Colors.parse(file.get_string_key(TERMINAL, BACKGROUND_COLOR, Colors.white.to_string())); }
+		get { return file.get_color_key(TERMINAL, BACKGROUND_COLOR, Colors.white); }
 		set { file.set_string(TERMINAL, BACKGROUND_COLOR, value.to_string()); file.write(); }
 	}
 
 	public static Gdk.Color foreground_color
 	{
-		get { return Colors.parse(file.get_string_key(TERMINAL, FOREGROUND_COLOR, Colors.black.to_string())); }
+		get { return file.get_color_key(TERMINAL, FOREGROUND_COLOR, Colors.black); }
 		set { file.set_string(TERMINAL, FOREGROUND_COLOR, value.to_string()); file.write(); }
 	}
 
