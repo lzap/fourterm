@@ -7,7 +7,7 @@ inherit git
 
 EGIT_REPO_URI="git://gitorious.org/valaterm/valaterm.git"
 DESCRIPTION="ValaTerm is a lightweigth terminal written in Vala"
-HOMEPAGE="http://gitorious.org/valaterm/"
+HOMEPAGE="https://gitorious.org/valaterm/"
 
 LICENSE="GPL-3"
 SLOT="0"
