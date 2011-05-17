@@ -17,9 +17,6 @@
 
 namespace Colors
 {
-	public const Gdk.Color white = {0, 0xffff, 0xffff, 0xffff};
-	public const Gdk.Color black = {0, 0, 0, 0};
-
 	public Gdk.Color parse(string color)
 	{
 		Gdk.Color value;

@@ -45,7 +45,8 @@ public class Settings : GLib.Object
 		get
 		{
 			var file = new ConfigFile();
-			return file.get_color_key(TERMINAL, BACKGROUND_COLOR, Colors.white);
+			Gdk.Color white = { 0, 0xffff, 0xffff, 0xffff };
+			return file.get_color_key(TERMINAL, BACKGROUND_COLOR, white);
 		}
 
 		set
@@ -61,7 +62,8 @@ public class Settings : GLib.Object
 		get
 		{
 			var file = new ConfigFile();
-			return file.get_color_key(TERMINAL, FOREGROUND_COLOR, Colors.black);
+			Gdk.Color black = { 0, 0, 0, 0 };
+			return file.get_color_key(TERMINAL, FOREGROUND_COLOR, black);
 		}
 
 		set
