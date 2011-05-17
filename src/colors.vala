@@ -15,12 +15,12 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-public class Colors
+namespace Colors
 {
-	public static Gdk.Color white { get { return Colors.parse("white"); } }
-	public static Gdk.Color black { get { return Colors.parse("black"); } }
+	public const Gdk.Color white = {0, 0xffff, 0xffff, 0xffff};
+	public const Gdk.Color black = {0, 0, 0, 0};
 
-	public static Gdk.Color parse(string color)
+	public Gdk.Color parse(string color)
 	{
 		Gdk.Color value;
 		// FIXME: this function return a boolean to check if the function has failed.
