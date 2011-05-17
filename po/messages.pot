@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-05-14 14:05+0200\n"
+"POT-Creation-Date: 2011-05-17 19:30+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -45,18 +45,28 @@ msgstr ""
 msgid "New Window"
 msgstr ""
 
-#: src/menu-bar.vala:34
+#: src/main-window.vala:106
+msgid ""
+"There is still a process running in this terminal. Closing the window will "
+"kill it."
+msgstr ""
+
+#: src/main-window.vala:107
+msgid "Would you closing this window ?"
+msgstr ""
+
+#: src/menu-bar.vala:38
 msgid "File"
 msgstr ""
 
-#: src/menu-bar.vala:39
+#: src/menu-bar.vala:43
 msgid "Edit"
 msgstr ""
 
-#: src/menu-bar.vala:45
+#: src/menu-bar.vala:49
 msgid "Tools"
 msgstr ""
 
-#: src/menu-bar.vala:48
+#: src/menu-bar.vala:52
 msgid "Help"
 msgstr ""
