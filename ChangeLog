@@ -1,3 +1,15 @@
+0.3
+===
+
+ * Add the item new_window to the menu bar and context menu
+ * Add the menu file to the menu bar
+ * Add the item quit to the menu bar
+ * Add scrollback lines setting
+ * EBUILD file (gentoo package) added to the project
+ * Settings system improved
+ * Some bugs fixed...
+
+
 0.2
 ===
 
