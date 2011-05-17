@@ -22,8 +22,6 @@ void main(string[] args)
 	GLib.Intl.setlocale(GLib.LocaleCategory.ALL, null);
 	GLib.Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALE_DIR);
 
-	Settings.init();
-
 	var window = new MainWindow();
 	window.display();
 
