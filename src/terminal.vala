@@ -20,6 +20,10 @@ public class Terminal : Vte.Terminal
 	private ContextMenu context_menu = new ContextMenu();
 	private GLib.Pid? child_pid = null;
 
+#if VTE_SUP_0_26
+	private string? shell = null;
+#endif
+
 	public signal void title_changed(string title);
 	public signal void new_window();
 
@@ -27,6 +31,15 @@ public class Terminal : Vte.Terminal
 	{
         this.background_transparent = false;
         this.scroll_on_keystroke = true;
+
+#if VTE_SUP_0_26
+		this.shell = GLib.Environment.get_variable("SHELL");
+
+		if(this.shell == null)
+		{
+			this.shell = "/bin/sh";
+		}
+#endif
 
 		const Gdk.Color[] color =
 		{
@@ -69,8 +82,22 @@ public class Terminal : Vte.Terminal
 
 	public void active_shell()
 	{
-		// FIXME: fork_command is deprecated. Use fork_command_full instead.
+// This part can only be compiled by valac >= 0.12.0-???-c677
+#if VTE_SUP_0_26
+		try
+		{
+			string[] args = {};
+
+			GLib.Shell.parse_argv(this.shell, out args);
+			this.fork_command_full(Vte.PtyFlags.DEFAULT, GLib.Environment.get_home_dir(), args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.child_pid);
+		}
+		catch(GLib.Error error)
+		{
+			// Do something !
+		}
+#else
 		this.child_pid = this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
+#endif
 	}
 
 	public int calcul_width(int column_count)
