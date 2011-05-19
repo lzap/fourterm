@@ -16,7 +16,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: src/about.vala:26
-msgid "ValaTerm is a lightweigth terminal written in Vala"
+msgid "ValaTerm is a lightweight terminal written in Vala"
 msgstr "ValaTerm est un terminal léger écrit en Vala"
 
 #: src/configurations-window.vala:32

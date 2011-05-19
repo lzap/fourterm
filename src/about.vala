@@ -23,7 +23,7 @@ public class About : Gtk.AboutDialog
 		this.program_name = "ValaTerm";
 		this.version = Config.VERSION;
 		this.copyright = "Copyright © 2010 Jacques-Pascal Deplaix";
-		this.comments = _("ValaTerm is a lightweigth terminal written in Vala");
+		this.comments = _("ValaTerm is a lightweight terminal written in Vala");
 		this.logo = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
 		this.website = "https://gitorious.org/valaterm/";
 		this.authors = { "Jacques-Pascal Deplaix <jp.deplaix@gmail.com>" };
