@@ -33,7 +33,7 @@ def configure(conf):
     conf.check_cfg(
         package         = 'vte',
         uselib_store    = 'vte',
-        atleast_version = '0.26',
+        atleast_version = '0.24',
         args            = '--cflags --libs')
 
     # Add /usr/local/include for compilation under OpenBSD
