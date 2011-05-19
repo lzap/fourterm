@@ -28,12 +28,12 @@ def configure(conf):
     conf.check_cfg(
         package         = 'gtk+-2.0',
         uselib_store    = 'gtk+',
-        atleast_version = '2.10.0',
+        atleast_version = '2.16',
         args            = '--cflags --libs')
     conf.check_cfg(
         package         = 'vte',
         uselib_store    = 'vte',
-        atleast_version = '0.24',
+        atleast_version = '0.20',
         args            = '--cflags --libs')
 
     # Add /usr/local/include for compilation under OpenBSD
