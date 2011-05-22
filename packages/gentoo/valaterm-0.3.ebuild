@@ -1,5 +1,6 @@
 # Copyright 1999-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v3
+# $Header: $
 
 EAPI="3"
 
@@ -23,6 +24,7 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
 src_configure() {
+	git checkout ${PV}
 	./waf configure --prefix=/usr || die "Configure failed !"
 }
 
@@ -31,5 +33,5 @@ src_compile() {
 }
 
 src_install() {
-	./waf install || die "Install failed !"
+	./waf install --destdir=${D} || die "Install failed !"
 }
