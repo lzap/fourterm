@@ -23,7 +23,11 @@ def configure(conf):
     conf.check_cfg(
         package         = 'glib-2.0',
         uselib_store    = 'glib',
-        atleast_version = '2.10.0',
+        atleast_version = '2.6',
+        args            = '--cflags --libs')
+    conf.check_cfg(
+        package         = 'gthread-2.0',
+        uselib_store    = 'gthread',
         args            = '--cflags --libs')
     conf.check_cfg(
         package         = 'gtk+-2.0',
@@ -56,7 +60,7 @@ def build(bld):
         packages      = ['gtk+-2.0', 'vte', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
-        uselib        = ['gtk+', 'vte', 'glib'],
+        uselib        = ['gtk+', 'vte', 'glib', 'gthread'],
         source        = ['src/about.vala',
                          'src/colors.vala',
                          'src/config-file.vala',
