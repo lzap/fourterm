@@ -14,9 +14,9 @@ LICENSE="GPL-3"
 SLOT="0"
 KEYWORDS="~alpha ~amd64 ~arm ~hppa ~ia64 ~ppc ~ppc64 ~sh ~sparc ~x86"
 
-RDEPEND="dev-libs/glib:2
-	x11-libs/gtk+:2
-	x11-libs/vte:0"
+RDEPEND=">=dev-libs/glib-2.6:2
+	>=x11-libs/gtk+-2.16:2
+	>=x11-libs/vte-0.20:0"
 DEPEND="${RDEPEND}
 	>=dev-lang/vala-0.12
 	sys-devel/gettext
