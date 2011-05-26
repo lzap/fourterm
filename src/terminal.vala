@@ -25,7 +25,6 @@ public class Terminal : Vte.Terminal
 
 	public Terminal()
 	{
-        this.background_transparent = false;
         this.scroll_on_keystroke = true;
 
 		const Gdk.Color[] color =
@@ -48,6 +47,7 @@ public class Terminal : Vte.Terminal
 			{ 0, 0xeeee, 0xeeee, 0xecec }
 		};
 
+        this.background_transparent = Settings.transparency;
 		this.scrollback_lines = Settings.scrollback_lines;
 		this.set_font_from_string(Settings.font);
 		this.set_colors(Settings.foreground_color,

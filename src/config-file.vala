@@ -57,6 +57,20 @@ public class ConfigFile : GLib.KeyFile
 		}
 	}
 
+	public bool get_boolean_key(string group, string key, bool default_value)
+	{
+		try
+		{
+			return this.get_boolean(group, key);
+		}
+		catch(GLib.KeyFileError error)
+		{
+			// FIXME: Do something !
+			this.set_boolean(group, key, default_value);
+			return default_value;
+		}
+	}
+
 	public Gdk.Color get_color_key(string group, string key, Gdk.Color default_value)
 	{
 		try

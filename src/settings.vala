@@ -22,6 +22,7 @@ public class Settings : GLib.Object
 	private const string BACKGROUND_COLOR = "Background-Color";
 	private const string FOREGROUND_COLOR = "Foreground-Color";
 	private const string SCROLLBACK_LINES = "Scrollback-Lines";
+	private const string TRANSPARENCY = "Transparency";
 
 	public static string font
 	{
@@ -86,6 +87,22 @@ public class Settings : GLib.Object
 		{
 			var file = new ConfigFile();
 			file.set_integer(TERMINAL, SCROLLBACK_LINES, value);
+			file.write();
+		}
+	}
+
+	public static bool transparency
+	{
+		get
+		{
+			var file = new ConfigFile();
+			return file.get_boolean_key(TERMINAL, TRANSPARENCY, false);
+		}
+
+		set
+		{
+			var file = new ConfigFile();
+			file.set_boolean(TERMINAL, TRANSPARENCY, value);
 			file.write();
 		}
 	}
