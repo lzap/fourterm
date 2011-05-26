@@ -61,6 +61,7 @@ public class MainWindow : Gtk.Window
 			dialog.background_color_changed.connect(this.terminal.set_color_background);
 			dialog.foreground_color_changed.connect(this.terminal.set_color_foreground);
 			dialog.scrollback_lines_changed.connect(this.terminal.set_scrollback_lines);
+			dialog.transparency_changed.connect(this.terminal.set_background_transparent);
 			dialog.show_all();
 		});
 		this.menubar.clear.connect(() => this.terminal.reset(true, true));

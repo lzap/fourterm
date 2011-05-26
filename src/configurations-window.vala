@@ -21,11 +21,13 @@ public class ConfigurationsWindow : DefaultDialog
 	private Gtk.ColorButton background_color_chooser = new Gtk.ColorButton();
 	private Gtk.ColorButton foreground_color_chooser = new Gtk.ColorButton();
 	private Gtk.SpinButton scrollback_lines_chooser = new Gtk.SpinButton.with_range(-1, 10000, 1);
+	private Gtk.CheckButton transparency_chooser = new Gtk.CheckButton();
 
 	public signal void font_changed(string font);
 	public signal void background_color_changed(Gdk.Color color);
 	public signal void foreground_color_changed(Gdk.Color color);
 	public signal void scrollback_lines_changed(long lines);
+	public signal void transparency_changed(bool tranparency);
 
 	public ConfigurationsWindow(MainWindow parent_window)
 	{
@@ -36,6 +38,7 @@ public class ConfigurationsWindow : DefaultDialog
 		this.background_color_chooser.color = Settings.background_color;
 		this.foreground_color_chooser.color = Settings.foreground_color;
 		this.scrollback_lines_chooser.value = Settings.scrollback_lines;
+		this.transparency_chooser.active = Settings.transparency;
 
 		var font_box = new ParameterBox(_("Font:"), this.font_chooser);
 
@@ -48,10 +51,14 @@ public class ConfigurationsWindow : DefaultDialog
 		var scrollback_lines_box = new ParameterBox(_("Scrollback lines:"),
 													this.scrollback_lines_chooser);
 
+		var transparency_box = new ParameterBox(_("Transparency:"),
+												this.transparency_chooser);
+
 		this.vbox.pack_start(font_box);
 		this.vbox.pack_start(background_color_box);
 		this.vbox.pack_start(foreground_color_box);
 		this.vbox.pack_start(scrollback_lines_box);
+		this.vbox.pack_start(transparency_box);
 	}
 
 	protected override void ok_clicked()
@@ -67,5 +74,8 @@ public class ConfigurationsWindow : DefaultDialog
 
 		Settings.scrollback_lines = this.scrollback_lines_chooser.get_value_as_int();
 		this.scrollback_lines_changed(Settings.scrollback_lines);
+
+		Settings.transparency = this.transparency_chooser.active;
+		this.transparency_changed(Settings.transparency);
 	}
 }
