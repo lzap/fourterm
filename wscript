@@ -48,7 +48,7 @@ def configure(conf):
 
     if conf.options.debug == True:
         conf.env.CFLAGS.append('-g')
-        conf.env.VALAFLAGS = ['--fatal-warnings', '-g']
+        conf.env.VALAFLAGS = ['--fatal-warnings', '-g', '--define=DEBUG']
     else:
         conf.env.CFLAGS.append('-O2')
         conf.env.VALAFLAGS = ['--thread']
