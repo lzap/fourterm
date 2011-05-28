@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: valaterm 0.3\n"
-"POT-Creation-Date: 2011-05-17 19:30+0200\n"
-"PO-Revision-Date: 2011-05-17 19:37+0200\n"
+"POT-Creation-Date: 2011-05-26 16:50+0200\n"
+"PO-Revision-Date: 2011-05-28 09:23+0200\n"
 "Last-Translator: Jacques-Pascal Deplaix <jp.deplaix@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -19,31 +19,35 @@ msgstr ""
 msgid "ValaTerm is a lightweight terminal written in Vala"
 msgstr "ValaTerm est un terminal léger écrit en Vala"
 
-#: src/configurations-window.vala:32
+#: src/configurations-window.vala:34
 msgid "ValaTerm Preferences"
 msgstr "Préférences de ValaTerm"
 
-#: src/configurations-window.vala:40
+#: src/configurations-window.vala:43
 msgid "Font:"
 msgstr "Police:"
 
-#: src/configurations-window.vala:42
+#: src/configurations-window.vala:45
 msgid "Background color:"
 msgstr "Couleur d'arrière-plan:"
 
-#: src/configurations-window.vala:45
+#: src/configurations-window.vala:48
 msgid "Foreground color:"
 msgstr "Couleur du texte:"
 
-#: src/configurations-window.vala:48
+#: src/configurations-window.vala:51
 msgid "Scrollback lines:"
 msgstr "Lignes de défilement:"
+
+#: src/configurations-window.vala:54
+msgid "Transparency:"
+msgstr "Transparence:"
 
 #: src/context-menu.vala:22 src/menu-bar.vala:25
 msgid "New Window"
 msgstr "Nouvelle Fenêtre"
 
-#: src/main-window.vala:106
+#: src/main-window.vala:107
 msgid ""
 "There is still a process running in this terminal. Closing the window will "
 "kill it."
@@ -51,7 +55,7 @@ msgstr ""
 "Il reste encore un processus en cours dans ce terminal. Fermer cette fenêtre va "
 "l'arrêter."
 
-#: src/main-window.vala:107
+#: src/main-window.vala:108
 msgid "Would you closing this window ?"
 msgstr "Voulez-vous fermer cette fenêtre ?"
 
