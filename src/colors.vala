@@ -17,11 +17,15 @@
 
 namespace Colors
 {
-	public Gdk.Color parse(string color)
+	public Gdk.Color parse(string color) throws GLib.ConvertError
 	{
 		Gdk.Color value;
-		// FIXME: this function return a boolean to check if the function has failed.
-		Gdk.Color.parse(color, out value);
+
+		if(!Gdk.Color.parse(color, out value))
+		{
+			throw new GLib.ConvertError.FAILED("\"%s\" couldn't be parsed as color", color);
+		}
+
 		return value;
 	}
 }

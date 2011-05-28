@@ -77,12 +77,15 @@ public class ConfigFile : GLib.KeyFile
 		{
 		    return Colors.parse(this.get_string(group, key));
 		}
-		catch(GLib.KeyFileError error)
+		catch(GLib.Error error)
 		{
-			// FIXME: Do something !
-			this.set_string(group, key, default_value.to_string());
-			return default_value;
+#if DEBUG
+			stderr.printf("Error: %s. Using the default value.\n", error.message);
+#endif
 		}
+
+		this.set_string(group, key, default_value.to_string());
+		return default_value;
 	}
 
     public void write()
