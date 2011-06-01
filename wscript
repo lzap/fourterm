@@ -7,6 +7,8 @@ VERSION = '0.3'
 top = '.'
 out = 'build'
 
+import waflib
+
 def options(opt):
     opt.load('compiler_c')
     opt.load('vala')
@@ -34,11 +36,21 @@ def configure(conf):
         uselib_store    = 'gtk+',
         atleast_version = '2.16',
         args            = '--cflags --libs')
-    conf.check_cfg(
-        package         = 'vte',
-        uselib_store    = 'vte',
-        atleast_version = '0.20',
-        args            = '--cflags --libs')
+    try:
+        conf.check_cfg(
+            package         = 'vte',
+            uselib_store    = 'vte',
+            atleast_version = '0.26',
+            args            = '--cflags --libs')
+        conf.env.VALAFLAGS = ['--define=VTE_SUP_0_26']
+    except waflib.Errors.ConfigurationError:
+        conf.check_cfg(
+            package         = 'vte',
+            uselib_store    = 'vte',
+            max_version     = '0.26',
+            atleast_version = '0.20',
+            args            = '--cflags --libs')
+        conf.env.VALAFLAGS = ['']
 
     # Add /usr/local/include for compilation under OpenBSD
     conf.env.CFLAGS = ['-pipe', '-I/usr/local/include', '-include', 'config.h']
@@ -48,10 +60,12 @@ def configure(conf):
 
     if conf.options.debug == True:
         conf.env.CFLAGS.append('-g')
-        conf.env.VALAFLAGS = ['--fatal-warnings', '-g', '--define=DEBUG']
+        conf.env.VALAFLAGS.append('--fatal-warnings')
+        conf.env.VALAFLAGS.append('-g')
+        conf.env.VALAFLAGS.append('--define=DEBUG')
     else:
         conf.env.CFLAGS.append('-O2')
-        conf.env.VALAFLAGS = ['--thread']
+        conf.env.VALAFLAGS.append('--thread')
 
 def build(bld):
     bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
