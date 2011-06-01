@@ -17,8 +17,11 @@
 
 public class Settings : GLib.Object
 {
+	/* Groups */
 	private const string TERMINAL = "Terminal";
 	private const string MENUBAR = "MenuBar";
+
+	/* Keys */
 	private const string FONT = "Font";
 	private const string BACKGROUND_COLOR = "Background-Color";
 	private const string FOREGROUND_COLOR = "Foreground-Color";
