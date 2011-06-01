@@ -22,6 +22,7 @@ public class Terminal : Vte.Terminal
 
 	public signal void title_changed(string title);
 	public signal void new_window();
+	public signal void display_menubar(bool show);
 
 	public Terminal()
 	{
@@ -65,6 +66,7 @@ public class Terminal : Vte.Terminal
 		this.context_menu.copy.connect(() => this.copy_clipboard());
 		this.context_menu.paste.connect(() => this.paste_clipboard());
 		this.context_menu.new_window.connect(() => this.new_window());
+		this.context_menu.display_menubar.connect((a) => this.display_menubar(a));
 	}
 
 	public void active_shell()
