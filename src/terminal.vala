@@ -82,7 +82,7 @@ public class Terminal : Vte.Terminal
 
 	public void active_shell()
 	{
-// This part can only be compiled by valac >= 0.12.0-???-c677
+// This part can only be compiled by valac >= 0.12.1 (see commit: c677)
 #if VTE_SUP_0_26
 		try
 		{
