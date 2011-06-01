@@ -19,9 +19,16 @@ def options(opt):
                    default = False)
 
 def configure(conf):
+    conf.env.CFLAGS = list()
+    conf.env.VALAFLAGS = list()
+
     conf.load(['compiler_c', 'gnu_dirs', 'intltool'])
     conf.load('vala', funs = '')
     conf.check_vala(min_version = (0, 12, 0))
+
+    if conf.env.VALAC_VERSION >= (0, 12, 1):
+        conf.env.VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
+
     conf.check_cfg(
         package         = 'glib-2.0',
         uselib_store    = 'glib',
@@ -42,7 +49,7 @@ def configure(conf):
             uselib_store    = 'vte',
             atleast_version = '0.26',
             args            = '--cflags --libs')
-        conf.env.VALAFLAGS = ['--define=VTE_SUP_0_26']
+        conf.env.VALAFLAGS.extend(['--define=VTE_SUP_0_26'])
     except waflib.Errors.ConfigurationError:
         conf.check_cfg(
             package         = 'vte',
@@ -50,22 +57,20 @@ def configure(conf):
             max_version     = '0.26',
             atleast_version = '0.20',
             args            = '--cflags --libs')
-        conf.env.VALAFLAGS = ['']
 
     # Add /usr/local/include for compilation under OpenBSD
-    conf.env.CFLAGS = ['-pipe', '-I/usr/local/include', '-include', 'config.h']
+    conf.env.CFLAGS.extend(['-pipe', '-I/usr/local/include', '-include', 'config.h'])
     conf.define('GETTEXT_PACKAGE', APPNAME)
     conf.define('VERSION', VERSION)
-    conf.write_config_header('config.h')
 
     if conf.options.debug == True:
-        conf.env.CFLAGS.append('-g')
-        conf.env.VALAFLAGS.append('--fatal-warnings')
-        conf.env.VALAFLAGS.append('-g')
-        conf.env.VALAFLAGS.append('--define=DEBUG')
+        conf.env.CFLAGS.extend(['-g'])
+        conf.env.VALAFLAGS.extend(['--fatal-warnings', '-g', '--define=DEBUG'])
     else:
-        conf.env.CFLAGS.append('-O2')
-        conf.env.VALAFLAGS.append('--thread')
+        conf.env.CFLAGS.extend(['-O2'])
+        conf.env.VALAFLAGS.extend(['--thread'])
+
+    conf.write_config_header('config.h')
 
 def build(bld):
     bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
