@@ -18,11 +18,13 @@
 public class Settings : GLib.Object
 {
 	private const string TERMINAL = "Terminal";
+	private const string MENUBAR = "MenuBar";
 	private const string FONT = "Font";
 	private const string BACKGROUND_COLOR = "Background-Color";
 	private const string FOREGROUND_COLOR = "Foreground-Color";
 	private const string SCROLLBACK_LINES = "Scrollback-Lines";
 	private const string TRANSPARENCY = "Transparency";
+	private const string SHOW = "Show";
 
 	public static string font
 	{
@@ -103,6 +105,22 @@ public class Settings : GLib.Object
 		{
 			var file = new ConfigFile();
 			file.set_boolean(TERMINAL, TRANSPARENCY, value);
+			file.write();
+		}
+	}
+
+	public static bool show_menubar
+	{
+		get
+		{
+			var file = new ConfigFile();
+			return file.get_boolean_key(MENUBAR, SHOW, true);
+		}
+
+		set
+		{
+			var file = new ConfigFile();
+			file.set_boolean(MENUBAR, SHOW, value);
 			file.write();
 		}
 	}
