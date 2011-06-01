@@ -20,7 +20,7 @@ public class Terminal : Vte.Terminal
 	private ContextMenu context_menu = new ContextMenu();
 	private GLib.Pid? child_pid = null;
 
-#if VTE_SUP_0_26
+#if VTE_SUP_0_26 && VALAC_SUP_0_12_1
 	private string? shell = null;
 #endif
 
@@ -32,7 +32,7 @@ public class Terminal : Vte.Terminal
 	{
         this.scroll_on_keystroke = true;
 
-#if VTE_SUP_0_26
+#if VTE_SUP_0_26 && VALAC_SUP_0_12_1
 		this.shell = GLib.Environment.get_variable("SHELL");
 
 		if(this.shell == null)
@@ -85,7 +85,7 @@ public class Terminal : Vte.Terminal
 	public void active_shell()
 	{
 // This part can only be compiled by valac >= 0.12.1 (see commit: c677)
-#if VTE_SUP_0_26
+#if VTE_SUP_0_26 && VALAC_SUP_0_12_1
 		try
 		{
 			string[] args = {};
