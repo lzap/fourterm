@@ -24,7 +24,7 @@ def configure(conf):
 
     conf.load(['compiler_c', 'gnu_dirs', 'intltool'])
     conf.load('vala', funs = '')
-    conf.check_vala(min_version = (0, 12, 0))
+    conf.check_vala(min_version = (0, 10, 0))
 
     if conf.env.VALAC_VERSION >= (0, 12, 1):
         conf.env.VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
@@ -86,6 +86,7 @@ def build(bld):
                          'src/configurations-window.vala',
                          'src/context-menu.vala',
                          'src/default-dialog.vala',
+                         'src/icons.vala',
                          'src/image-menu-item.vala',
                          'src/main.vala',
                          'src/main-window.vala',

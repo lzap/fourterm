@@ -17,13 +17,13 @@
 
 public class Menubar : Gtk.MenuBar
 {
-	private ImageMenuItem item_about = new ImageMenuItem(Gtk.Stock.ABOUT);
-	private ImageMenuItem item_preferences = new ImageMenuItem(Gtk.Stock.PREFERENCES);
-	private ImageMenuItem item_clear = new ImageMenuItem(Gtk.Stock.CLEAR);
-	private ImageMenuItem item_copy = new ImageMenuItem(Gtk.Stock.COPY);
-	private ImageMenuItem item_paste = new ImageMenuItem(Gtk.Stock.PASTE);
-	private ImageMenuItem item_new_window = new ImageMenuItem(Gtk.Stock.NEW, _("New Window"));
-	private ImageMenuItem item_quit = new ImageMenuItem(Gtk.Stock.QUIT);
+	private ImageMenuItem item_about = new ImageMenuItem(Icons.ABOUT);
+	private ImageMenuItem item_preferences = new ImageMenuItem(Icons.PREFERENCES);
+	private ImageMenuItem item_clear = new ImageMenuItem(Icons.CLEAR);
+	private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
+	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
+	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, _("New Window"));
+	private ImageMenuItem item_quit = new ImageMenuItem(Icons.QUIT);
 
 	public signal void about();
 	public signal void preferences();

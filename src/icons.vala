@@ -15,23 +15,27 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-public abstract class DefaultDialog : Gtk.Dialog
+namespace Icons
 {
-	public DefaultDialog()
-	{
-		this.add_buttons(Icons.OK, Gtk.ResponseType.OK,
-						 Icons.CANCEL, Gtk.ResponseType.CANCEL);
-	}
-
-	protected abstract void ok_clicked();
-
-	protected override void response(int response_id)
-	{
-		if(response_id == Gtk.ResponseType.OK)
-		{
-			this.ok_clicked();
-		}
-
-		this.destroy();
-	}
+#if VALA_0_12
+	const string ABOUT = Gtk.Stock.ABOUT;
+	const string PREFERENCES = Gtk.Stock.PREFERENCES;
+	const string CLEAR = Gtk.Stock.CLEAR;
+	const string COPY = Gtk.Stock.COPY;
+	const string PASTE = Gtk.Stock.PASTE;
+	const string NEW = Gtk.Stock.NEW;
+	const string QUIT = Gtk.Stock.QUIT;
+	const string OK = Gtk.Stock.OK;
+	const string CANCEL = Gtk.Stock.CANCEL;
+#else
+	const string ABOUT = Gtk.STOCK_ABOUT;
+	const string PREFERENCES = Gtk.STOCK_PREFERENCES;
+	const string CLEAR = Gtk.STOCK_CLEAR;
+	const string COPY = Gtk.STOCK_COPY;
+	const string PASTE = Gtk.STOCK_PASTE;
+	const string NEW = Gtk.STOCK_NEW;
+	const string QUIT = Gtk.STOCK_QUIT;
+	const string OK = Gtk.STOCK_OK;
+	const string CANCEL = Gtk.STOCK_CANCEL;
+#endif
 }

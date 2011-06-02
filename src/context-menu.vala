@@ -17,10 +17,10 @@
 
 public class ContextMenu : Gtk.Menu
 {
-	private ImageMenuItem item_copy = new ImageMenuItem(Gtk.Stock.COPY);
-	private ImageMenuItem item_paste = new ImageMenuItem(Gtk.Stock.PASTE);
+	private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
+	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
 	private Gtk.CheckMenuItem item_display_menubar = new Gtk.CheckMenuItem.with_label(_("Display Menu Bar"));
-	private ImageMenuItem item_new_window = new ImageMenuItem(Gtk.Stock.NEW, _("New Window"));
+	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, _("New Window"));
 
 	public signal void copy();
 	public signal void paste();
