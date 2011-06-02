@@ -41,32 +41,12 @@ public class Terminal : Vte.Terminal
 		}
 #endif
 
-		const Gdk.Color[] color =
-		{
-			{ 0, 0x2e2e, 0x3434, 0x3636 },
-			{ 0, 0xcccc, 0x0000, 0x0000 },
-			{ 0, 0x4e4e, 0x9a9a, 0x0606 },
-			{ 0, 0xc4c4, 0xa0a0, 0x0000 },
-			{ 0, 0x3434, 0x6565, 0xa4a4 },
-			{ 0, 0x7575, 0x5050, 0x7b7b },
-			{ 0, 0x0606, 0x9820, 0x9a9a },
-			{ 0, 0xd3d3, 0xd7d7, 0xcfcf },
-			{ 0, 0x5555, 0x5757, 0x5353 },
-			{ 0, 0xefef, 0x2929, 0x2929 },
-			{ 0, 0x8a8a, 0xe2e2, 0x3434 },
-			{ 0, 0xfcfc, 0xe9e9, 0x4f4f },
-			{ 0, 0x7272, 0x9f9f, 0xcfcf },
-			{ 0, 0xadad, 0x7f7f, 0xa8a8 },
-			{ 0, 0x3434, 0xe2e2, 0xe2e2 },
-			{ 0, 0xeeee, 0xeeee, 0xecec }
-		};
-
         this.background_transparent = Settings.transparency;
 		this.scrollback_lines = Settings.scrollback_lines;
 		this.set_font_from_string(Settings.font);
 		this.set_colors(Settings.foreground_color,
 						Settings.background_color,
-						color);
+						Colors.colors_palette);
 
 		this.active_signals();
 	}
