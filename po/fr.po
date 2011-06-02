@@ -44,8 +44,8 @@ msgid "Transparency:"
 msgstr "Transparence:"
 
 #: src/context-menu.vala:22
-msgid "Display Menu Bar"
-msgstr "Afficher la barre de menu"
+msgid "Menu Bar"
+msgstr "Barre de Menu"
 
 #: src/context-menu.vala:23 src/menu-bar.vala:25
 msgid "New Window"
