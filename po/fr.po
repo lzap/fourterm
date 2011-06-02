@@ -7,8 +7,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: valaterm 0.3\n"
-"POT-Creation-Date: 2011-05-26 16:50+0200\n"
-"PO-Revision-Date: 2011-05-28 09:23+0200\n"
+"POT-Creation-Date: 2011-06-02 22:28+0200\n"
+"PO-Revision-Date: 2011-06-02 22:32+0200\n"
 "Last-Translator: Jacques-Pascal Deplaix <jp.deplaix@gmail.com>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -43,11 +43,15 @@ msgstr "Lignes de défilement:"
 msgid "Transparency:"
 msgstr "Transparence:"
 
-#: src/context-menu.vala:22 src/menu-bar.vala:25
+#: src/context-menu.vala:22
+msgid "Display Menu Bar"
+msgstr "Afficher la barre de menu"
+
+#: src/context-menu.vala:23 src/menu-bar.vala:25
 msgid "New Window"
 msgstr "Nouvelle Fenêtre"
 
-#: src/main-window.vala:107
+#: src/main-window.vala:109
 msgid ""
 "There is still a process running in this terminal. Closing the window will "
 "kill it."
@@ -55,7 +59,7 @@ msgstr ""
 "Il reste encore un processus en cours dans ce terminal. Fermer cette fenêtre va "
 "l'arrêter."
 
-#: src/main-window.vala:108
+#: src/main-window.vala:110
 msgid "Would you closing this window ?"
 msgstr "Voulez-vous fermer cette fenêtre ?"
 
