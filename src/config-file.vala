@@ -37,10 +37,13 @@ public class ConfigFile : GLib.KeyFile
 		}
 		catch(GLib.KeyFileError error)
 		{
-			// FIXME: Do something !
-			this.set_string(group, key, default_value);
-			return default_value;
+#if DEBUG
+			this.display_get_key_error(error.message);
+#endif
 		}
+
+		this.set_string(group, key, default_value);
+		return default_value;
 	}
 
 	public int get_integer_key(string group, string key, int default_value)
@@ -51,10 +54,13 @@ public class ConfigFile : GLib.KeyFile
 		}
 		catch(GLib.KeyFileError error)
 		{
-			// FIXME: Do something !
-			this.set_integer(group, key, default_value);
-			return default_value;
+#if DEBUG
+			this.display_get_key_error(error.message);
+#endif
 		}
+
+		this.set_integer(group, key, default_value);
+		return default_value;
 	}
 
 	public bool get_boolean_key(string group, string key, bool default_value)
@@ -65,10 +71,13 @@ public class ConfigFile : GLib.KeyFile
 		}
 		catch(GLib.KeyFileError error)
 		{
-			// FIXME: Do something !
-			this.set_boolean(group, key, default_value);
-			return default_value;
+#if DEBUG
+			this.display_get_key_error(error.message);
+#endif
 		}
+
+		this.set_boolean(group, key, default_value);
+		return default_value;
 	}
 
 	public Gdk.Color get_color_key(string group, string key, Gdk.Color default_value)
@@ -80,7 +89,7 @@ public class ConfigFile : GLib.KeyFile
 		catch(GLib.Error error)
 		{
 #if DEBUG
-			stderr.printf("Error: %s. Using the default value.\n", error.message);
+			this.display_get_key_error(error.message);
 #endif
 		}
 
@@ -128,4 +137,11 @@ public class ConfigFile : GLib.KeyFile
 			FileStream.open(file, "w");
 		}
 	}
+
+#if DEBUG
+	private void display_get_key_error(string message)
+	{
+		GLib.stderr.printf("Error: %s. Using the default value.\n", message);
+	}
+#endif
 }
