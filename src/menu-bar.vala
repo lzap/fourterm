@@ -60,6 +60,14 @@ public class Menubar : Gtk.MenuBar
 		this.active_signals();
 	}
 
+	public override void show()
+	{
+		if(Settings.show_menubar)
+		{
+			base.show();
+		}
+	}
+
 	private void active_signals()
 	{
 		this.item_about.activate.connect(() => this.about());
