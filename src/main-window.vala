@@ -56,7 +56,7 @@ public class MainWindow : Gtk.Window
 		this.menubar.about.connect(() => About.display(this));
 		this.menubar.preferences.connect(() =>
 		{
-			var dialog = new ConfigurationsWindow(this);
+			var dialog = new ParametersWindow(this);
 			dialog.font_changed.connect(this.terminal.set_font_from_string);
 			dialog.background_color_changed.connect(this.terminal.set_color_background);
 			dialog.foreground_color_changed.connect(this.terminal.set_color_foreground);

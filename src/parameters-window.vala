@@ -15,7 +15,7 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-public class ConfigurationsWindow : DefaultDialog
+public class ParametersWindow : DefaultDialog
 {
 	private FontButton font_chooser = new FontButton(Settings.font);
 	private ColorButton background_color_chooser = new ColorButton(Settings.background_color);
@@ -29,7 +29,7 @@ public class ConfigurationsWindow : DefaultDialog
 	public signal void scrollback_lines_changed(long lines);
 	public signal void transparency_changed(bool tranparency);
 
-	public ConfigurationsWindow(MainWindow parent_window)
+	public ParametersWindow(MainWindow parent_window)
 	{
 		this.title = _("ValaTerm Preferences");
 		this.transient_for = parent_window;
