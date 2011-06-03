@@ -58,18 +58,18 @@ public class ConfigurationsWindow : DefaultDialog
 	protected override void ok_clicked()
 	{
 		Settings.font = this.font_chooser.font_name;
-		this.font_changed(Settings.font);
+		this.font_changed(this.font_chooser.font_name);
 
 		Settings.background_color = this.background_color_chooser.color;
-		this.background_color_changed(Settings.background_color);
+		this.background_color_changed(this.background_color_chooser.color);
 
 		Settings.foreground_color = this.foreground_color_chooser.color;
-		this.foreground_color_changed(Settings.foreground_color);
+		this.foreground_color_changed(this.foreground_color_chooser.color);
 
 		Settings.scrollback_lines = this.scrollback_lines_chooser.get_value_as_int();
-		this.scrollback_lines_changed(Settings.scrollback_lines);
+		this.scrollback_lines_changed(this.scrollback_lines_chooser.get_value_as_int());
 
 		Settings.transparency = this.transparency_chooser.active;
-		this.transparency_changed(Settings.transparency);
+		this.transparency_changed(this.transparency_chooser.active);
 	}
 }
