@@ -19,7 +19,7 @@ public class ContextMenu : Gtk.Menu
 {
 	private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
 	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
-	private Gtk.CheckMenuItem item_display_menubar = new Gtk.CheckMenuItem.with_label(_("Menu Bar"));
+	private CheckMenuItem item_display_menubar = new CheckMenuItem(_("Menu Bar"), Settings.show_menubar);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, _("New Window"));
 
 	public signal void copy();
@@ -29,8 +29,6 @@ public class ContextMenu : Gtk.Menu
 
 	public ContextMenu()
 	{
-		this.item_display_menubar.active = Settings.show_menubar;
-
 		this.append(this.item_copy);
 		this.append(this.item_paste);
 		this.append(new Gtk.SeparatorMenuItem());

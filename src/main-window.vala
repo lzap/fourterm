@@ -105,9 +105,7 @@ public class MainWindow : Gtk.Window
 
 		if(this.terminal.has_foreground_process())
 		{
-			var dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL, Gtk.MessageType.WARNING, Gtk.ButtonsType.OK_CANCEL, _("There is still a process running in this terminal. Closing the window will kill it."));
-			dialog.title = _("Would you closing this window ?");
-			dialog.secondary_text = dialog.title;
+			var dialog = new MessageDialog(this, _("There is still a process running in this terminal. Closing the window will kill it."), _("Would you closing this window ?"));
 
 			if(dialog.run() == Gtk.ResponseType.CANCEL)
 			{

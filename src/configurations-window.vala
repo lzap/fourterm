@@ -17,11 +17,11 @@
 
 public class ConfigurationsWindow : DefaultDialog
 {
-	private Gtk.FontButton font_chooser = new Gtk.FontButton();
-	private Gtk.ColorButton background_color_chooser = new Gtk.ColorButton();
-	private Gtk.ColorButton foreground_color_chooser = new Gtk.ColorButton();
-	private Gtk.SpinButton scrollback_lines_chooser = new Gtk.SpinButton.with_range(-1, 10000, 1);
-	private Gtk.CheckButton transparency_chooser = new Gtk.CheckButton();
+	private FontButton font_chooser = new FontButton(Settings.font);
+	private ColorButton background_color_chooser = new ColorButton(Settings.background_color);
+	private ColorButton foreground_color_chooser = new ColorButton(Settings.foreground_color);
+	private SpinButton scrollback_lines_chooser = new SpinButton(Settings.scrollback_lines);
+	private CheckButton transparency_chooser = new CheckButton(Settings.transparency);
 
 	public signal void font_changed(string font);
 	public signal void background_color_changed(Gdk.Color color);
@@ -33,12 +33,6 @@ public class ConfigurationsWindow : DefaultDialog
 	{
 		this.title = _("ValaTerm Preferences");
 		this.transient_for = parent_window;
-
-		this.font_chooser.font_name = Settings.font;
-		this.background_color_chooser.color = Settings.background_color;
-		this.foreground_color_chooser.color = Settings.foreground_color;
-		this.scrollback_lines_chooser.value = Settings.scrollback_lines;
-		this.transparency_chooser.active = Settings.transparency;
 
 		var font_box = new ParameterBox(_("Font:"), this.font_chooser);
 
