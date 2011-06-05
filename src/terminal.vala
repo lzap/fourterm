@@ -21,7 +21,7 @@ public class Terminal : Vte.Terminal
 	private GLib.Pid? child_pid = null;
 
 #if VTE_SUP_0_26 && VALAC_SUP_0_12_1
-	private string? shell = null;
+	private string shell = Terminal.get_shell();
 #endif
 
 	public signal void title_changed(string title);
@@ -31,15 +31,6 @@ public class Terminal : Vte.Terminal
 	public Terminal()
 	{
         this.scroll_on_keystroke = true;
-
-#if VTE_SUP_0_26 && VALAC_SUP_0_12_1
-		this.shell = GLib.Environment.get_variable("SHELL");
-
-		if(this.shell == null)
-		{
-			this.shell = "/bin/sh";
-		}
-#endif
 
         this.background_transparent = Settings.transparency;
 		this.scrollback_lines = Settings.scrollback_lines;
@@ -110,4 +101,18 @@ public class Terminal : Vte.Terminal
 		int fgpid = Posix.tcgetpgrp(this.pty);
 		return fgpid != this.child_pid && fgpid != -1;
 	}
+
+#if VTE_SUP_0_26 && VALAC_SUP_0_12_1
+	private static string get_shell()
+	{
+		string? shell = GLib.Environment.get_variable("SHELL");
+
+		if(shell == null)
+		{
+			shell = "/bin/sh";
+		}
+
+		return shell;
+	}
+#endif
 }
