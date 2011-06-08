@@ -4,6 +4,7 @@
  * New window item added to the menu bar
  * Quit item added to the menu bar too
  * Scrollback lines setting added
+ * Ask if you want to close the window when a process is running
 
 
 0.2
