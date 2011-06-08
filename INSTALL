@@ -12,3 +12,7 @@ If you have not abready installed Waf, replace 'waf' by './waf' in the followed 
 or directly in root:
 
    # waf configure build install
+
+If you using Clang/LLVM as compiler, configure with:
+
+   $ CC=clang waf configure
