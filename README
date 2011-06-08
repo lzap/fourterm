@@ -4,7 +4,7 @@ Build Requirements
 ==================
 
  * valac (>= 0.12.0)
- * gcc
+ * gcc or Clang/LLVM
  * intltool
  * gettext
  * pkg-config
