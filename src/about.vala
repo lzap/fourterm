@@ -17,6 +17,8 @@
 
 public class About : Gtk.AboutDialog
 {
+	const string[] all_authors = { "Jacques-Pascal Deplaix <jp.deplaix@gmail.com>" };
+
 	private About(MainWindow parent_window)
 	{
 		this.transient_for = parent_window;
@@ -26,7 +28,7 @@ public class About : Gtk.AboutDialog
 		this.comments = _("ValaTerm is a lightweight terminal written in Vala");
 		this.logo = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
 		this.website = "https://gitorious.org/valaterm/";
-		this.authors = { "Jacques-Pascal Deplaix <jp.deplaix@gmail.com>" };
+		this.authors = all_authors;
 		this.license = "Copyright © 2011 Jacques-Pascal Deplaix" +
 			"\n" +
 			"\nValaTerm is free software: you can redistribute it and/or modify" +
