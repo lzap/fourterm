@@ -3,7 +3,7 @@ ValaTerm is a lightweight terminal written in Vala.
 Build Requirements
 ==================
 
- * valac (>= 0.12.0)
+ * valac >= 0.10.0 but >= 0.12.1 is better if you using vte >= 0.26
  * gcc or Clang/LLVM
  * intltool
  * gettext
@@ -12,6 +12,6 @@ Build Requirements
 Run Requirements
 ================
 
- * glib-2.0
- * gtk+-2.0
- * vte
+ * glib-2.0 >= 2.6
+ * gtk+-2.0 >= 2.16
+ * vte >= 0.20
