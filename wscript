@@ -30,15 +30,6 @@ def configure(conf):
         conf.env.VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
 
     conf.check_cfg(
-        package         = 'glib-2.0',
-        uselib_store    = 'glib',
-        atleast_version = '2.6',
-        args            = '--cflags --libs')
-    conf.check_cfg(
-        package         = 'gthread-2.0',
-        uselib_store    = 'gthread',
-        args            = '--cflags --libs')
-    conf.check_cfg(
         package         = 'gtk+-2.0',
         uselib_store    = 'gtk+',
         atleast_version = '2.16',
@@ -79,7 +70,7 @@ def build(bld):
         packages      = ['gtk+-2.0', 'vte', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
-        uselib        = ['gtk+', 'vte', 'glib', 'gthread'],
+        uselib        = ['gtk+', 'vte', 'GOBJECT', 'GTHREAD'],
         source        = ['src/about.vala',
                          'src/check-button.vala',
                          'src/check-menu-item.vala',
