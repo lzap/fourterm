@@ -31,20 +31,20 @@ def configure(conf):
 
     conf.check_cfg(
         package         = 'gtk+-2.0',
-        uselib_store    = 'gtk+',
+        uselib_store    = 'GTK',
         atleast_version = '2.16',
         args            = '--cflags --libs')
     try:
         conf.check_cfg(
             package         = 'vte',
-            uselib_store    = 'vte',
+            uselib_store    = 'VTE',
             atleast_version = '0.26',
             args            = '--cflags --libs')
         conf.env.VALAFLAGS.extend(['--define=VTE_SUP_0_26'])
     except waflib.Errors.ConfigurationError:
         conf.check_cfg(
             package         = 'vte',
-            uselib_store    = 'vte',
+            uselib_store    = 'VTE',
             max_version     = '0.26',
             atleast_version = '0.20',
             args            = '--cflags --libs')
@@ -70,7 +70,7 @@ def build(bld):
         packages      = ['gtk+-2.0', 'vte', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
-        uselib        = ['gtk+', 'vte', 'GOBJECT', 'GTHREAD'],
+        uselib        = ['GTK', 'VTE', 'GOBJECT', 'GTHREAD'],
         source        = ['src/about.vala',
                          'src/check-button.vala',
                          'src/check-menu-item.vala',
