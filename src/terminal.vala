@@ -53,8 +53,13 @@ public class Terminal : Vte.Terminal
 		this.context_menu.display_menubar.connect((a) => this.display_menubar(a));
 	}
 
-	public void active_shell()
+	public void active_shell(string? dir = null)
 	{
+		if(dir == null)
+		{
+			dir = GLib.Environment.get_home_dir();
+		}
+
 // This part can only be compiled by valac >= 0.12.1 (see commit: c677)
 #if VTE_SUP_0_26 && VALAC_SUP_0_12_1
 		try
@@ -62,14 +67,14 @@ public class Terminal : Vte.Terminal
 			string[] args = {};
 
 			GLib.Shell.parse_argv(this.shell, out args);
-			this.fork_command_full(Vte.PtyFlags.DEFAULT, GLib.Environment.get_home_dir(), args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.child_pid);
+			this.fork_command_full(Vte.PtyFlags.DEFAULT, dir, args, null, GLib.SpawnFlags.SEARCH_PATH, null, out this.child_pid);
 		}
 		catch(GLib.Error error)
 		{
 			// Do something !
 		}
 #else
-		this.child_pid = this.fork_command(null, null, null, GLib.Environment.get_home_dir(), true, true, true);
+		this.child_pid = this.fork_command(null, null, null, dir, true, true, true);
 #endif
 	}
 
@@ -115,4 +120,23 @@ public class Terminal : Vte.Terminal
 		return shell;
 	}
 #endif
+
+	//FIXME: Is it portable ?
+	public string? get_shell_cwd()
+	{
+		int pid = this.child_pid;
+
+		try
+		{
+			return GLib.FileUtils.read_link("/proc/" + pid.to_string() + "/cwd");
+		}
+		catch(GLib.FileError error)
+		{
+#if DEBUG
+			GLib.stderr.printf("Error: %s.\n", error.message);
+#endif
+		}
+
+		return null;
+	}
 }

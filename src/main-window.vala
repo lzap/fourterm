@@ -42,13 +42,13 @@ public class MainWindow : Gtk.Window
 		this.add(main_box);
 	}
 
-	public void display()
+	public void display(string? shell_cwd = null)
 	{
 		this.show_all();
 		this.resize(this.terminal.calcul_width(80), this.terminal.calcul_height(24));
 
 		// Do that after resize because Vte add rows if the main window is too small...
-		this.terminal.active_shell();
+		this.terminal.active_shell(shell_cwd);
 	}
 
 	private void active_signals()
@@ -121,6 +121,6 @@ public class MainWindow : Gtk.Window
 	private void new_window()
 	{
 		var window = new MainWindow();
-		window.display();
+		window.display(this.terminal.get_shell_cwd());
 	}
 }
