@@ -4,9 +4,7 @@
 
 EAPI="3"
 
-inherit git
-
-EGIT_REPO_URI="git://gitorious.org/valaterm/valaterm.git"
+SRC_URI="http://gentoo-vala.googlecode.com/files/${PN}-${PVR}.tar.bz2"
 DESCRIPTION="ValaTerm is a lightweigth terminal written in Vala"
 HOMEPAGE="https://gitorious.org/valaterm/"
 
@@ -23,7 +21,6 @@ DEPEND="${RDEPEND}
 	dev-util/pkgconfig"
 
 src_configure() {
-	git checkout ${PV}
 	./waf configure --prefix=/usr || die "Configure failed !"
 }
 

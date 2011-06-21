@@ -2,7 +2,7 @@
 # -*-coding:utf-8 -*
 
 APPNAME = 'valaterm'
-VERSION = '0.3'
+VERSION = '0.4-rc1'
 
 top = '.'
 out = 'build'
