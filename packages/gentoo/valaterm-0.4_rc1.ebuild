@@ -5,7 +5,7 @@
 EAPI="3"
 
 SRC_URI="http://gentoo-vala.googlecode.com/files/${PN}-${PVR}.tar.bz2"
-DESCRIPTION="ValaTerm is a lightweigth terminal written in Vala"
+DESCRIPTION="ValaTerm is a lightweight terminal written in Vala"
 HOMEPAGE="https://gitorious.org/valaterm/"
 
 LICENSE="GPL-3"
