@@ -15,33 +15,9 @@ msgstr ""
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/about.vala:26
+#: src/about.vala:28
 msgid "ValaTerm is a lightweight terminal written in Vala"
 msgstr "ValaTerm est un terminal léger écrit en Vala"
-
-#: src/configurations-window.vala:34
-msgid "ValaTerm Preferences"
-msgstr "Préférences de ValaTerm"
-
-#: src/configurations-window.vala:43
-msgid "Font:"
-msgstr "Police:"
-
-#: src/configurations-window.vala:45
-msgid "Background color:"
-msgstr "Couleur d'arrière-plan:"
-
-#: src/configurations-window.vala:48
-msgid "Foreground color:"
-msgstr "Couleur du texte:"
-
-#: src/configurations-window.vala:51
-msgid "Scrollback lines:"
-msgstr "Lignes de défilement:"
-
-#: src/configurations-window.vala:54
-msgid "Transparency:"
-msgstr "Transparence:"
 
 #: src/context-menu.vala:22
 msgid "Menu Bar"
@@ -51,7 +27,7 @@ msgstr "Barre de Menu"
 msgid "New Window"
 msgstr "Nouvelle Fenêtre"
 
-#: src/main-window.vala:109
+#: src/main-window.vala:108
 msgid ""
 "There is still a process running in this terminal. Closing the window will "
 "kill it."
@@ -59,7 +35,7 @@ msgstr ""
 "Il reste encore un processus en cours dans ce terminal. Fermer cette fenêtre va "
 "l'arrêter."
 
-#: src/main-window.vala:110
+#: src/main-window.vala:108
 msgid "Would you closing this window ?"
 msgstr "Voulez-vous fermer cette fenêtre ?"
 
@@ -78,3 +54,27 @@ msgstr "Outils"
 #: src/menu-bar.vala:52
 msgid "Help"
 msgstr "Aide"
+
+#: src/parameters-window.vala:34
+msgid "ValaTerm Preferences"
+msgstr "Préférences de ValaTerm"
+
+#: src/parameters-window.vala:37
+msgid "Font:"
+msgstr "Police:"
+
+#: src/parameters-window.vala:39
+msgid "Background color:"
+msgstr "Couleur d'arrière-plan:"
+
+#: src/parameters-window.vala:42
+msgid "Foreground color:"
+msgstr "Couleur du texte:"
+
+#: src/parameters-window.vala:45
+msgid "Scrollback lines:"
+msgstr "Lignes de défilement:"
+
+#: src/parameters-window.vala:48
+msgid "Transparency:"
+msgstr "Transparence:"

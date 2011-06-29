@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2011-06-02 22:28+0200\n"
+"POT-Creation-Date: 2011-06-29 13:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,32 +17,8 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: src/about.vala:26
+#: src/about.vala:28
 msgid "ValaTerm is a lightweight terminal written in Vala"
-msgstr ""
-
-#: src/configurations-window.vala:34
-msgid "ValaTerm Preferences"
-msgstr ""
-
-#: src/configurations-window.vala:43
-msgid "Font:"
-msgstr ""
-
-#: src/configurations-window.vala:45
-msgid "Background color:"
-msgstr ""
-
-#: src/configurations-window.vala:48
-msgid "Foreground color:"
-msgstr ""
-
-#: src/configurations-window.vala:51
-msgid "Scrollback lines:"
-msgstr ""
-
-#: src/configurations-window.vala:54
-msgid "Transparency:"
 msgstr ""
 
 #: src/context-menu.vala:22
@@ -53,13 +29,13 @@ msgstr ""
 msgid "New Window"
 msgstr ""
 
-#: src/main-window.vala:109
+#: src/main-window.vala:108
 msgid ""
 "There is still a process running in this terminal. Closing the window will "
 "kill it."
 msgstr ""
 
-#: src/main-window.vala:110
+#: src/main-window.vala:108
 msgid "Would you closing this window ?"
 msgstr ""
 
@@ -77,4 +53,28 @@ msgstr ""
 
 #: src/menu-bar.vala:52
 msgid "Help"
+msgstr ""
+
+#: src/parameters-window.vala:34
+msgid "ValaTerm Preferences"
+msgstr ""
+
+#: src/parameters-window.vala:37
+msgid "Font:"
+msgstr ""
+
+#: src/parameters-window.vala:39
+msgid "Background color:"
+msgstr ""
+
+#: src/parameters-window.vala:42
+msgid "Foreground color:"
+msgstr ""
+
+#: src/parameters-window.vala:45
+msgid "Scrollback lines:"
+msgstr ""
+
+#: src/parameters-window.vala:48
+msgid "Transparency:"
 msgstr ""
