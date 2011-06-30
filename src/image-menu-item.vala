@@ -24,7 +24,7 @@ public class ImageMenuItem : Gtk.ImageMenuItem
 
 		if(label != null)
 		{
-			this.label = (string)(label);
+			this.label = (!)(label);
 		}
 	}
 }

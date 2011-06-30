@@ -117,14 +117,14 @@ public class Terminal : Vte.Terminal
 			shell = "/bin/sh";
 		}
 
-		return (string)(shell);
+		return (!)(shell);
 	}
 #endif
 
 	//FIXME: Is it portable ?
 	public string? get_shell_cwd()
 	{
-		int pid = (GLib.Pid)(this.child_pid);
+		int pid = (!)(this.child_pid);
 
 		try
 		{
