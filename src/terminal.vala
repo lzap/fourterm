@@ -80,12 +80,16 @@ public class Terminal : Vte.Terminal
 
 	public int calcul_width(int column_count)
 	{
-		return (this.allocation.width * column_count) / (int)(this.get_column_count());
+		Gtk.Allocation? alloc = null;
+		this.get_allocation(out alloc);
+		return (((!)(alloc)).width * column_count) / (int)(this.get_column_count());
 	}
 
 	public int calcul_height(int row_count)
 	{
-		return (this.allocation.height * row_count) / (int)(this.get_row_count());
+		Gtk.Allocation? alloc = null;
+		this.get_allocation(out alloc);
+		return (((!)(alloc)).height * row_count) / (int)(this.get_row_count());
 	}
 
 	private bool display_menu(Gdk.EventButton event)
