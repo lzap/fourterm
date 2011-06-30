@@ -48,11 +48,12 @@ public class ParametersWindow : DefaultDialog
 		var transparency_box = new ParameterBox(_("Transparency:"),
 												this.transparency_chooser);
 
-		this.vbox.pack_start(font_box);
-		this.vbox.pack_start(background_color_box);
-		this.vbox.pack_start(foreground_color_box);
-		this.vbox.pack_start(scrollback_lines_box);
-		this.vbox.pack_start(transparency_box);
+		var main_box = (Gtk.Box)(this.get_content_area());
+		main_box.pack_start(font_box);
+		main_box.pack_start(background_color_box);
+		main_box.pack_start(foreground_color_box);
+		main_box.pack_start(scrollback_lines_box);
+		main_box.pack_start(transparency_box);
 	}
 
 	protected override void ok_clicked()
