@@ -35,6 +35,11 @@ def configure(conf):
     if conf.env.VALAC_VERSION >= (0, 12, 1):
         conf.env.VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
 
+    if conf.env.VALAC_VERSION >= (0, 12, 0):
+        glib_package_version = '2.16.0'
+    else:
+        glib_package_version = '2.14.0'
+
     if conf.options.with_gtk3 == True:
         gtk_package_name = 'gtk+-3.0'
         vte_package_name = 'vte-2.90'
@@ -43,10 +48,29 @@ def configure(conf):
         vte_package_name = 'vte'
 
     conf.check_cfg(
+        package         = 'glib-2.0',
+        uselib_store    = 'GLIB',
+        atleast_version = glib_package_version,
+        args            = '--cflags --libs')
+
+    conf.check_cfg(
+        package         = 'gobject-2.0',
+        uselib_store    = 'GOBJECT',
+        atleast_version = glib_package_version,
+        args            = '--cflags --libs')
+
+    conf.check_cfg(
+        package         = 'gthread-2.0',
+        uselib_store    = 'GTHREAD',
+        atleast_version = glib_package_version,
+        args            = '--cflags --libs')
+
+    conf.check_cfg(
         package         = gtk_package_name,
         uselib_store    = 'GTK',
         atleast_version = '2.16',
         args            = '--cflags --libs')
+
     try:
         conf.check_cfg(
             package         = vte_package_name,
@@ -83,7 +107,7 @@ def build(bld):
         packages      = ['vte', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
-        uselib        = ['GTK', 'VTE', 'GOBJECT', 'GTHREAD'],
+        uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
         source        = ['src/about.vala',
                          'src/check-button.vala',
                          'src/check-menu-item.vala',
