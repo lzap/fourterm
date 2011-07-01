@@ -18,6 +18,12 @@ def options(opt):
                    action = 'store_true',
                    default = False)
 
+    opt.add_option('--with-gtk3',
+                   help = 'Compile with Gtk 3.0 instead of Gtk 2.0 (Experimental mode).'
+                   ' Works only with a modified vte.deps',
+                   action = 'store_true',
+                   default = False)
+
 def configure(conf):
     conf.env.CFLAGS = list()
     conf.env.VALAFLAGS = list()
@@ -29,14 +35,45 @@ def configure(conf):
     if conf.env.VALAC_VERSION >= (0, 12, 1):
         conf.env.VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
 
+    if conf.env.VALAC_VERSION >= (0, 12, 0):
+        glib_package_version = '2.16.0'
+    else:
+        glib_package_version = '2.14.0'
+
+    if conf.options.with_gtk3 == True:
+        gtk_package_name = 'gtk+-3.0'
+        vte_package_name = 'vte-2.90'
+    else:
+        gtk_package_name = 'gtk+-2.0'
+        vte_package_name = 'vte'
+
     conf.check_cfg(
-        package         = 'gtk+-2.0',
+        package         = 'glib-2.0',
+        uselib_store    = 'GLIB',
+        atleast_version = glib_package_version,
+        args            = '--cflags --libs')
+
+    conf.check_cfg(
+        package         = 'gobject-2.0',
+        uselib_store    = 'GOBJECT',
+        atleast_version = glib_package_version,
+        args            = '--cflags --libs')
+
+    conf.check_cfg(
+        package         = 'gthread-2.0',
+        uselib_store    = 'GTHREAD',
+        atleast_version = glib_package_version,
+        args            = '--cflags --libs')
+
+    conf.check_cfg(
+        package         = gtk_package_name,
         uselib_store    = 'GTK',
         atleast_version = '2.16',
         args            = '--cflags --libs')
+
     try:
         conf.check_cfg(
-            package         = 'vte',
+            package         = vte_package_name,
             uselib_store    = 'VTE',
             atleast_version = '0.26',
             args            = '--cflags --libs')
@@ -70,7 +107,7 @@ def build(bld):
         packages      = ['vte', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
-        uselib        = ['GTK', 'VTE', 'GOBJECT', 'GTHREAD'],
+        uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
         source        = ['src/about.vala',
                          'src/check-button.vala',
                          'src/check-menu-item.vala',
