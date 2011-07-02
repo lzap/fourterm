@@ -45,7 +45,12 @@ public class MainWindow : Gtk.Window
 	public void display(string? shell_cwd = null)
 	{
 		this.show_all();
-		this.resize(this.terminal.calcul_width(80), this.terminal.calcul_height(24));
+
+		Gtk.Allocation? alloc = null;
+		this.get_allocation(out alloc);
+
+		this.resize(this.terminal.calcul_width(((!)(alloc)).width, 80),
+					this.terminal.calcul_height(((!)(alloc)).height, 24));
 
 		// Do that after resize because Vte add rows if the main window is too small...
 		this.terminal.active_shell(shell_cwd);
