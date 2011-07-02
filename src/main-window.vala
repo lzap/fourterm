@@ -34,7 +34,7 @@ public class MainWindow : Gtk.Window
 		scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
 		scrolled_window.add(this.terminal);
 
-		var main_box = new Gtk.VBox(false, 1);
+		var main_box = new Gtk.VBox(false, 0);
 		main_box.pack_start(this.menubar, false);
 		main_box.pack_start(scrolled_window);
 
