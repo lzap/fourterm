@@ -142,7 +142,7 @@ public class Terminal : Vte.Terminal
 
 		try
 		{
-			return GLib.FileUtils.read_link("/proc/" + pid.to_string() + "/cwd");
+			return GLib.FileUtils.read_link("/proc/%d/cwd".printf(pid));
 		}
 		catch(GLib.FileError error)
 		{
