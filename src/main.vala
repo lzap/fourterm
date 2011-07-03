@@ -19,12 +19,23 @@ void main(string[] args)
 {
 	Gtk.init(ref args);
 
+#if ENABLE_NLS
 	GLib.Intl.setlocale(GLib.LocaleCategory.ALL, "");
 	GLib.Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALE_DIR);
 	GLib.Intl.textdomain(Config.GETTEXT_PACKAGE);
+#endif
 
 	var window = new MainWindow();
 	window.display();
 
 	Gtk.main();
+}
+
+public unowned string _(string str)
+{
+#if ENABLE_NLS
+	return GLib._(str);
+#else
+	return str;
+#endif
 }

@@ -25,11 +25,20 @@ def options(opt):
                    action = 'store_true',
                    default = False)
 
+    opt.add_option('--disable-nls',
+                   help = 'Disable internationalisation (text in english).',
+                   action = 'store_true',
+                   default = False)
+
 def configure(conf):
     conf.env.CFLAGS = list()
     conf.env.VALAFLAGS = list()
 
-    conf.load(['compiler_c', 'gnu_dirs', 'intltool'])
+    if conf.options.disable_nls == True:
+        conf.load(['compiler_c', 'gnu_dirs'])
+    else:
+        conf.load(['compiler_c', 'gnu_dirs', 'intltool'])
+
     conf.load('vala', funs = '')
     conf.check_vala(min_version = (0, 10, 0))
 
@@ -89,8 +98,11 @@ def configure(conf):
 
     # Add /usr/local/include for compilation under OpenBSD
     conf.env.CFLAGS.extend(['-pipe', '-I/usr/local/include', '-include', 'config.h'])
-    conf.define('GETTEXT_PACKAGE', APPNAME)
     conf.define('VERSION', VERSION)
+
+    if conf.options.disable_nls == False:
+        conf.define('GETTEXT_PACKAGE', APPNAME)
+        conf.env.VALAFLAGS.extend(['--define=ENABLE_NLS'])
 
     if conf.options.debug == True:
         conf.env.CFLAGS.extend(['-g'])
@@ -102,7 +114,8 @@ def configure(conf):
     conf.write_config_header('config.h')
 
 def build(bld):
-    bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
+    if bld.options.disable_nls == False:
+        bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
     bld.program(
         packages      = ['vte', 'config', 'posix'],
