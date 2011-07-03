@@ -1,5 +1,6 @@
 #! /usr/bin/env python
 # encoding: utf-8
+# Copyright © 2011 Jacques-Pascal Deplaix
 
 APPNAME = 'valaterm'
 VERSION = '0.4-rc1'
