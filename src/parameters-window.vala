@@ -58,19 +58,34 @@ public class ParametersWindow : DefaultDialog
 
 	protected override void ok_clicked()
 	{
-		Settings.font = this.font_chooser.font_name;
-		this.font_changed(this.font_chooser.font_name);
+		if(Settings.font != this.font_chooser.font_name)
+		{
+			Settings.font = this.font_chooser.font_name;
+			this.font_changed(this.font_chooser.font_name);
+		}
 
-		Settings.background_color = this.background_color_chooser.color;
-		this.background_color_changed(this.background_color_chooser.color);
+		if(Settings.background_color != this.background_color_chooser.color)
+		{
+			Settings.background_color = this.background_color_chooser.color;
+			this.background_color_changed(this.background_color_chooser.color);
+		}
 
-		Settings.foreground_color = this.foreground_color_chooser.color;
-		this.foreground_color_changed(this.foreground_color_chooser.color);
+		if(Settings.foreground_color != this.foreground_color_chooser.color)
+		{
+			Settings.foreground_color = this.foreground_color_chooser.color;
+			this.foreground_color_changed(this.foreground_color_chooser.color);
+		}
 
-		Settings.scrollback_lines = this.scrollback_lines_chooser.get_value_as_int();
-		this.scrollback_lines_changed(this.scrollback_lines_chooser.get_value_as_int());
+		if(Settings.scrollback_lines != this.scrollback_lines_chooser.get_value_as_int())
+		{
+			Settings.scrollback_lines = this.scrollback_lines_chooser.get_value_as_int();
+			this.scrollback_lines_changed(this.scrollback_lines_chooser.get_value_as_int());
+		}
 
-		Settings.transparency = this.transparency_chooser.active;
-		this.transparency_changed(this.transparency_chooser.active);
+		if(Settings.transparency != this.transparency_chooser.active)
+		{
+			Settings.transparency = this.transparency_chooser.active;
+			this.transparency_changed(this.transparency_chooser.active);
+		}
 	}
 }
