@@ -19,8 +19,9 @@ void main(string[] args)
 {
 	Gtk.init(ref args);
 
-	GLib.Intl.setlocale(GLib.LocaleCategory.ALL, null);
+	GLib.Intl.setlocale(GLib.LocaleCategory.ALL, "");
 	GLib.Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALE_DIR);
+	GLib.Intl.textdomain(Config.GETTEXT_PACKAGE);
 
 	var window = new MainWindow();
 	window.display();
