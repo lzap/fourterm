@@ -31,7 +31,7 @@ void main(string[] args)
 	Gtk.main();
 }
 
-public unowned string _(string str)
+public unowned string tr(string str)
 {
 #if ENABLE_NLS
 	return GLib._(str);

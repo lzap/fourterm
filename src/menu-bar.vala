@@ -22,7 +22,7 @@ public class Menubar : Gtk.MenuBar
 	private ImageMenuItem item_clear = new ImageMenuItem(Icons.CLEAR);
 	private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
 	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
-	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, _("New Window"));
+	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
 	private ImageMenuItem item_quit = new ImageMenuItem(Icons.QUIT);
 
 	public signal void about();
@@ -35,21 +35,21 @@ public class Menubar : Gtk.MenuBar
 
 	public Menubar()
 	{
-		var menu_file = new MenuItem(_("File"), {
+		var menu_file = new MenuItem(tr("File"), {
 				this.item_new_window,
 				new Gtk.SeparatorMenuItem(),
 				this.item_quit});
 
-		var menu_edit = new MenuItem(_("Edit"), {
+		var menu_edit = new MenuItem(tr("Edit"), {
 				this.item_copy,
 				this.item_paste,
 				new Gtk.SeparatorMenuItem(),
 				this.item_preferences});
 
-		var menu_tools = new MenuItem(_("Tools"), {
+		var menu_tools = new MenuItem(tr("Tools"), {
 				this.item_clear});
 
-		var menu_help = new MenuItem(_("Help"), {
+		var menu_help = new MenuItem(tr("Help"), {
 				this.item_about});
 
 		this.append(menu_file);

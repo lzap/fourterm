@@ -31,21 +31,21 @@ public class ParametersWindow : DefaultDialog
 
 	public ParametersWindow(MainWindow parent_window)
 	{
-		this.title = _("ValaTerm Preferences");
+		this.title = tr("ValaTerm Preferences");
 		this.transient_for = parent_window;
 
-		var font_box = new ParameterBox(_("Font:"), this.font_chooser);
+		var font_box = new ParameterBox(tr("Font:"), this.font_chooser);
 
-		var background_color_box = new ParameterBox(_("Background color:"),
+		var background_color_box = new ParameterBox(tr("Background color:"),
 													this.background_color_chooser);
 
-		var foreground_color_box = new ParameterBox(_("Foreground color:"),
+		var foreground_color_box = new ParameterBox(tr("Foreground color:"),
 													this.foreground_color_chooser);
 
-		var scrollback_lines_box = new ParameterBox(_("Scrollback lines:"),
+		var scrollback_lines_box = new ParameterBox(tr("Scrollback lines:"),
 													this.scrollback_lines_chooser);
 
-		var transparency_box = new ParameterBox(_("Transparency:"),
+		var transparency_box = new ParameterBox(tr("Transparency:"),
 												this.transparency_chooser);
 
 		var main_box = (Gtk.Box)(this.get_content_area());
