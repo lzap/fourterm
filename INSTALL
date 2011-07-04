@@ -1,18 +1,12 @@
-Waf executable version: 1.6.3
-Waf executable license: BSD
+Waf executable version: 1.6.6
 
-If you want to compile the binary on debug, add --debug when you execute waf configure.
+If you want to compile the binary on debug, add --debug when you execute: ./waf configure.
+For the others options see: ./waf --help
 
 === How to install ===
-If you have not abready installed Waf, replace 'waf' by './waf' in the followed commands:
 
-   $ waf configure build
-   # waf install
-
-or directly in root:
-
-   # waf configure build install
+   # ./waf configure build install [--debug] [--with-gtk3] [--disable-nls]
 
 If you using Clang/LLVM as compiler, configure with:
 
-   $ CC=clang waf configure
+   $ CC=clang ./waf configure [--debug] [--with-gtk3] [--disable-nls]
