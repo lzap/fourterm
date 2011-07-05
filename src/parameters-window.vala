@@ -64,13 +64,19 @@ public class ParametersWindow : DefaultDialog
 			this.font_changed(this.font_chooser.font_name);
 		}
 
+/* Vala bug: 623092 (https://bugzilla.gnome.org/show_bug.cgi?id=623092) */
+#if VALA_0_12
 		if(Settings.background_color != this.background_color_chooser.color)
+#endif
 		{
 			Settings.background_color = this.background_color_chooser.color;
 			this.background_color_changed(this.background_color_chooser.color);
 		}
 
+/* Vala bug: 623092 (https://bugzilla.gnome.org/show_bug.cgi?id=623092) */
+#if VALA_0_12
 		if(Settings.foreground_color != this.foreground_color_chooser.color)
+#endif
 		{
 			Settings.foreground_color = this.foreground_color_chooser.color;
 			this.foreground_color_changed(this.foreground_color_chooser.color);
