@@ -144,3 +144,6 @@ def build(bld):
                          'src/settings.vala',
                          'src/spin-button.vala',
                          'src/terminal.vala'])
+
+def dist(ctx):
+    ctx.excl = '**/.*'
