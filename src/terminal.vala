@@ -21,7 +21,7 @@ public class Terminal : Vte.Terminal
 	private GLib.Pid? child_pid = null;
 
 #if VTE_SUP_0_26 && VALAC_SUP_0_12_1
-	private string shell = Terminal.get_shell();
+	private unowned string shell = Terminal.get_shell();
 #endif
 
 	public signal void title_changed(string title);
@@ -122,9 +122,9 @@ public class Terminal : Vte.Terminal
 	}
 
 #if VTE_SUP_0_26 && VALAC_SUP_0_12_1
-	private static string get_shell()
+	private static unowned string get_shell()
 	{
-		string? shell = GLib.Environment.get_variable("SHELL");
+		unowned string? shell = GLib.Environment.get_variable("SHELL");
 
 		if(shell == null)
 		{
