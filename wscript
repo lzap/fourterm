@@ -33,6 +33,7 @@ def options(opt):
 def configure(conf):
     conf.env.CFLAGS = list()
     conf.env.VALAFLAGS = list()
+    conf.env.LINKFLAGS = list()
 
     if conf.options.disable_nls == True:
         conf.load(['compiler_c', 'gnu_dirs'])
@@ -105,11 +106,12 @@ def configure(conf):
         conf.env.VALAFLAGS.extend(['--define=ENABLE_NLS'])
 
     if conf.options.debug == True:
-        conf.env.CFLAGS.extend(['-g'])
+        conf.env.CFLAGS.extend(['-g3', '-ggdb3'])
         conf.env.VALAFLAGS.extend(['--fatal-warnings', '-g', '--define=DEBUG'])
     else:
         conf.env.CFLAGS.extend(['-O2'])
         conf.env.VALAFLAGS.extend(['--thread'])
+        conf.env.LINKFLAGS.extend(['-Wl,-O1', '-s'])
 
     conf.write_config_header('config.h')
 
