@@ -29,18 +29,23 @@ public class Settings : GLib.Object
 	private const string TRANSPARENCY = "Transparency";
 	private const string SHOW = "Show";
 
+	private static unowned ConfigFile file;
+
+	public static void init(ConfigFile file)
+	{
+		Settings.file = file;
+	}
+
 	public static string font
 	{
 		// FIXME: Why owned (only) here ???
 		owned get
 		{
-			var file = new ConfigFile();
 			return file.get_string_key(TERMINAL, FONT, "FreeMono 10");
 		}
 
 		set
 		{
-			var file = new ConfigFile();
 			file.set_string(TERMINAL, FONT, value);
 			file.write();
 		}
@@ -50,14 +55,12 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			var file = new ConfigFile();
 			Gdk.Color white = { 0, 0xffff, 0xffff, 0xffff };
 			return file.get_color_key(TERMINAL, BACKGROUND_COLOR, white);
 		}
 
 		set
 		{
-			var file = new ConfigFile();
 			file.set_string(TERMINAL, BACKGROUND_COLOR, value.to_string());
 			file.write();
 		}
@@ -67,14 +70,12 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			var file = new ConfigFile();
 			Gdk.Color black = { 0, 0, 0, 0 };
 			return file.get_color_key(TERMINAL, FOREGROUND_COLOR, black);
 		}
 
 		set
 		{
-			var file = new ConfigFile();
 			file.set_string(TERMINAL, FOREGROUND_COLOR, value.to_string());
 			file.write();
 		}
@@ -84,13 +85,11 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			var file = new ConfigFile();
 			return file.get_integer_key(TERMINAL, SCROLLBACK_LINES, 500);
 		}
 
 		set
 		{
-			var file = new ConfigFile();
 			file.set_integer(TERMINAL, SCROLLBACK_LINES, value);
 			file.write();
 		}
@@ -100,13 +99,11 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			var file = new ConfigFile();
 			return file.get_boolean_key(TERMINAL, TRANSPARENCY, false);
 		}
 
 		set
 		{
-			var file = new ConfigFile();
 			file.set_boolean(TERMINAL, TRANSPARENCY, value);
 			file.write();
 		}
@@ -116,13 +113,11 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			var file = new ConfigFile();
 			return file.get_boolean_key(MENUBAR, SHOW, true);
 		}
 
 		set
 		{
-			var file = new ConfigFile();
 			file.set_boolean(MENUBAR, SHOW, value);
 			file.write();
 		}

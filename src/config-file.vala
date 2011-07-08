@@ -15,17 +15,24 @@
 ** along with this program.  If not, see <http://www.gnu.org/licenses/>.
 ****************************/
 
-public class ConfigFile : GLib.KeyFile
+public class ConfigFile : GLib.Object
 {
+	private GLib.KeyFile file = new GLib.KeyFile();
+	private bool has_errors = false;
+
     public ConfigFile()
     {
         try
         {
-            this.load_from_file(this.filename(), KeyFileFlags.NONE);
+            this.file.load_from_file(this.filename(), KeyFileFlags.NONE);
         }
         catch(GLib.Error error)
         {
-			// FIXME: Do something !
+			if(!(error is GLib.KeyFileError.PARSE))
+			{
+				this.has_errors = true;
+				// FIXME: Do something !
+			}
         }
     }
 
@@ -33,7 +40,7 @@ public class ConfigFile : GLib.KeyFile
 	{
 		try
 		{
-		    return this.get_string(group, key);
+		    return this.file.get_string(group, key);
 		}
 		catch(GLib.KeyFileError error)
 		{
@@ -42,7 +49,7 @@ public class ConfigFile : GLib.KeyFile
 #endif
 		}
 
-		this.set_string(group, key, default_value);
+		this.file.set_string(group, key, default_value);
 		return default_value;
 	}
 
@@ -50,7 +57,7 @@ public class ConfigFile : GLib.KeyFile
 	{
 		try
 		{
-			return this.get_integer(group, key);
+			return this.file.get_integer(group, key);
 		}
 		catch(GLib.KeyFileError error)
 		{
@@ -59,7 +66,7 @@ public class ConfigFile : GLib.KeyFile
 #endif
 		}
 
-		this.set_integer(group, key, default_value);
+		this.file.set_integer(group, key, default_value);
 		return default_value;
 	}
 
@@ -67,7 +74,7 @@ public class ConfigFile : GLib.KeyFile
 	{
 		try
 		{
-			return this.get_boolean(group, key);
+			return this.file.get_boolean(group, key);
 		}
 		catch(GLib.KeyFileError error)
 		{
@@ -76,7 +83,7 @@ public class ConfigFile : GLib.KeyFile
 #endif
 		}
 
-		this.set_boolean(group, key, default_value);
+		this.file.set_boolean(group, key, default_value);
 		return default_value;
 	}
 
@@ -84,7 +91,7 @@ public class ConfigFile : GLib.KeyFile
 	{
 		try
 		{
-		    return Colors.parse(this.get_string(group, key));
+		    return Colors.parse(this.file.get_string(group, key));
 		}
 		catch(GLib.Error error)
 		{
@@ -93,21 +100,39 @@ public class ConfigFile : GLib.KeyFile
 #endif
 		}
 
-		this.set_string(group, key, default_value.to_string());
+		this.file.set_string(group, key, default_value.to_string());
 		return default_value;
 	}
 
     public void write()
     {
-        try
-        {
-            FileUtils.set_contents(this.filename(), this.to_data());
-        }
-        catch(GLib.FileError error)
-        {
-			// FIXME: Do something !
-        }
+		if(!this.has_errors)
+		{
+			try
+			{
+				FileUtils.set_contents(this.filename(), this.file.to_data());
+			}
+			catch(GLib.FileError error)
+			{
+				// FIXME: Do something !
+			}
+		}
     }
+
+	public void set_string(string group_name, string key, string str)
+	{
+		this.file.set_string(group_name, key, str);
+	}
+
+	public void set_boolean(string group_name, string key, bool value)
+	{
+		this.file.set_boolean(group_name, key, value);
+	}
+
+	public void set_integer(string group_name, string key, int value)
+	{
+		this.file.set_integer(group_name, key, value);
+	}
 
 	private string filename()
 	{
