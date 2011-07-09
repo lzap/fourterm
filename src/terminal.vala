@@ -117,7 +117,12 @@ public class Terminal : Vte.Terminal
 
 	public bool has_foreground_process()
 	{
-		int fgpid = Posix.tcgetpgrp(this.pty);
+#if GTK3
+		int pty = this.pty_object.fd;
+#else
+		int pty = this.pty;
+#endif
+		int fgpid = Posix.tcgetpgrp(pty);
 		return fgpid != this.child_pid && fgpid != -1;
 	}
 

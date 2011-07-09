@@ -40,8 +40,13 @@ def configure(conf):
     else:
         conf.load(['compiler_c', 'gnu_dirs', 'intltool'])
 
+    if conf.options.with_gtk3 == True:
+        min_vala_version = (0, 13, 2)
+    else:
+        min_vala_version = (0, 10, 0)
+
     conf.load('vala', funs = '')
-    conf.check_vala(min_version = (0, 10, 0))
+    conf.check_vala(min_version = min_vala_version)
 
     if conf.env.VALAC_VERSION >= (0, 12, 1):
         conf.env.VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
@@ -91,7 +96,7 @@ def configure(conf):
         conf.env.VALAFLAGS.extend(['--define=VTE_SUP_0_26'])
     except waflib.Errors.ConfigurationError:
         conf.check_cfg(
-            package         = 'vte',
+            package         = vte_package_name,
             uselib_store    = 'VTE',
             max_version     = '0.26',
             atleast_version = '0.20',
@@ -119,8 +124,13 @@ def build(bld):
     if bld.options.disable_nls == False:
         bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
+    if bld.options.with_gtk3 == True:
+        vte_name = 'vte-2.90'
+    else:
+        vte_name = 'vte'
+
     bld.program(
-        packages      = ['vte', 'config', 'posix'],
+        packages      = [vte_name, 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
         uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
