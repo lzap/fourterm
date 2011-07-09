@@ -21,7 +21,7 @@ def options(opt):
 
     opt.add_option('--with-gtk3',
                    help = 'Compile with Gtk 3.0 instead of Gtk 2.0 (Experimental mode).'
-                   ' Works only with a modified vte.deps',
+                   ' Works only with Vala >= 0.13.2',
                    action = 'store_true',
                    default = False)
 
@@ -35,13 +35,13 @@ def configure(conf):
     conf.env.VALAFLAGS = list()
     conf.env.LINKFLAGS = list()
 
-    if conf.options.disable_nls == True:
-        conf.load(['compiler_c', 'gnu_dirs'])
-    else:
-        conf.load(['compiler_c', 'gnu_dirs', 'intltool'])
+    conf.load(['compiler_c', 'gnu_dirs'])
+
+    if conf.options.disable_nls != True:
+        conf.load(['intltool'])
 
     if conf.options.with_gtk3 == True:
-        min_vala_version = (0, 13, 2)
+        min_vala_version = (0, 13, 1)
     else:
         min_vala_version = (0, 10, 0)
 
@@ -57,6 +57,7 @@ def configure(conf):
         glib_package_version = '2.14.0'
 
     if conf.options.with_gtk3 == True:
+        conf.env.VALAFLAGS.extend(['--define=GTK3'])
         gtk_package_name = 'gtk+-3.0'
         vte_package_name = 'vte-2.90'
     else:
@@ -112,7 +113,7 @@ def configure(conf):
 
     if conf.options.debug == True:
         conf.env.CFLAGS.extend(['-g3', '-ggdb3'])
-        conf.env.VALAFLAGS.extend(['--fatal-warnings', '-g', '--define=DEBUG'])
+        conf.env.VALAFLAGS.extend(['-g', '--define=DEBUG'])
     else:
         conf.env.CFLAGS.extend(['-O2'])
         conf.env.VALAFLAGS.extend(['--thread'])
