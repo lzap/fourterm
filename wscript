@@ -119,13 +119,17 @@ def configure(conf):
         conf.env.VALAFLAGS.extend(['--thread'])
         conf.env.LINKFLAGS.extend(['-Wl,-O1', '-s'])
 
+    conf.env.debug = conf.options.debug
+    conf.env.with_gtk3 = conf.options.with_gtk3
+    conf.env.disable_nls = conf.options.disable_nls
+
     conf.write_config_header('config.h')
 
 def build(bld):
-    if bld.options.disable_nls == False:
+    if bld.env.disable_nls == False:
         bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
-    if bld.options.with_gtk3 == True:
+    if bld.env.with_gtk3 == True:
         vte_name = 'vte-2.90'
     else:
         vte_name = 'vte'
