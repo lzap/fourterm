@@ -41,7 +41,7 @@ def configure(conf):
         conf.load(['intltool'])
 
     if conf.options.with_gtk3 == True:
-        min_vala_version = (0, 13, 1)
+        min_vala_version = (0, 13, 2)
     else:
         min_vala_version = (0, 10, 0)
 
