@@ -53,13 +53,8 @@ public class Terminal : Vte.Terminal
 		this.context_menu.display_menubar.connect((a) => this.display_menubar(a));
 	}
 
-	public void active_shell(string? dir = null)
+	public void active_shell(string dir)
 	{
-		if(dir == null)
-		{
-			dir = GLib.Environment.get_home_dir();
-		}
-
 // This part can only be compiled by valac >= 0.12.1 (see commit: c677)
 #if VTE_SUP_0_26 && VALAC_SUP_0_12_1
 		try

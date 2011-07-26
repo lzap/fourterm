@@ -42,7 +42,7 @@ public class MainWindow : Gtk.Window
 		this.add(main_box);
 	}
 
-	public void display(string? shell_cwd = null)
+	public void display(string shell_cwd = GLib.Environment.get_home_dir())
 	{
 		this.show_all();
 
