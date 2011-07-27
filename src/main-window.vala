@@ -72,6 +72,7 @@ public class MainWindow : Gtk.Window
 		this.menubar.clear.connect(() => this.terminal.reset(true, true));
 		this.menubar.copy.connect(() => this.terminal.copy_clipboard());
 		this.menubar.paste.connect(() => this.terminal.paste_clipboard());
+		this.menubar.select_all.connect(() => this.terminal.select_all());
 		this.menubar.new_window.connect(this.new_window);
 		this.menubar.quit.connect(this.exit);
 

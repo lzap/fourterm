@@ -22,6 +22,7 @@ public class Menubar : Gtk.MenuBar
 	private ImageMenuItem item_clear = new ImageMenuItem(Icons.CLEAR);
 	private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
 	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
+	private ImageMenuItem item_select_all = new ImageMenuItem(Icons.SELECT_ALL);
 	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
 	private ImageMenuItem item_quit = new ImageMenuItem(Icons.QUIT);
 
@@ -30,6 +31,7 @@ public class Menubar : Gtk.MenuBar
 	public signal void clear();
 	public signal void copy();
 	public signal void paste();
+	public signal void select_all();
 	public signal void new_window();
 	public signal void quit();
 
@@ -43,6 +45,8 @@ public class Menubar : Gtk.MenuBar
 		var menu_edit = new MenuItem(tr("Edit"), {
 				this.item_copy,
 				this.item_paste,
+				new Gtk.SeparatorMenuItem(),
+				this.item_select_all,
 				new Gtk.SeparatorMenuItem(),
 				this.item_preferences});
 
@@ -75,6 +79,7 @@ public class Menubar : Gtk.MenuBar
 		this.item_clear.activate.connect(() => this.clear());
 		this.item_copy.activate.connect(() => this.copy());
 		this.item_paste.activate.connect(() => this.paste());
+		this.item_select_all.activate.connect(() => this.select_all());
 		this.item_new_window.activate.connect(() => this.new_window());
 		this.item_quit.activate.connect(() => this.quit());
 	}

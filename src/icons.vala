@@ -27,6 +27,7 @@ namespace Icons
 	const string QUIT = Gtk.Stock.QUIT;
 	const string OK = Gtk.Stock.OK;
 	const string CANCEL = Gtk.Stock.CANCEL;
+	const string SELECT_ALL = Gtk.Stock.SELECT_ALL;
 #else
 	const string ABOUT = Gtk.STOCK_ABOUT;
 	const string PREFERENCES = Gtk.STOCK_PREFERENCES;
@@ -37,5 +38,6 @@ namespace Icons
 	const string QUIT = Gtk.STOCK_QUIT;
 	const string OK = Gtk.STOCK_OK;
 	const string CANCEL = Gtk.STOCK_CANCEL;
+	const string SELECT_ALL = Gtk.STOCK_SELECT_ALL;
 #endif
 }
