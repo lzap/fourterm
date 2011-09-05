@@ -3,7 +3,7 @@
 # Copyright © 2011 Jacques-Pascal Deplaix
 
 APPNAME = 'valaterm'
-VERSION = '0.4.1'
+VERSION = '0.4.2'
 
 top = '.'
 out = 'build'
@@ -11,8 +11,7 @@ out = 'build'
 import waflib
 
 def options(opt):
-    opt.load('compiler_c')
-    opt.load('vala')
+    opt.load(['compiler_c', 'vala'])
 
     opt.add_option('--debug',
                    help = 'Debug mode',
@@ -41,28 +40,17 @@ def configure(conf):
         conf.load(['intltool'])
 
     if conf.options.with_gtk3 == True:
-        min_vala_version = (0, 13, 2)
-    else:
-        min_vala_version = (0, 10, 0)
+        conf.env.VALAFLAGS.extend(['--define=GTK3'])
 
     conf.load('vala', funs = '')
-    conf.check_vala(min_version = min_vala_version)
+    conf.check_vala(min_version = conf.options.with_gtk3 and (0, 13, 2) or (0, 10, 0))
 
     if conf.env.VALAC_VERSION >= (0, 12, 1):
         conf.env.VALAFLAGS.extend(['--define=VALAC_SUP_0_12_1'])
 
-    if conf.env.VALAC_VERSION >= (0, 12, 0):
-        glib_package_version = '2.16.0'
-    else:
-        glib_package_version = '2.14.0'
-
-    if conf.options.with_gtk3 == True:
-        conf.env.VALAFLAGS.extend(['--define=GTK3'])
-        gtk_package_name = 'gtk+-3.0'
-        vte_package_name = 'vte-2.90'
-    else:
-        gtk_package_name = 'gtk+-2.0'
-        vte_package_name = 'vte'
+    glib_package_version = conf.env.VALAC_VERSION >= (0, 12, 0) and '2.16.0' or '2.14.0'
+    gtk_package_name = conf.options.with_gtk3 and 'gtk+-3.0' or 'gtk+-2.0'
+    vte_package_name = conf.options.with_gtk3 and 'vte-2.90' or 'vte'
 
     conf.check_cfg(
         package         = 'glib-2.0',
@@ -129,13 +117,8 @@ def build(bld):
     if bld.env.disable_nls == False:
         bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
-    if bld.env.with_gtk3 == True:
-        vte_name = 'vte-2.90'
-    else:
-        vte_name = 'vte'
-
     bld.program(
-        packages      = [vte_name, 'config', 'posix'],
+        packages      = [bld.env.with_gtk3 and 'vte-2.90' or 'vte', 'config', 'posix'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
         uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
