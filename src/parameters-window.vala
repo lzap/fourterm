@@ -22,12 +22,14 @@ public class ParametersWindow : DefaultDialog
 	private ColorButton foreground_color_chooser = new ColorButton(Settings.foreground_color);
 	private SpinButton scrollback_lines_chooser = new SpinButton(Settings.scrollback_lines);
 	private CheckButton transparency_chooser = new CheckButton(Settings.transparency);
+	private CheckButton show_scrollbar_chooser = new CheckButton(Settings.show_scrollbar);
 
 	public signal void font_changed(string font);
 	public signal void background_color_changed(Gdk.Color color);
 	public signal void foreground_color_changed(Gdk.Color color);
 	public signal void scrollback_lines_changed(long lines);
 	public signal void transparency_changed(bool tranparency);
+	public signal void show_scrollbar_changed(bool show);
 
 	public ParametersWindow(MainWindow parent_window)
 	{
@@ -48,12 +50,16 @@ public class ParametersWindow : DefaultDialog
 		var transparency_box = new ParameterBox(tr("Transparency:"),
 												this.transparency_chooser);
 
+		var show_scrollbar_box = new ParameterBox(tr("Show scrollbar:"),
+												  this.show_scrollbar_chooser);
+
 		var main_box = (Gtk.Box)(this.get_content_area());
 		main_box.pack_start(font_box);
 		main_box.pack_start(background_color_box);
 		main_box.pack_start(foreground_color_box);
 		main_box.pack_start(scrollback_lines_box);
 		main_box.pack_start(transparency_box);
+		main_box.pack_start(show_scrollbar_box);
 	}
 
 	protected override void ok_clicked()
@@ -92,6 +98,12 @@ public class ParametersWindow : DefaultDialog
 		{
 			Settings.transparency = this.transparency_chooser.active;
 			this.transparency_changed(this.transparency_chooser.active);
+		}
+
+		if(Settings.show_scrollbar != this.show_scrollbar_chooser.active)
+		{
+			Settings.show_scrollbar = this.show_scrollbar_chooser.active;
+			this.show_scrollbar_changed(this.show_scrollbar_chooser.active);
 		}
 	}
 }

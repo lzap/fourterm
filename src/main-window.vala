@@ -21,6 +21,7 @@ public class MainWindow : Gtk.Window
 
 	private Menubar menubar = new Menubar();
 	private Terminal terminal = new Terminal();
+	private Gtk.ScrolledWindow scrolled_window = new Gtk.ScrolledWindow(null, null);
 
 	public MainWindow()
 	{
@@ -30,13 +31,12 @@ public class MainWindow : Gtk.Window
 
 		this.window_count++;
 
-		var scrolled_window = new Gtk.ScrolledWindow(null, null);
-		scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
-		scrolled_window.add(this.terminal);
+		this.show_scrollbar(Settings.show_scrollbar);
+		this.scrolled_window.add(this.terminal);
 
 		var main_box = new Gtk.VBox(false, 0);
 		main_box.pack_start(this.menubar, false);
-		main_box.pack_start(scrolled_window);
+		main_box.pack_start(this.scrolled_window);
 
 		this.active_signals();
 		this.add(main_box);
@@ -67,6 +67,7 @@ public class MainWindow : Gtk.Window
 			dialog.foreground_color_changed.connect(this.terminal.set_color_foreground);
 			dialog.scrollback_lines_changed.connect(this.terminal.set_scrollback_lines);
 			dialog.transparency_changed.connect(this.terminal.set_background_transparent);
+			dialog.show_scrollbar_changed.connect(this.show_scrollbar);
 			dialog.show_all();
 		});
 		this.menubar.clear.connect(() => this.terminal.reset(true, true));
@@ -128,5 +129,13 @@ public class MainWindow : Gtk.Window
 	{
 		var window = new MainWindow();
 		window.display(this.terminal.get_shell_cwd());
+	}
+
+	private void show_scrollbar(bool show)
+	{
+		if(show == true)
+			this.scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+		else
+			this.scrolled_window.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER);
 	}
 }

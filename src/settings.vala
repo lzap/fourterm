@@ -28,6 +28,7 @@ public class Settings : GLib.Object
 	private const string SCROLLBACK_LINES = "Scrollback-Lines";
 	private const string TRANSPARENCY = "Transparency";
 	private const string SHOW = "Show";
+	private const string SHOW_SCROLLBAR = "Show-Scrollbar";
 
 	private static unowned ConfigFile file;
 
@@ -119,6 +120,20 @@ public class Settings : GLib.Object
 		set
 		{
 			file.set_boolean(MENUBAR, SHOW, value);
+			file.write();
+		}
+	}
+
+	public static bool show_scrollbar
+	{
+		get
+		{
+			return file.get_boolean_key(TERMINAL, SHOW_SCROLLBAR, true);
+		}
+
+		set
+		{
+			file.set_boolean(TERMINAL, SHOW_SCROLLBAR, value);
 			file.write();
 		}
 	}
