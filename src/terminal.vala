@@ -73,28 +73,14 @@ public class Terminal : Vte.Terminal
 #endif
 	}
 
-	public int calcul_width(int current_width, int column_count)
+	public int calcul_width(int column_count)
 	{
-		Gtk.Allocation? alloc = null;
-		this.get_allocation(out alloc);
-
-		int diff = current_width - ((!)(alloc)).width;
-		int real_char_width = ((!)(alloc)).width / (int)(this.get_column_count());
-		int diff_char = real_char_width - (int)(this.get_char_width());
-
-		return (int)(this.get_char_width() * column_count) + diff + diff_char;
+		return (int)(this.get_char_width()) * column_count;
 	}
 
-	public int calcul_height(int current_height, int row_count)
+	public int calcul_height(int row_count)
 	{
-		Gtk.Allocation? alloc = null;
-		this.get_allocation(out alloc);
-
-		int diff = current_height - ((!)(alloc)).height;
-		int real_char_height = ((!)(alloc)).height / (int)(this.get_row_count());
-		int diff_char = real_char_height - (int)(this.get_char_height());
-
-		return (int)(this.get_char_height() * row_count) + diff + diff_char;
+		return (int)(this.get_char_height()) * row_count;
 	}
 
 	private bool display_menu(Gdk.EventButton event)
