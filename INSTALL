@@ -1,4 +1,4 @@
-Waf executable version: 1.6.7
+Waf executable version: 1.6.8
 
 If you want to compile the binary on debug, add --debug when you execute: ./waf configure.
 For the others options see: ./waf --help
