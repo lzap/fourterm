@@ -29,6 +29,7 @@ public class Settings : GLib.Object
 	private const string TRANSPARENCY = "Transparency";
 	private const string SHOW = "Show";
 	private const string SHOW_SCROLLBAR = "Show-Scrollbar";
+	private const string FOUR_TERMS = "Four-Terminals";
 
 	private static unowned ConfigFile file;
 
@@ -134,6 +135,20 @@ public class Settings : GLib.Object
 		set
 		{
 			file.set_boolean(TERMINAL, SHOW_SCROLLBAR, value);
+			file.write();
+		}
+	}
+
+	public static bool four_terms
+	{
+		get
+		{
+			return file.get_boolean_key(TERMINAL, FOUR_TERMS, true);
+		}
+
+		set
+		{
+			file.set_boolean(TERMINAL, FOUR_TERMS, value);
 			file.write();
 		}
 	}

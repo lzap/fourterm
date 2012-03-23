@@ -23,6 +23,7 @@ public class ParametersWindow : DefaultDialog
 	private SpinButton scrollback_lines_chooser = new SpinButton(Settings.scrollback_lines);
 	private CheckButton transparency_chooser = new CheckButton(Settings.transparency);
 	private CheckButton show_scrollbar_chooser = new CheckButton(Settings.show_scrollbar);
+	private CheckButton four_terms_chooser = new CheckButton(Settings.four_terms);
 
 	public signal void font_changed(string font);
 	public signal void background_color_changed(Gdk.Color color);
@@ -30,6 +31,7 @@ public class ParametersWindow : DefaultDialog
 	public signal void scrollback_lines_changed(long lines);
 	public signal void transparency_changed(bool tranparency);
 	public signal void show_scrollbar_changed(bool show);
+	public signal void four_terms_changed(bool show);
 
 	public ParametersWindow(MainWindow parent_window)
 	{
@@ -53,6 +55,9 @@ public class ParametersWindow : DefaultDialog
 		var show_scrollbar_box = new ParameterBox(tr("Show scrollbar:"),
 												  this.show_scrollbar_chooser);
 
+		var four_terms_box = new ParameterBox(tr("Four terminals:"),
+												  this.four_terms_chooser);
+
 		var main_box = (Gtk.Box)(this.get_content_area());
 		main_box.pack_start(font_box);
 		main_box.pack_start(background_color_box);
@@ -60,6 +65,7 @@ public class ParametersWindow : DefaultDialog
 		main_box.pack_start(scrollback_lines_box);
 		main_box.pack_start(transparency_box);
 		main_box.pack_start(show_scrollbar_box);
+		main_box.pack_start(four_terms_box);
 	}
 
 	protected override void ok_clicked()
@@ -104,6 +110,12 @@ public class ParametersWindow : DefaultDialog
 		{
 			Settings.show_scrollbar = this.show_scrollbar_chooser.active;
 			this.show_scrollbar_changed(this.show_scrollbar_chooser.active);
+		}
+
+		if(Settings.four_terms != this.four_terms_chooser.active)
+		{
+			Settings.four_terms = this.four_terms_chooser.active;
+			this.four_terms_changed(this.four_terms_chooser.active);
 		}
 	}
 }
