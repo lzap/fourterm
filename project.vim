@@ -4,7 +4,8 @@ set makeprg=./waf
 set efm=%f:%l.%c-%[%^:]%#:\ %t%[%^:]%#:\ %m
 map <F7> :cclose<Return>
 map <F8> :copen<Return>
-map <F9> :wa<Return>:cclose<Return>:silent make<Return>:echo "Finished ok!"<Return>
+"map <F9> :wa<Return>:cclose<Return>:silent make<Return>:echo "Finished ok!"<Return>
+map <F9> :wa<Return>:cclose<Return>:make<Return>
 map <F10> :cprevious<Return>
 map <F11> :cnext<Return>
 

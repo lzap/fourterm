@@ -21,7 +21,7 @@ public class MainWindow : Gtk.Window
 
 	private Menubar menubar = new Menubar();
 	private Terminal[] terminal;
-	private Terminal active_terminal;
+	private int active_ix = 0;
 	private Gtk.ScrolledWindow[] scrolled_window;
 
 	public MainWindow()
@@ -44,7 +44,7 @@ public class MainWindow : Gtk.Window
 	    scrolled_window[i] = new Gtk.ScrolledWindow(null, null);
 	    scrolled_window[i].add(this.terminal[i]);
     }
-    active_terminal = terminal[0];
+    terminal[active_ix] = terminal[0];
 
     var top_pane = new Gtk.HPaned();
 		top_pane.pack1(scrolled_window[0], true, true);
@@ -68,8 +68,8 @@ public class MainWindow : Gtk.Window
 	{
 		this.show_all();
 
-		this.resize(this.active_terminal.calcul_width(80) * 2,
-					this.active_terminal.calcul_height(24) * 2);
+		this.resize(this.terminal[active_ix].calcul_width(80) * 2,
+					this.terminal[active_ix].calcul_height(24) * 2);
 
 		// Do that after resize because Vte add rows if the main window is too small...
     foreach (Terminal t in terminal) {
@@ -93,10 +93,10 @@ public class MainWindow : Gtk.Window
 			dialog.show_scrollbar_changed.connect(this.show_scrollbar);
 			dialog.show_all();
 		});
-		this.menubar.clear.connect(() => this.active_terminal.reset(true, true));
-		this.menubar.copy.connect(() => this.active_terminal.copy_clipboard());
-		this.menubar.paste.connect(() => this.active_terminal.paste_clipboard());
-		this.menubar.select_all.connect(() => this.active_terminal.select_all());
+		this.menubar.clear.connect(() => this.terminal[active_ix].reset(true, true));
+		this.menubar.copy.connect(() => this.terminal[active_ix].copy_clipboard());
+		this.menubar.paste.connect(() => this.terminal[active_ix].paste_clipboard());
+		this.menubar.select_all.connect(() => this.terminal[active_ix].select_all());
 		this.menubar.new_window.connect(this.new_window);
 		this.menubar.quit.connect(this.exit);
 
@@ -111,13 +111,45 @@ public class MainWindow : Gtk.Window
     terminal[2].child_exited.connect(() => terminal[2].active_shell(GLib.Environment.get_home_dir()));
     terminal[3].child_exited.connect(() => terminal[3].active_shell(GLib.Environment.get_home_dir()));
 
-		//this.active_terminal.title_changed.connect(this.set_title);
-		this.active_terminal.new_window.connect(this.new_window);
-		this.active_terminal.display_menubar.connect(this.menubar.set_visible);
+    foreach (Terminal t in terminal) {
+      t.key_press_event.connect((source, event) => {
+        if (event.type == Gdk.EventType.KEY_RELEASE) return false;
+        bool mod = (event.state & Gdk.ModifierType.SUPER_MASK) != 0;
+        // previous term (Win + h or Win + p)
+        if ((mod && event.keyval == 104) || (mod && event.keyval == 112)) {
+          if (--active_ix < 0) active_ix = terminal.length - 1;
+          terminal[active_ix].grab_focus();
+          return true;
+        // next term (Win + h or Win + n)
+        } else if ((mod && event.keyval == 108) || (mod && event.keyval == 110)) {
+          if (++active_ix >= terminal.length) active_ix = 0;
+          terminal[active_ix].grab_focus();
+          return true;
+        // bellow term (Win + j)
+        } else if (mod && event.keyval == 106) {
+          active_ix += 2;
+          if (active_ix >= terminal.length) active_ix %= terminal.length;
+          terminal[active_ix].grab_focus();
+          return true;
+        // above term (Win + k)
+        } else if (mod && event.keyval == 107) {
+          active_ix -= 2;
+          if (active_ix < 0) active_ix = terminal.length + active_ix;
+          terminal[active_ix].grab_focus();
+          return true;
+        }
+        GLib.stdout.printf("key: %s %ud\n", event.str, event.keyval);
+        return false;
+      });
+    }
+
+		//this.terminal[active_ix].title_changed.connect(this.set_title);
+		this.terminal[active_ix].new_window.connect(this.new_window);
+		this.terminal[active_ix].display_menubar.connect(this.menubar.set_visible);
 
     for (int i = 0; i < terminal.length; i++) {
 		  this.terminal[i].title_changed.connect((term, title) => {
-        if (term == this.active_terminal)
+        if (term == this.terminal[active_ix])
           this.set_title(title);
       });
     }
@@ -125,26 +157,26 @@ public class MainWindow : Gtk.Window
     // BZ https://bugzilla.gnome.org/show_bug.cgi?id=672767
     terminal[0].focus_in_event.connect((event) =>
     {
-      this.active_terminal = terminal[0];
-      this.set_title(this.active_terminal.window_title);
+      this.terminal[active_ix] = terminal[0];
+      this.set_title(this.terminal[active_ix].window_title);
       return false;
     });
     terminal[1].focus_in_event.connect((event) =>
     {
-      this.active_terminal = terminal[1];
-      this.set_title(this.active_terminal.window_title);
+      this.terminal[active_ix] = terminal[1];
+      this.set_title(this.terminal[active_ix].window_title);
       return false;
     });
     terminal[2].focus_in_event.connect((event) =>
     {
-      this.active_terminal = terminal[2];
-      this.set_title(this.active_terminal.window_title);
+      this.terminal[active_ix] = terminal[2];
+      this.set_title(this.terminal[active_ix].window_title);
       return false;
     });
     terminal[3].focus_in_event.connect((event) =>
     {
-      this.active_terminal = terminal[3];
-      this.set_title(this.active_terminal.window_title);
+      this.terminal[active_ix] = terminal[3];
+      this.set_title(this.terminal[active_ix].window_title);
       return false;
     });
 	}
@@ -194,7 +226,7 @@ public class MainWindow : Gtk.Window
 	private void new_window()
 	{
 		var window = new MainWindow();
-		window.display(this.active_terminal.get_shell_cwd());
+		window.display(this.terminal[active_ix].get_shell_cwd());
 	}
 
 	private void show_scrollbar(bool show)
