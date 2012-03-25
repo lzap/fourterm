@@ -149,7 +149,7 @@ public class MainWindow : Gtk.Window
 
     for (int i = 0; i < terminal.length; i++) {
 		  this.terminal[i].title_changed.connect((term, title) => {
-        if (term == this.terminal[active_ix])
+        if (term == this.terminal[active_ix] && title != null)
           this.set_title(title);
       });
     }
@@ -158,25 +158,29 @@ public class MainWindow : Gtk.Window
     terminal[0].focus_in_event.connect((event) =>
     {
       this.terminal[active_ix] = terminal[0];
-      this.set_title(this.terminal[active_ix].window_title);
+      if (this.terminal[active_ix].window_title != null)
+        this.set_title(this.terminal[active_ix].window_title);
       return false;
     });
     terminal[1].focus_in_event.connect((event) =>
     {
       this.terminal[active_ix] = terminal[1];
-      this.set_title(this.terminal[active_ix].window_title);
+      if (this.terminal[active_ix].window_title != null)
+        this.set_title(this.terminal[active_ix].window_title);
       return false;
     });
     terminal[2].focus_in_event.connect((event) =>
     {
       this.terminal[active_ix] = terminal[2];
-      this.set_title(this.terminal[active_ix].window_title);
+      if (this.terminal[active_ix].window_title != null)
+        this.set_title(this.terminal[active_ix].window_title);
       return false;
     });
     terminal[3].focus_in_event.connect((event) =>
     {
       this.terminal[active_ix] = terminal[3];
-      this.set_title(this.terminal[active_ix].window_title);
+      if (this.terminal[active_ix].window_title != null)
+        this.set_title(this.terminal[active_ix].window_title);
       return false;
     });
 	}
