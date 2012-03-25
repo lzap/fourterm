@@ -136,7 +136,7 @@ public class ConfigFile : GLib.Object
 
 	private string filename()
 	{
-		string path = GLib.Environment.get_user_config_dir() + "/valaterm/";
+		string path = GLib.Environment.get_user_config_dir() + "/fourterm/";
 		this.verify_dir(path);
 
 		string file = path + "config.ini";
