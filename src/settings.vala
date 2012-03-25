@@ -57,7 +57,7 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			Gdk.Color white = { 0, 0xffff, 0xffff, 0xffff };
+			Gdk.Color white = { 0, 0x0000, 0x2b2b, 0x3636 }; // palette 8
 			return file.get_color_key(TERMINAL, BACKGROUND_COLOR, white);
 		}
 
@@ -72,7 +72,7 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			Gdk.Color black = { 0, 0, 0, 0 };
+			Gdk.Color black = { 0, 0x6565, 0x7b7b, 0x8383 }; // patette 11
 			return file.get_color_key(TERMINAL, FOREGROUND_COLOR, black);
 		}
 
