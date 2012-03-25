@@ -17,21 +17,26 @@
 
 public class About : Gtk.AboutDialog
 {
-	const string[] all_authors = { "Jacques-Pascal Deplaix <jp.deplaix@gmail.com>" };
+	const string[] all_authors = {
+    "Jacques-Pascal Deplaix <jp.deplaix@gmail.com>",
+    "Lukas Zapletal <http://lukas.zapletalovi.com>",
+    "" };
 
 	private About(MainWindow parent_window)
 	{
 		this.transient_for = parent_window;
-		this.program_name = "ValaTerm";
+		this.program_name = "FourTerm";
 		this.version = Config.VERSION;
-		this.copyright = "Copyright © 2010 Jacques-Pascal Deplaix";
-		this.comments = tr("ValaTerm is a lightweight terminal written in Vala");
-		this.logo = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
-		this.website = "https://gitorious.org/valaterm/";
+		this.copyright = "Copyright © 2010 Jacques-Pascal Deplaix\n" +
+      "Copyright © 2012 Lukas Zapletal";
+		this.comments = tr("FourTerm is a lightweight terminal written in Vala");
+		//this.logo = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
+		this.website = "https://gitorious.org/~lzap/valaterm/fourterm";
 		this.authors = all_authors;
-		this.license = "Copyright © 2011 Jacques-Pascal Deplaix" +
+		this.license = "Copyright © 2011 Jacques-Pascal Deplaix\n" +
+			"Copyright © 2012 Lukas Zapletal" +
 			"\n" +
-			"\nValaTerm is free software: you can redistribute it and/or modify" +
+			"\nFourTerm is free software: you can redistribute it and/or modify" +
 			"\nit under the terms of the GNU General Public License as published by" +
 			"\nthe Free Software Foundation, either version 3 of the License, or" +
 			"\n(at your option) any later version." +
