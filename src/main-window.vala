@@ -114,31 +114,38 @@ public class MainWindow : Gtk.Window
     foreach (Terminal t in terminal) {
       t.key_press_event.connect((source, event) => {
         if (event.type == Gdk.EventType.KEY_RELEASE) return false;
-        bool mod = (event.state & Gdk.ModifierType.SUPER_MASK) != 0;
-        // previous term (Win + h or Win + p)
-        if ((mod && event.keyval == 104) || (mod && event.keyval == 112)) {
+        bool super = (event.state & Gdk.ModifierType.SUPER_MASK) != 0; // windows mod
+        bool mod1 = (event.state & Gdk.ModifierType.MOD1_MASK) != 0; // alt mod
+        // previous term (ALT+LEFT, WIN+H, WIN+P)
+        if ((super && event.keyval == 104) || 
+          (mod1 && event.keyval == 65361) ||
+          (super && event.keyval == 112)) {
           if (--active_ix < 0) active_ix = terminal.length - 1;
           terminal[active_ix].grab_focus();
           return true;
-        // next term (Win + h or Win + n)
-        } else if ((mod && event.keyval == 108) || (mod && event.keyval == 110)) {
+        // next term (ALT+RIGHT, WIN+H, WIN+N)
+        } else if ((super && event.keyval == 108) ||
+          (mod1 && event.keyval == 65363) ||
+          (super && event.keyval == 110)) {
           if (++active_ix >= terminal.length) active_ix = 0;
           terminal[active_ix].grab_focus();
           return true;
-        // bellow term (Win + j)
-        } else if (mod && event.keyval == 106) {
+        // bellow term (ALT+DOWN, WIN+J)
+        } else if ((super && event.keyval == 106) ||
+          (mod1 && event.keyval == 65362)) {
           active_ix += 2;
           if (active_ix >= terminal.length) active_ix %= terminal.length;
           terminal[active_ix].grab_focus();
           return true;
-        // above term (Win + k)
-        } else if (mod && event.keyval == 107) {
+        // above term (ALT+UP, WIN+K)
+        } else if ((super && event.keyval == 107) ||
+          (mod1 && event.keyval == 65364)) {
           active_ix -= 2;
           if (active_ix < 0) active_ix = terminal.length + active_ix;
           terminal[active_ix].grab_focus();
           return true;
         }
-        GLib.stdout.printf("key: %s %ud\n", event.str, event.keyval);
+        //GLib.stdout.printf("key: %s %u\n", event.str, event.keyval);
         return false;
       });
     }
