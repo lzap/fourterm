@@ -2,8 +2,8 @@
 # encoding: utf-8
 # Copyright © 2011 Jacques-Pascal Deplaix
 
-APPNAME = 'valaterm'
-VERSION = '0.4.3'
+APPNAME = 'fourterm'
+VERSION = '1.0.0'
 
 top = '.'
 out = 'build'
