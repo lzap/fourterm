@@ -43,7 +43,7 @@ public class Settings : GLib.Object
 		// FIXME: Why owned (only) here ???
 		owned get
 		{
-			return file.get_string_key(TERMINAL, FONT, "FreeMono 10");
+			return file.get_string_key(TERMINAL, FONT, "Terminus 10");
 		}
 
 		set
