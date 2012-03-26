@@ -1,7 +1,13 @@
 TODO
 ====
 
- * Add some execution arguments.
- * Add a search feature.
- * Add a keyboard shortcut mananger.
- * ...
+Remove F10 binding.
+Light/dark switch shortcut.
+Web links clickable (one click).
+Absolute filepaths clickable.
+Relative filepaths clickable.
+Support for 3x2 layout.
+Add a search feature. [/]
+
+Tentative
+Support for dynamic layouts.

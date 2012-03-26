@@ -1,72 +1,82 @@
+1.0.0
+=====
+
+- Forked ValaTerm -> FourTerm
+- Added support for 4 terms
+- Color palette is Solarized by default
+- Font is Terminus by default
+- Implemented vim-like key mapping
+- WIP
+
 0.4.3
 =====
 
- * Many improvements
- * Add the setting to hide the scroll-bar
+- Many improvements
+- Add the setting to hide the scroll-bar
 
 0.4.2
 =====
 
- * Many bugs fixed
- * Some optimizations
- * Support to compile with Gtk3
+- Many bugs fixed
+- Some optimizations
+- Support to compile with Gtk3
 
 
 0.4.1
 =====
 
- * Bug fixed: Doesn't compile with valac < 0.12.0
+- Bug fixed: Doesn't compile with valac < 0.12.0
 
 
 0.4
 ===
 
- * Add some forgotten depends to check
- * Change some minial depends version
- * Improve the support for VTE
- * Setting transparency added
- * Add configure options (debug, with-gtk3, disable-nls)
- * Add show menu bar setting
- * ValaTerm become compatible with Vala >= 0.10
- * Ability to compile with Clang/LLVM
- * Waf updated to 1.6.6
- * Become compatible with Gtk 3.0
- * Some minor bugs fixed
+- Add some forgotten depends to check
+- Change some minial depends version
+- Improve the support for VTE
+- Setting transparency added
+- Add configure options (debug, with-gtk3, disable-nls)
+- Add show menu bar setting
+- ValaTerm become compatible with Vala >= 0.10
+- Ability to compile with Clang/LLVM
+- Waf updated to 1.6.6
+- Become compatible with Gtk 3.0
+- Some minor bugs fixed
 
 
 0.3
 ===
 
- * Add the item new_window to the menu bar and context menu
- * Add the menu file to the menu bar
- * Add the item quit to the menu bar
- * Add scrollback lines setting
- * EBUILD file (gentoo package) added to the project
- * Settings system improved
- * Ask if you want to close the window when a process is running
- * Some bugs fixed...
+- Add the item new_window to the menu bar and context menu
+- Add the menu file to the menu bar
+- Add the item quit to the menu bar
+- Add scrollback lines setting
+- EBUILD file (gentoo package) added to the project
+- Settings system improved
+- Ask if you want to close the window when a process is running
+- Some bugs fixed...
 
 
 0.2
 ===
 
- * PKGBUILD file (archlinux package) added to the project
- * Configurations window added to the menu with font, background and foreground color parameter
- * The Git reposistory moves from GitHub to Gitorious
- * Add stock icons to menu items
- * Clear item added to the menu bar
- * Parameters are saved in ~/.config/valaterm/config.ini
- * French translation added
+- PKGBUILD file (archlinux package) added to the project
+- Configurations window added to the menu with font, background and foreground color parameter
+- The Git reposistory moves from GitHub to Gitorious
+- Add stock icons to menu items
+- Clear item added to the menu bar
+- Parameters are saved in ~/.config/valaterm/config.ini
+- French translation added
 
 0.1
 ===
 
- * Add copy and paste to the context menu
- * Main window title adapts to the terminal content
- * Change the foregroud and background color to severally Black and White
- * Set FreeMono as default font
+- Add copy and paste to the context menu
+- Main window title adapts to the terminal content
+- Change the foregroud and background color to severally Black and White
+- Set FreeMono as default font
 
 0.0.1
 =====
 
- * Begin the project. It's just a basic virtual terminal with an about dialog and a simple logo.
+- Begin the project. It's just a basic virtual terminal with an about dialog and a simple logo.
