@@ -1,8 +1,8 @@
 
-FourTerm: Lightweight split-screen terminal emulator with vim key-mappings
-==========================================================================
+Lightweight split-screen terminal emulator with vim keys
+========================================================
 
-FourTerm is ultra-lightweight terminal emulator with vim-like keyboard shortcuts
+*FourTerm* is ultra-lightweight terminal emulator with vim-like keyboard shortcuts
 for window navigation, active web and file links, search feature and sexy color
 "Solarized" scheme with day/night fast switching. It is based on ValaTerm and
 comparable to Terminator.
