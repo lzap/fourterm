@@ -1,7 +1,7 @@
 Name:           fourterm
 Version:        1.0.0
 Release:        1%{?dist}
-Summary:        Lightweight terminal emulator with four windows
+Summary:        Lightweight split-screen terminal emulator with vim key-mappings
 
 Group:          Development/Tools
 License:        GPLv3+
@@ -23,9 +23,10 @@ BuildRequires:  pkgconfig(vte-2.90)
 
 
 %description
-FourTerm is ultra-lightweight terminal emulator with sexy color palette
-(Solarized) and vim-like shortcuts for windows navigation. It is based on
-ValaTerm and comparable to Terminator.
+FourTerm is ultra-lightweight terminal emulator with vim-like keyboard shortcuts
+for window navigation, active web and file links, search feature and sexy color
+"Solarized" scheme with day/night fast switching. It is based on ValaTerm and
+comparable to Terminator.
 
 
 %prep
