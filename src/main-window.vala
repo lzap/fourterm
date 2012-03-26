@@ -20,9 +20,9 @@ public class MainWindow : Gtk.Window
 	private static uint window_count = 0;
 
 	private Menubar menubar = new Menubar();
-	private Terminal[] terminal;
+  private Gee.ArrayList<Terminal> terminals;
+	private Gee.ArrayList<Gtk.ScrolledWindow> scrolled_windows;
 	private int active_ix = 0;
-	private Gtk.ScrolledWindow[] scrolled_window;
 
 	public MainWindow()
 	{
@@ -30,28 +30,30 @@ public class MainWindow : Gtk.Window
 		this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
 		this.show_scrollbar(Settings.show_scrollbar);
 		this.window_count++;
+    this.terminals = new Gee.ArrayList<Terminal>();
+	  this.scrolled_windows = new Gee.ArrayList<Gtk.ScrolledWindow>();
 
+    int size;
     if (Settings.four_terms) {
-      terminal = new Terminal[4];
-      scrolled_window = new Gtk.ScrolledWindow[4];
+      size = 4;
     } else {
-      terminal = new Terminal[1];
-      scrolled_window = new Gtk.ScrolledWindow[1];
+      size = 1;
     }
 
-    for (int i = 0; i < terminal.length; i++) {
-      terminal[i] = new Terminal();
-	    scrolled_window[i] = new Gtk.ScrolledWindow(null, null);
-	    scrolled_window[i].add(this.terminal[i]);
+    for (int i = 0; i < size; i++) {
+      var term = new Terminal();
+	    var sw = new Gtk.ScrolledWindow(null, null);
+      terminals.add(term);
+      scrolled_windows.add(sw);
+	    sw.add(term);
     }
-    terminal[active_ix] = terminal[0];
 
     var top_pane = new Gtk.HPaned();
-		top_pane.pack1(scrolled_window[0], true, true);
-		top_pane.pack2(scrolled_window[1], true, true);
+		top_pane.pack1(scrolled_windows[0], true, true);
+		top_pane.pack2(scrolled_windows[1], true, true);
     var bottom_pane = new Gtk.HPaned();
-		bottom_pane.pack1(scrolled_window[2], true, true);
-		bottom_pane.pack2(scrolled_window[3], true, true);
+		bottom_pane.pack1(scrolled_windows[2], true, true);
+		bottom_pane.pack2(scrolled_windows[3], true, true);
     var main_pane = new Gtk.VPaned();
 		main_pane.pack1(top_pane, true, true);
 		main_pane.pack2(bottom_pane, true, true);
@@ -68,11 +70,11 @@ public class MainWindow : Gtk.Window
 	{
 		this.show_all();
 
-		this.resize(this.terminal[active_ix].calcul_width(80) * 2,
-					this.terminal[active_ix].calcul_height(24) * 2);
+		this.resize(this.terminals[active_ix].calcul_width(80) * 2,
+					this.terminals[active_ix].calcul_height(24) * 2);
 
 		// Do that after resize because Vte add rows if the main window is too small...
-    foreach (Terminal t in terminal) {
+    foreach (Terminal t in terminals) {
 		  t.active_shell(shell_cwd);
     }
 	}
@@ -83,7 +85,7 @@ public class MainWindow : Gtk.Window
 		this.menubar.preferences.connect(() =>
 		{
 			var dialog = new ParametersWindow(this);
-      foreach (Terminal t in terminal) {
+      foreach (Terminal t in terminals) {
         dialog.font_changed.connect(t.set_font_from_string);
         dialog.background_color_changed.connect(t.set_color_background);
         dialog.foreground_color_changed.connect(t.set_color_foreground);
@@ -93,25 +95,19 @@ public class MainWindow : Gtk.Window
 			dialog.show_scrollbar_changed.connect(this.show_scrollbar);
 			dialog.show_all();
 		});
-		this.menubar.clear.connect(() => this.terminal[active_ix].reset(true, true));
-		this.menubar.copy.connect(() => this.terminal[active_ix].copy_clipboard());
-		this.menubar.paste.connect(() => this.terminal[active_ix].paste_clipboard());
-		this.menubar.select_all.connect(() => this.terminal[active_ix].select_all());
+		this.menubar.clear.connect(() => this.terminals[active_ix].reset(true, true));
+		this.menubar.copy.connect(() => this.terminals[active_ix].copy_clipboard());
+		this.menubar.paste.connect(() => this.terminals[active_ix].paste_clipboard());
+		this.menubar.select_all.connect(() => this.terminals[active_ix].select_all());
 		this.menubar.new_window.connect(this.new_window);
 		this.menubar.quit.connect(this.exit);
 
 		this.delete_event.connect(this.on_delete);
 		this.destroy.connect(this.on_destroy);
     
-    // Cannot do this in a loop due to closure bug in Vala
-    // TODO: use gee array
-    // BZ https://bugzilla.gnome.org/show_bug.cgi?id=672767
-    terminal[0].child_exited.connect(() => terminal[0].active_shell(GLib.Environment.get_home_dir()));
-    terminal[1].child_exited.connect(() => terminal[1].active_shell(GLib.Environment.get_home_dir()));
-    terminal[2].child_exited.connect(() => terminal[2].active_shell(GLib.Environment.get_home_dir()));
-    terminal[3].child_exited.connect(() => terminal[3].active_shell(GLib.Environment.get_home_dir()));
+    foreach (Terminal t in terminals) {
+      t.child_exited.connect(() => t.active_shell(GLib.Environment.get_home_dir()));
 
-    foreach (Terminal t in terminal) {
       t.key_press_event.connect((source, event) => {
         if (event.type == Gdk.EventType.KEY_RELEASE) return false;
         bool super = (event.state & Gdk.ModifierType.SUPER_MASK) != 0; // windows mod
@@ -120,76 +116,52 @@ public class MainWindow : Gtk.Window
         if ((super && event.keyval == 104) || 
           (mod1 && event.keyval == 65361) ||
           (super && event.keyval == 112)) {
-          if (--active_ix < 0) active_ix = terminal.length - 1;
-          terminal[active_ix].grab_focus();
+          if (--active_ix < 0) active_ix = terminals.size - 1;
+          terminals[active_ix].grab_focus();
           return true;
         // next term (ALT+RIGHT, WIN+H, WIN+N)
         } else if ((super && event.keyval == 108) ||
           (mod1 && event.keyval == 65363) ||
           (super && event.keyval == 110)) {
-          if (++active_ix >= terminal.length) active_ix = 0;
-          terminal[active_ix].grab_focus();
+          if (++active_ix >= terminals.size) active_ix = 0;
+          terminals[active_ix].grab_focus();
           return true;
         // bellow term (ALT+DOWN, WIN+J)
         } else if ((super && event.keyval == 106) ||
           (mod1 && event.keyval == 65362)) {
           active_ix += 2;
-          if (active_ix >= terminal.length) active_ix %= terminal.length;
-          terminal[active_ix].grab_focus();
+          if (active_ix >= terminals.size) active_ix %= terminals.size;
+          terminals[active_ix].grab_focus();
           return true;
         // above term (ALT+UP, WIN+K)
         } else if ((super && event.keyval == 107) ||
           (mod1 && event.keyval == 65364)) {
           active_ix -= 2;
-          if (active_ix < 0) active_ix = terminal.length + active_ix;
-          terminal[active_ix].grab_focus();
+          if (active_ix < 0) active_ix = terminals.size + active_ix;
+          terminals[active_ix].grab_focus();
           return true;
         }
-        //GLib.stdout.printf("key: %s %u\n", event.str, event.keyval);
+        GLib.stdout.printf("key: %s %u\n", event.str, event.keyval);
+        return false;
+      });
+
+		  t.title_changed.connect((term, title) => {
+        if (term == this.terminals[active_ix] && title != null)
+          this.set_title(title);
+      });
+
+      t.focus_in_event.connect((event) =>
+      {
+        this.terminals[active_ix] = t;
+        if (this.terminals[active_ix].window_title != null)
+          this.set_title(this.terminals[active_ix].window_title);
         return false;
       });
     }
 
-		//this.terminal[active_ix].title_changed.connect(this.set_title);
-		this.terminal[active_ix].new_window.connect(this.new_window);
-		this.terminal[active_ix].display_menubar.connect(this.menubar.set_visible);
-
-    for (int i = 0; i < terminal.length; i++) {
-		  this.terminal[i].title_changed.connect((term, title) => {
-        if (term == this.terminal[active_ix] && title != null)
-          this.set_title(title);
-      });
-    }
-
-    // BZ https://bugzilla.gnome.org/show_bug.cgi?id=672767
-    terminal[0].focus_in_event.connect((event) =>
-    {
-      this.terminal[active_ix] = terminal[0];
-      if (this.terminal[active_ix].window_title != null)
-        this.set_title(this.terminal[active_ix].window_title);
-      return false;
-    });
-    terminal[1].focus_in_event.connect((event) =>
-    {
-      this.terminal[active_ix] = terminal[1];
-      if (this.terminal[active_ix].window_title != null)
-        this.set_title(this.terminal[active_ix].window_title);
-      return false;
-    });
-    terminal[2].focus_in_event.connect((event) =>
-    {
-      this.terminal[active_ix] = terminal[2];
-      if (this.terminal[active_ix].window_title != null)
-        this.set_title(this.terminal[active_ix].window_title);
-      return false;
-    });
-    terminal[3].focus_in_event.connect((event) =>
-    {
-      this.terminal[active_ix] = terminal[3];
-      if (this.terminal[active_ix].window_title != null)
-        this.set_title(this.terminal[active_ix].window_title);
-      return false;
-    });
+		//this.terminals[active_ix].title_changed.connect(this.set_title);
+		this.terminals[active_ix].new_window.connect(this.new_window);
+		this.terminals[active_ix].display_menubar.connect(this.menubar.set_visible);
 	}
 
 	private void on_destroy()
@@ -216,7 +188,7 @@ public class MainWindow : Gtk.Window
 	{
 		bool return_value = false;
 
-    foreach (Terminal t in terminal) {
+    foreach (Terminal t in terminals) {
       if(t.has_foreground_process())
       {
         var dialog = new MessageDialog(this, tr("There is still a process running in this terminal. Closing the window will kill it."), tr("Would you closing this window ?"));
@@ -237,16 +209,16 @@ public class MainWindow : Gtk.Window
 	private void new_window()
 	{
 		var window = new MainWindow();
-		window.display(this.terminal[active_ix].get_shell_cwd());
+		window.display(this.terminals[active_ix].get_shell_cwd());
 	}
 
 	private void show_scrollbar(bool show)
 	{
-    for (int i = 0; i < terminal.length; i++) {
+    for (int i = 0; i < terminals.size; i++) {
       if(show == true)
-        this.scrolled_window[i].set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        this.scrolled_windows[i].set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
       else
-        this.scrolled_window[i].set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER);
+        this.scrolled_windows[i].set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER);
     }
 	}
 }

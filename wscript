@@ -71,6 +71,12 @@ def configure(conf):
         args            = '--cflags --libs')
 
     conf.check_cfg(
+        package         = 'gee-1.0',
+        uselib_store    = 'GEE',
+        atleast_version = '0.6.4',
+        args            = '--cflags --libs')
+
+    conf.check_cfg(
         package         = gtk_package_name,
         uselib_store    = 'GTK',
         atleast_version = '2.16',
@@ -118,10 +124,10 @@ def build(bld):
         bld(features = 'intltool_po', appname = APPNAME, podir = 'po')
 
     bld.program(
-        packages      = [bld.env.with_gtk3 and 'vte-2.90' or 'vte', 'config', 'posix'],
+        packages      = [bld.env.with_gtk3 and 'vte-2.90' or 'vte', 'config', 'posix', 'gee-1.0'],
         vapi_dirs     = 'vapi',
         target        = APPNAME,
-        uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GTK', 'VTE'],
+        uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GEE', 'GTK', 'VTE'],
         source        = ['src/about.vala',
                          'src/check-button.vala',
                          'src/check-menu-item.vala',

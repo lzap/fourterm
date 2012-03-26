@@ -10,7 +10,7 @@ Source0:        http://lzap.fedorapeople.org/projects/fourterm/releases/%{name}-
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
-Requires:       glib2 gtk3 vte3
+Requires:       libgee glib2 gtk3 vte3
 Requires:       terminus-fonts
 
 BuildRequires:  waf intltool gettext desktop-file-utils
@@ -20,6 +20,7 @@ BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gthread-2.0)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(vte-2.90)
+BuildRequires:  pkgconfig(gee-1.0)
 
 
 %description
