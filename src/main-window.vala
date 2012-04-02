@@ -214,11 +214,11 @@ public class MainWindow : Gtk.Window
 
 	private void show_scrollbar(bool show)
 	{
-    for (int i = 0; i < terminals.size; i++) {
+    foreach (Gtk.ScrolledWindow sw in scrolled_windows) {
       if(show == true)
-        this.scrolled_windows[i].set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+        sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
       else
-        this.scrolled_windows[i].set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER);
+        sw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER);
     }
 	}
 }
