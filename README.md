@@ -9,6 +9,26 @@ comparable to Terminator.
 
 ![fouterm](/lzap/fourterm/raw/master/doc/fourterm-screen1.png "FourTerm")
 
+Features
+--------
+
+ * Very small (only one 200 kB binary - including awesome icon).
+ * Faster than Terminator (written in Vala/C).
+ * Starts ultra-fast. Exits even faster!
+ * Built-in [Solarized color scheme](http://ethanschoonover.com/solarized).
+ * Vim-like key mapping. Try Super/Windows key + hjkl or np.
+ * Active terminal is highlighted.
+ * Allows to choose your font and colors.
+
+Planned features
+----------------
+
+ * Fedora 17 package.
+ * Support for one, four and six terminals.
+ * Dark/light color scheme switch using Super/Win + c combination.
+ * Active http links and files. Open files from stacktraces in your editor quickly!
+ * Effective searching in the history. No more scrolling.
+
 Download
 --------
 
