@@ -28,7 +28,6 @@ public class MainWindow : Gtk.Window
 	{
 		this.title = "FourTerm";
 		this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
-		this.show_scrollbar(Settings.show_scrollbar);
 		this.window_count++;
     this.terminals = new Gee.ArrayList<Terminal>();
 	  this.scrolled_windows = new Gee.ArrayList<Gtk.ScrolledWindow>();
@@ -48,6 +47,8 @@ public class MainWindow : Gtk.Window
 	    sw.add(term);
       sw.set_size_request(-1, 300);
     }
+
+		this.show_scrollbar(Settings.show_scrollbar);
 
     var top_pane = new Gtk.HPaned();
 		top_pane.pack1(scrolled_windows[0], true, true);
