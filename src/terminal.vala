@@ -51,7 +51,17 @@ public class Terminal : Vte.Terminal
 		this.context_menu.paste.connect(() => this.paste_clipboard());
 		this.context_menu.new_window.connect(() => this.new_window());
 		this.context_menu.display_menubar.connect((a) => this.display_menubar(a));
-	}
+    this.focus_in_event.connect((event) => {
+      this.set_color_background(Settings.background_color_highlight);
+      this.set_color_foreground(Settings.foreground_color_highlight);
+      return false;
+    });
+    this.focus_out_event.connect((event) => {
+      this.set_color_background(Settings.background_color);
+      this.set_color_foreground(Settings.foreground_color);
+      return false;
+    });
+  }
 
 	public void active_shell(string dir)
 	{

@@ -118,6 +118,8 @@ public class MainWindow : Gtk.Window
           (super && event.keyval == 112)) {
           if (--active_ix < 0) active_ix = terminals.size - 1;
           terminals[active_ix].grab_focus();
+          //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
+          //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
           return true;
         // next term (ALT+RIGHT, WIN+H, WIN+N)
         } else if ((super && event.keyval == 108) ||
@@ -125,6 +127,8 @@ public class MainWindow : Gtk.Window
           (super && event.keyval == 110)) {
           if (++active_ix >= terminals.size) active_ix = 0;
           terminals[active_ix].grab_focus();
+          //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
+          //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
           return true;
         // bellow term (ALT+DOWN, WIN+J)
         } else if ((super && event.keyval == 106) ||
@@ -132,6 +136,8 @@ public class MainWindow : Gtk.Window
           active_ix += 2;
           if (active_ix >= terminals.size) active_ix %= terminals.size;
           terminals[active_ix].grab_focus();
+          //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
+          //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
           return true;
         // above term (ALT+UP, WIN+K)
         } else if ((super && event.keyval == 107) ||
@@ -139,9 +145,12 @@ public class MainWindow : Gtk.Window
           active_ix -= 2;
           if (active_ix < 0) active_ix = terminals.size + active_ix;
           terminals[active_ix].grab_focus();
+          //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
+          //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
           return true;
         }
-        GLib.stdout.printf("key: %s %u\n", event.str, event.keyval);
+        //GLib.stdout.printf("key: %s %u\n", event.str, event.keyval);
+        //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
         return false;
       });
 

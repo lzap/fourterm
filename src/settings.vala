@@ -25,6 +25,8 @@ public class Settings : GLib.Object
 	private const string FONT = "Font";
 	private const string BACKGROUND_COLOR = "Background-Color";
 	private const string FOREGROUND_COLOR = "Foreground-Color";
+	private const string BACKGROUND_COLOR_HI = "Background-Highlight-Color";
+	private const string FOREGROUND_COLOR_HI = "Foreground-Highlight-Color";
 	private const string SCROLLBACK_LINES = "Scrollback-Lines";
 	private const string TRANSPARENCY = "Transparency";
 	private const string SHOW = "Show";
@@ -57,8 +59,8 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			Gdk.Color white = { 0, 0x0000, 0x2b2b, 0x3636 }; // palette 8
-			return file.get_color_key(TERMINAL, BACKGROUND_COLOR, white);
+			Gdk.Color color = { 0, 0x0000, 0x2b2b, 0x3636 }; // palette 8
+			return file.get_color_key(TERMINAL, BACKGROUND_COLOR, color);
 		}
 
 		set
@@ -72,13 +74,43 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			Gdk.Color black = { 0, 0x6565, 0x7b7b, 0x8383 }; // patette 11
-			return file.get_color_key(TERMINAL, FOREGROUND_COLOR, black);
+			Gdk.Color color = { 0, 0x6565, 0x7b7b, 0x8383 }; // patette 11
+			return file.get_color_key(TERMINAL, FOREGROUND_COLOR, color);
 		}
 
 		set
 		{
 			file.set_string(TERMINAL, FOREGROUND_COLOR, value.to_string());
+			file.write();
+		}
+	}
+
+	public static Gdk.Color background_color_highlight
+	{
+		get
+		{
+			Gdk.Color color = { 0, 0x0000, 0x1b1b, 0x2626 }; // palette 8 (- 10 hex)
+			return file.get_color_key(TERMINAL, BACKGROUND_COLOR_HI, color);
+		}
+
+		set
+		{
+			file.set_string(TERMINAL, BACKGROUND_COLOR_HI, value.to_string());
+			file.write();
+		}
+	}
+
+	public static Gdk.Color foreground_color_highlight
+	{
+		get
+		{
+			Gdk.Color color = { 0, 0x7575, 0x8b8b, 0x9393 }; // patette 11 (+ 10 hex)
+			return file.get_color_key(TERMINAL, FOREGROUND_COLOR_HI, color);
+		}
+
+		set
+		{
+			file.set_string(TERMINAL, FOREGROUND_COLOR_HI, value.to_string());
 			file.write();
 		}
 	}
