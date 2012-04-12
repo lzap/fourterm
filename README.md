@@ -65,6 +65,16 @@ Tutorial for Fedora:
 The same for other distributions. If you don't have waf package, you can use
 ./waf script instead of system-wide installation.
 
+Authors
+-------
+
+FourTerm was initially forked from [ValaTerm](https://gitorious.org/valaterm),
+work of Jacques-Pascal Deplaix. Thanks!
+
+ * Jacques-Pascal Deplaix
+ * Lukas Zapletal
+ * We want you!
+
 License
 -------
 
