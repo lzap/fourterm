@@ -161,7 +161,7 @@ public class MainWindow : Gtk.Window
 
       t.focus_in_event.connect((event) =>
       {
-        this.terminals[active_ix] = t;
+        active_ix = terminals.index_of(t);
         if (this.terminals[active_ix].window_title != null)
           this.set_title(this.terminals[active_ix].window_title);
         return false;
