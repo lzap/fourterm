@@ -46,6 +46,7 @@ public class MainWindow : Gtk.Window
       terminals.add(term);
       scrolled_windows.add(sw);
 	    sw.add(term);
+      sw.set_size_request(-1, 300);
     }
 
     var top_pane = new Gtk.HPaned();
