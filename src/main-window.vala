@@ -89,8 +89,6 @@ public class MainWindow : Gtk.Window
 			var dialog = new ParametersWindow(this);
       foreach (Terminal t in terminals) {
         dialog.font_changed.connect(t.set_font_from_string);
-        dialog.background_color_changed.connect(t.set_color_background);
-        dialog.foreground_color_changed.connect(t.set_color_foreground);
         dialog.scrollback_lines_changed.connect(t.set_scrollback_lines);
         dialog.transparency_changed.connect(t.set_background_transparent);
       }
@@ -149,6 +147,14 @@ public class MainWindow : Gtk.Window
           terminals[active_ix].grab_focus();
           //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
           //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
+          return true;
+        } else if (super && event.keyval == 99) {
+            if (Settings.daylight_palette)
+              Settings.daylight_palette = false;
+            else
+              Settings.daylight_palette = true;
+            foreach (Terminal tc in terminals)
+              tc.setup_colors();
           return true;
         }
         //GLib.stdout.printf("key: %s %u\n", event.str, event.keyval);

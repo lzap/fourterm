@@ -18,16 +18,12 @@
 public class ParametersWindow : DefaultDialog
 {
 	private FontButton font_chooser = new FontButton(Settings.font);
-	private ColorButton background_color_chooser = new ColorButton(Settings.background_color);
-	private ColorButton foreground_color_chooser = new ColorButton(Settings.foreground_color);
 	private SpinButton scrollback_lines_chooser = new SpinButton(Settings.scrollback_lines);
 	private CheckButton transparency_chooser = new CheckButton(Settings.transparency);
 	private CheckButton show_scrollbar_chooser = new CheckButton(Settings.show_scrollbar);
 	private CheckButton four_terms_chooser = new CheckButton(Settings.four_terms);
 
 	public signal void font_changed(string font);
-	public signal void background_color_changed(Gdk.Color color);
-	public signal void foreground_color_changed(Gdk.Color color);
 	public signal void scrollback_lines_changed(long lines);
 	public signal void transparency_changed(bool tranparency);
 	public signal void show_scrollbar_changed(bool show);
@@ -39,12 +35,6 @@ public class ParametersWindow : DefaultDialog
 		this.transient_for = parent_window;
 
 		var font_box = new ParameterBox(tr("Font:"), this.font_chooser);
-
-		var background_color_box = new ParameterBox(tr("Background color:"),
-													this.background_color_chooser);
-
-		var foreground_color_box = new ParameterBox(tr("Foreground color:"),
-													this.foreground_color_chooser);
 
 		var scrollback_lines_box = new ParameterBox(tr("Scrollback lines:"),
 													this.scrollback_lines_chooser);
@@ -60,8 +50,6 @@ public class ParametersWindow : DefaultDialog
 
 		var main_box = (Gtk.Box)(this.get_content_area());
 		main_box.pack_start(font_box);
-		main_box.pack_start(background_color_box);
-		main_box.pack_start(foreground_color_box);
 		main_box.pack_start(scrollback_lines_box);
 		main_box.pack_start(transparency_box);
 		main_box.pack_start(show_scrollbar_box);
@@ -74,24 +62,6 @@ public class ParametersWindow : DefaultDialog
 		{
 			Settings.font = this.font_chooser.font_name;
 			this.font_changed(this.font_chooser.font_name);
-		}
-
-/* Vala bug: 623092 (https://bugzilla.gnome.org/show_bug.cgi?id=623092) */
-#if VALA_0_12
-		if(Settings.background_color != this.background_color_chooser.color)
-#endif
-		{
-			Settings.background_color = this.background_color_chooser.color;
-			this.background_color_changed(this.background_color_chooser.color);
-		}
-
-/* Vala bug: 623092 (https://bugzilla.gnome.org/show_bug.cgi?id=623092) */
-#if VALA_0_12
-		if(Settings.foreground_color != this.foreground_color_chooser.color)
-#endif
-		{
-			Settings.foreground_color = this.foreground_color_chooser.color;
-			this.foreground_color_changed(this.foreground_color_chooser.color);
 		}
 
 		if(Settings.scrollback_lines != this.scrollback_lines_chooser.get_value_as_int())

@@ -30,17 +30,20 @@ public class Terminal : Vte.Terminal
 
 	public Terminal()
 	{
-        this.scroll_on_keystroke = true;
-
-        this.background_transparent = Settings.transparency;
+    this.scroll_on_keystroke = true;
+    this.background_transparent = Settings.transparency;
 		this.scrollback_lines = Settings.scrollback_lines;
 		this.set_font_from_string(Settings.font);
-		this.set_colors(Settings.foreground_color,
-						Settings.background_color,
-						Colors.colors_palette);
-
+    this.setup_colors();
 		this.active_signals();
 	}
+
+  public void setup_colors()
+  {
+    this.set_colors(Colors.active_foreground_color(),
+        Colors.active_background_color(),
+        Colors.active_palette());
+  }
 
 	private void active_signals()
 	{
@@ -52,13 +55,11 @@ public class Terminal : Vte.Terminal
 		this.context_menu.new_window.connect(() => this.new_window());
 		this.context_menu.display_menubar.connect((a) => this.display_menubar(a));
     this.focus_in_event.connect((event) => {
-      this.set_color_background(Settings.background_color_highlight);
-      this.set_color_foreground(Settings.foreground_color_highlight);
+      this.set_color_background(Colors.active_highlight_background_color());
       return false;
     });
     this.focus_out_event.connect((event) => {
-      this.set_color_background(Settings.background_color);
-      this.set_color_foreground(Settings.foreground_color);
+      this.set_color_background(Colors.active_background_color());
       return false;
     });
   }
