@@ -28,7 +28,8 @@ public class Settings : GLib.Object
 	private const string DAYLIGHT_PALETTE = "Daylight-Palette";
 	private const string SHOW = "Show";
 	private const string SHOW_SCROLLBAR = "Show-Scrollbar";
-	private const string FOUR_TERMS = "Four-Terminals";
+	private const string ROWS = "Rows";
+	private const string COLUMNS = "Columns";
 
 	private static unowned ConfigFile file;
 
@@ -122,16 +123,30 @@ public class Settings : GLib.Object
 		}
 	}
 
-	public static bool four_terms
+	public static int rows
 	{
 		get
 		{
-			return file.get_boolean_key(TERMINAL, FOUR_TERMS, true);
+			return file.get_integer_key(TERMINAL, ROWS, 2);
 		}
 
 		set
 		{
-			file.set_boolean(TERMINAL, FOUR_TERMS, value);
+			file.set_integer(TERMINAL, ROWS, value);
+			file.write();
+		}
+	}
+
+	public static int columns
+	{
+		get
+		{
+			return file.get_integer_key(TERMINAL, COLUMNS, 2);
+		}
+
+		set
+		{
+			file.set_integer(TERMINAL, COLUMNS, value);
 			file.write();
 		}
 	}

@@ -34,7 +34,7 @@ namespace Colors
     { 0, 0x8383, 0x9494, 0x9696 }, // 12 S_base0
     { 0, 0x6c6c, 0x7171, 0xc4c4 }, // 13 S_violet
     { 0, 0x9393, 0xa1a1, 0xa1a1 }, // 14 S_base1
-    { 0, 0xfdfd, 0xf6f6, 0xe3e3 } // 15 S_base3
+    { 0, 0xfdfd, 0xf6f6, 0xe3e3 }  // 15 S_base3
   };
 
   const Gdk.Color[] solarized_light_palette =

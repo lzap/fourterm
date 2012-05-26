@@ -24,6 +24,8 @@ public class MainWindow : Gtk.Window
   private Gee.ArrayList<Terminal> terminals;
 	private Gee.ArrayList<Gtk.ScrolledWindow> scrolled_windows;
 
+  delegate Gtk.Widget WidgetCreator();
+
 	public MainWindow()
 	{
 		this.title = "FourTerm";
@@ -32,15 +34,10 @@ public class MainWindow : Gtk.Window
     this.terminals = new Gee.ArrayList<Terminal>();
 	  this.scrolled_windows = new Gee.ArrayList<Gtk.ScrolledWindow>();
 
-    int size;
-    if (Settings.four_terms) {
-      size = 4;
-      gridManager = new GridManager(2, 2);
-    } else {
-      size = 1;
-      // TODO test this!
-      gridManager = new GridManager(1, 1);
-    }
+    int rows = Settings.rows;
+    int cols = Settings.columns;
+    int size = rows * cols;
+    gridManager = new GridManager(rows, cols);
 
     for (int i = 0; i < size; i++) {
       var term = new Terminal();
@@ -48,28 +45,38 @@ public class MainWindow : Gtk.Window
       terminals.add(term);
       scrolled_windows.add(sw);
 	    sw.add(term);
-      sw.set_size_request(-1, 300);
+      sw.set_size_request(10, 10);
     }
 
 		this.show_scrollbar(Settings.show_scrollbar);
 
-    var top_pane = new Gtk.HPaned();
-		top_pane.pack1(scrolled_windows[0], true, true);
-		top_pane.pack2(scrolled_windows[1], true, true);
-    var bottom_pane = new Gtk.HPaned();
-		bottom_pane.pack1(scrolled_windows[2], true, true);
-		bottom_pane.pack2(scrolled_windows[3], true, true);
-    var main_pane = new Gtk.VPaned();
-		main_pane.pack1(top_pane, true, true);
-		main_pane.pack2(bottom_pane, true, true);
-
+    // create panes (minimum is 2x2)
+    int scrolled_window_create = 0;
+    var rows_pane = create_paned(typeof(Gtk.VPaned), rows, 
+      () => {
+          return create_paned(typeof(Gtk.HPaned), cols, 
+            () => scrolled_windows[scrolled_window_create++]);
+        });
 		var main_box = new Gtk.VBox(false, 0);
 		main_box.pack_start(this.menubar, false);
-		main_box.pack_start(main_pane);
-
+		main_box.pack_start(rows_pane);
 		this.active_signals();
 		this.add(main_box);
 	}
+
+  // TODO share this on my blog or something :-)
+  private Gtk.Paned create_paned(Type pane_type, int left, WidgetCreator creator) {
+    var pane = (Gtk.Paned) Object.new(pane_type);
+    if (left <= 2) {
+      pane.pack1(creator(), true, true);
+      pane.pack2(creator(), true, true);
+      return pane;
+    } else {
+      pane.pack1(creator(), true, true);
+      pane.pack2(create_paned(pane_type, --left, creator), true, true);
+      return pane;
+    }
+  }
 
 	public void display(string shell_cwd = GLib.Environment.get_home_dir())
 	{
@@ -121,8 +128,6 @@ public class MainWindow : Gtk.Window
           (super && event.keyval == 112)) {
           gridManager.left();
           terminals[gridManager.index].grab_focus();
-          //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
-          //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
           return true;
         // next term (ALT+RIGHT, WIN+H, WIN+N)
         } else if ((super && event.keyval == 108) ||
@@ -130,24 +135,18 @@ public class MainWindow : Gtk.Window
           (super && event.keyval == 110)) {
           gridManager.right();
           terminals[gridManager.index].grab_focus();
-          //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
-          //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
           return true;
         // bellow term (ALT+DOWN, WIN+J)
         } else if ((super && event.keyval == 106) ||
           (mod1 && event.keyval == 65364)) {
           gridManager.down();
           terminals[gridManager.index].grab_focus();
-          //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
-          //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
           return true;
         // above term (ALT+UP, WIN+K)
         } else if ((super && event.keyval == 107) ||
           (mod1 && event.keyval == 65362)) {
           gridManager.up();
           terminals[gridManager.index].grab_focus();
-          //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
-          //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
           return true;
         } else if (super && event.keyval == 99) {
             if (Settings.daylight_palette)

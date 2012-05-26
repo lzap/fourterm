@@ -21,18 +21,26 @@ public class ParametersWindow : DefaultDialog
 	private SpinButton scrollback_lines_chooser = new SpinButton(Settings.scrollback_lines);
 	private CheckButton transparency_chooser = new CheckButton(Settings.transparency);
 	private CheckButton show_scrollbar_chooser = new CheckButton(Settings.show_scrollbar);
-	private CheckButton four_terms_chooser = new CheckButton(Settings.four_terms);
+	private SpinButton rows_chooser = new SpinButton(Settings.rows);
+	private SpinButton columns_chooser = new SpinButton(Settings.columns);
 
 	public signal void font_changed(string font);
 	public signal void scrollback_lines_changed(long lines);
 	public signal void transparency_changed(bool tranparency);
 	public signal void show_scrollbar_changed(bool show);
-	public signal void four_terms_changed(bool show);
+	public signal void rows_changed(int lines);
+	public signal void columns_changed(int lines);
 
 	public ParametersWindow(MainWindow parent_window)
 	{
 		this.title = tr("ValaTerm Preferences");
 		this.transient_for = parent_window;
+
+		var rows_box = new ParameterBox(tr("Rows:"),
+													this.rows_chooser);
+
+		var columns_box = new ParameterBox(tr("Columns:"),
+													this.columns_chooser);
 
 		var font_box = new ParameterBox(tr("Font:"), this.font_chooser);
 
@@ -45,19 +53,29 @@ public class ParametersWindow : DefaultDialog
 		var show_scrollbar_box = new ParameterBox(tr("Show scrollbar:"),
 												  this.show_scrollbar_chooser);
 
-		var four_terms_box = new ParameterBox(tr("Four terminals:"),
-												  this.four_terms_chooser);
-
 		var main_box = (Gtk.Box)(this.get_content_area());
+		main_box.pack_start(rows_box);
+		main_box.pack_start(columns_box);
 		main_box.pack_start(font_box);
 		main_box.pack_start(scrollback_lines_box);
 		main_box.pack_start(transparency_box);
 		main_box.pack_start(show_scrollbar_box);
-		main_box.pack_start(four_terms_box);
 	}
 
 	protected override void ok_clicked()
 	{
+		if(Settings.rows != this.rows_chooser.get_value_as_int())
+		{
+			Settings.rows = this.rows_chooser.get_value_as_int();
+			this.rows_changed(this.rows_chooser.get_value_as_int());
+		}
+
+		if(Settings.columns != this.columns_chooser.get_value_as_int())
+		{
+			Settings.columns = this.columns_chooser.get_value_as_int();
+			this.columns_changed(this.columns_chooser.get_value_as_int());
+		}
+
 		if(Settings.font != this.font_chooser.font_name)
 		{
 			Settings.font = this.font_chooser.font_name;
@@ -80,12 +98,6 @@ public class ParametersWindow : DefaultDialog
 		{
 			Settings.show_scrollbar = this.show_scrollbar_chooser.active;
 			this.show_scrollbar_changed(this.show_scrollbar_chooser.active);
-		}
-
-		if(Settings.four_terms != this.four_terms_chooser.active)
-		{
-			Settings.four_terms = this.four_terms_chooser.active;
-			this.four_terms_changed(this.four_terms_chooser.active);
 		}
 	}
 }
