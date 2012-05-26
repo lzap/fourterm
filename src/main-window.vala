@@ -20,9 +20,9 @@ public class MainWindow : Gtk.Window
 	private static uint window_count = 0;
 
 	private Menubar menubar = new Menubar();
+  private GridManager gridManager;
   private Gee.ArrayList<Terminal> terminals;
 	private Gee.ArrayList<Gtk.ScrolledWindow> scrolled_windows;
-	private int active_ix = 0;
 
 	public MainWindow()
 	{
@@ -35,8 +35,11 @@ public class MainWindow : Gtk.Window
     int size;
     if (Settings.four_terms) {
       size = 4;
+      gridManager = new GridManager(2, 2);
     } else {
       size = 1;
+      // TODO test this!
+      gridManager = new GridManager(1, 1);
     }
 
     for (int i = 0; i < size; i++) {
@@ -72,8 +75,8 @@ public class MainWindow : Gtk.Window
 	{
 		this.show_all();
 
-		this.resize(this.terminals[active_ix].calcul_width(80) * 2,
-					this.terminals[active_ix].calcul_height(24) * 2);
+		this.resize(this.terminals[gridManager.index].calcul_width(80) * 2,
+					this.terminals[gridManager.index].calcul_height(24) * 2);
 
 		// Do that after resize because Vte add rows if the main window is too small...
     foreach (Terminal t in terminals) {
@@ -95,10 +98,10 @@ public class MainWindow : Gtk.Window
 			dialog.show_scrollbar_changed.connect(this.show_scrollbar);
 			dialog.show_all();
 		});
-		this.menubar.clear.connect(() => this.terminals[active_ix].reset(true, true));
-		this.menubar.copy.connect(() => this.terminals[active_ix].copy_clipboard());
-		this.menubar.paste.connect(() => this.terminals[active_ix].paste_clipboard());
-		this.menubar.select_all.connect(() => this.terminals[active_ix].select_all());
+		this.menubar.clear.connect(() => this.terminals[gridManager.index].reset(true, true));
+		this.menubar.copy.connect(() => this.terminals[gridManager.index].copy_clipboard());
+		this.menubar.paste.connect(() => this.terminals[gridManager.index].paste_clipboard());
+		this.menubar.select_all.connect(() => this.terminals[gridManager.index].select_all());
 		this.menubar.new_window.connect(this.new_window);
 		this.menubar.quit.connect(this.exit);
 
@@ -116,37 +119,35 @@ public class MainWindow : Gtk.Window
         if ((super && event.keyval == 104) || 
           (mod1 && event.keyval == 65361) ||
           (super && event.keyval == 112)) {
-          if (--active_ix < 0) active_ix = terminals.size - 1;
-          terminals[active_ix].grab_focus();
+          gridManager.left();
+          terminals[gridManager.index].grab_focus();
           //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
-          //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
+          //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
           return true;
         // next term (ALT+RIGHT, WIN+H, WIN+N)
         } else if ((super && event.keyval == 108) ||
           (mod1 && event.keyval == 65363) ||
           (super && event.keyval == 110)) {
-          if (++active_ix >= terminals.size) active_ix = 0;
-          terminals[active_ix].grab_focus();
+          gridManager.right();
+          terminals[gridManager.index].grab_focus();
           //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
-          //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
+          //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
           return true;
         // bellow term (ALT+DOWN, WIN+J)
         } else if ((super && event.keyval == 106) ||
-          (mod1 && event.keyval == 65362)) {
-          active_ix += 2;
-          if (active_ix >= terminals.size) active_ix %= terminals.size;
-          terminals[active_ix].grab_focus();
+          (mod1 && event.keyval == 65364)) {
+          gridManager.down();
+          terminals[gridManager.index].grab_focus();
           //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
-          //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
+          //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
           return true;
         // above term (ALT+UP, WIN+K)
         } else if ((super && event.keyval == 107) ||
-          (mod1 && event.keyval == 65364)) {
-          active_ix -= 2;
-          if (active_ix < 0) active_ix = terminals.size + active_ix;
-          terminals[active_ix].grab_focus();
+          (mod1 && event.keyval == 65362)) {
+          gridManager.up();
+          terminals[gridManager.index].grab_focus();
           //GLib.stdout.printf("%p %p %p %p", terminals[0], terminals[1], terminals[2], terminals[3]);
-          //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
+          //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
           return true;
         } else if (super && event.keyval == 99) {
             if (Settings.daylight_palette)
@@ -158,27 +159,27 @@ public class MainWindow : Gtk.Window
           return true;
         }
         //GLib.stdout.printf("key: %s %u\n", event.str, event.keyval);
-        //GLib.stdout.printf("active: %d, size: %d\n", active_ix, terminals.size);
+        //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
         return false;
       });
 
 		  t.title_changed.connect((term, title) => {
-        if (term == this.terminals[active_ix] && title != null)
+        if (term == this.terminals[gridManager.index] && title != null)
           this.set_title(title);
       });
 
       t.focus_in_event.connect((event) =>
       {
-        active_ix = terminals.index_of(t);
-        if (this.terminals[active_ix].window_title != null)
-          this.set_title(this.terminals[active_ix].window_title);
+        gridManager.index = terminals.index_of(t);
+        if (this.terminals[gridManager.index].window_title != null)
+          this.set_title(this.terminals[gridManager.index].window_title);
         return false;
       });
     }
 
-		//this.terminals[active_ix].title_changed.connect(this.set_title);
-		this.terminals[active_ix].new_window.connect(this.new_window);
-		this.terminals[active_ix].display_menubar.connect(this.menubar.set_visible);
+		//this.terminals[gridManager.index].title_changed.connect(this.set_title);
+		this.terminals[gridManager.index].new_window.connect(this.new_window);
+		this.terminals[gridManager.index].display_menubar.connect(this.menubar.set_visible);
 	}
 
 	private void on_destroy()
@@ -226,7 +227,7 @@ public class MainWindow : Gtk.Window
 	private void new_window()
 	{
 		var window = new MainWindow();
-		window.display(this.terminals[active_ix].get_shell_cwd());
+		window.display(this.terminals[gridManager.index].get_shell_cwd());
 	}
 
 	private void show_scrollbar(bool show)

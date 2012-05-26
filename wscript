@@ -149,6 +149,7 @@ def build(bld):
                          'src/pictures.vala',
                          'src/settings.vala',
                          'src/spin-button.vala',
+                         'src/grid-manager.vala',
                          'src/terminal.vala'])
 
 def dist(ctx):
