@@ -56,17 +56,17 @@ public class GridManager {
     //GLib.stdout.printf("%d %d\n", row, col);
   }
 
-	public int index
-	{
-		get
-		{
+  public int index
+  {
+    get
+    {
       return indices[row, col];
-		}
+    }
 
-		set
-		{
+    set
+    {
       row = value / rows;
       col = value % cols;
-		}
-	}
+    }
+  }
 }

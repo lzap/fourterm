@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,9 +17,9 @@
 
 public class CheckMenuItem : Gtk.CheckMenuItem
 {
-	public CheckMenuItem(string label, bool active)
-	{
-		this.label = label;
-		this.active = active;
-	}
+  public CheckMenuItem(string label, bool active)
+  {
+    this.label = label;
+    this.active = active;
+  }
 }

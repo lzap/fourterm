@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -57,7 +57,7 @@ namespace Colors
     { 0, 0x0000, 0x2b2b, 0x3636 }  // 15 S_base03
   };
 
-	public Gdk.Color[] active_palette()
+  public Gdk.Color[] active_palette()
   {
     if (Settings.daylight_palette)
       return solarized_light_palette;
@@ -65,7 +65,7 @@ namespace Colors
       return solarized_dark_palette;
   }
 
-	public Gdk.Color active_background_color()
+  public Gdk.Color active_background_color()
   {
     if (Settings.daylight_palette)
       return solarized_light_palette[8];
@@ -73,7 +73,7 @@ namespace Colors
       return solarized_dark_palette[8];
   }
 
-	public Gdk.Color active_foreground_color()
+  public Gdk.Color active_foreground_color()
   {
     if (Settings.daylight_palette)
       return solarized_light_palette[12];
@@ -81,7 +81,7 @@ namespace Colors
       return solarized_dark_palette[12];
   }
 
-	public Gdk.Color active_highlight_background_color()
+  public Gdk.Color active_highlight_background_color()
   {
     Gdk.Color c;
     if (Settings.daylight_palette)
@@ -91,15 +91,15 @@ namespace Colors
     return c;
   }
 
-	public Gdk.Color parse(string color) throws GLib.ConvertError
-	{
-		Gdk.Color value;
+  public Gdk.Color parse(string color) throws GLib.ConvertError
+  {
+    Gdk.Color value;
 
-		if(!Gdk.Color.parse(color, out value))
-		{
-			throw new GLib.ConvertError.FAILED("\"%s\" couldn't be parsed as color", color);
-		}
+    if(!Gdk.Color.parse(color, out value))
+    {
+      throw new GLib.ConvertError.FAILED("\"%s\" couldn't be parsed as color", color);
+    }
 
-		return value;
-	}
+    return value;
+  }
 }

@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,16 +17,16 @@
 
 public class MenuItem : Gtk.MenuItem
 {
-	public MenuItem(string label, Gtk.MenuItem[] items)
-	{
-		this.label = label;
+  public MenuItem(string label, Gtk.MenuItem[] items)
+  {
+    this.label = label;
 
-		var submenu = new Gtk.Menu();
-		this.set_submenu(submenu);
+    var submenu = new Gtk.Menu();
+    this.set_submenu(submenu);
 
-		foreach(Gtk.MenuItem item in items)
-		{
-			submenu.append(item);
-		}
-	}
+    foreach(Gtk.MenuItem item in items)
+    {
+      submenu.append(item);
+    }
+  }
 }

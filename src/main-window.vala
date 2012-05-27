@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,22 +17,22 @@
 
 public class MainWindow : Gtk.Window
 {
-	private static uint window_count = 0;
+  private static uint window_count = 0;
 
-	private Menubar menubar = new Menubar();
+  private Menubar menubar = new Menubar();
   private GridManager gridManager;
   private Gee.ArrayList<Terminal> terminals;
-	private Gee.ArrayList<Gtk.ScrolledWindow> scrolled_windows;
+  private Gee.ArrayList<Gtk.ScrolledWindow> scrolled_windows;
 
   delegate Gtk.Widget WidgetCreator();
 
-	public MainWindow()
-	{
-		this.title = "FourTerm";
-		this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
-		this.window_count++;
+  public MainWindow()
+  {
+    this.title = "FourTerm";
+    this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
+    this.window_count++;
     this.terminals = new Gee.ArrayList<Terminal>();
-	  this.scrolled_windows = new Gee.ArrayList<Gtk.ScrolledWindow>();
+    this.scrolled_windows = new Gee.ArrayList<Gtk.ScrolledWindow>();
 
     int rows = Settings.rows;
     int cols = Settings.columns;
@@ -41,14 +41,14 @@ public class MainWindow : Gtk.Window
 
     for (int i = 0; i < size; i++) {
       var term = new Terminal();
-	    var sw = new Gtk.ScrolledWindow(null, null);
+      var sw = new Gtk.ScrolledWindow(null, null);
       terminals.add(term);
       scrolled_windows.add(sw);
-	    sw.add(term);
+      sw.add(term);
       sw.set_size_request(10, 10);
     }
 
-		this.show_scrollbar(Settings.show_scrollbar);
+    this.show_scrollbar(Settings.show_scrollbar);
 
     // create panes (minimum is 2x2)
     int scrolled_window_create = 0;
@@ -57,12 +57,12 @@ public class MainWindow : Gtk.Window
           return create_paned(typeof(Gtk.HPaned), cols, 
             () => scrolled_windows[scrolled_window_create++]);
         });
-		var main_box = new Gtk.VBox(false, 0);
-		main_box.pack_start(this.menubar, false);
-		main_box.pack_start(rows_pane);
-		this.active_signals();
-		this.add(main_box);
-	}
+    var main_box = new Gtk.VBox(false, 0);
+    main_box.pack_start(this.menubar, false);
+    main_box.pack_start(rows_pane);
+    this.active_signals();
+    this.add(main_box);
+  }
 
   // TODO share this on my blog or something :-)
   private Gtk.Paned create_paned(Type pane_type, int left, WidgetCreator creator) {
@@ -78,42 +78,42 @@ public class MainWindow : Gtk.Window
     }
   }
 
-	public void display(string shell_cwd = GLib.Environment.get_home_dir())
-	{
-		this.show_all();
+  public void display(string shell_cwd = GLib.Environment.get_home_dir())
+  {
+    this.show_all();
 
-		this.resize(this.terminals[gridManager.index].calcul_width(80) * 2,
-					this.terminals[gridManager.index].calcul_height(24) * 2);
+    this.resize(this.terminals[gridManager.index].calcul_width(80) * 2,
+          this.terminals[gridManager.index].calcul_height(24) * 2);
 
-		// Do that after resize because Vte add rows if the main window is too small...
+    // Do that after resize because Vte add rows if the main window is too small...
     foreach (Terminal t in terminals) {
-		  t.active_shell(shell_cwd);
+      t.active_shell(shell_cwd);
     }
-	}
+  }
 
-	private void active_signals()
-	{
-		this.menubar.about.connect(() => About.display(this));
-		this.menubar.preferences.connect(() =>
-		{
-			var dialog = new ParametersWindow(this);
+  private void active_signals()
+  {
+    this.menubar.about.connect(() => About.display(this));
+    this.menubar.preferences.connect(() =>
+    {
+      var dialog = new ParametersWindow(this);
       foreach (Terminal t in terminals) {
         dialog.font_changed.connect(t.set_font_from_string);
         dialog.scrollback_lines_changed.connect(t.set_scrollback_lines);
         dialog.transparency_changed.connect(t.set_background_transparent);
       }
-			dialog.show_scrollbar_changed.connect(this.show_scrollbar);
-			dialog.show_all();
-		});
-		this.menubar.clear.connect(() => this.terminals[gridManager.index].reset(true, true));
-		this.menubar.copy.connect(() => this.terminals[gridManager.index].copy_clipboard());
-		this.menubar.paste.connect(() => this.terminals[gridManager.index].paste_clipboard());
-		this.menubar.select_all.connect(() => this.terminals[gridManager.index].select_all());
-		this.menubar.new_window.connect(this.new_window);
-		this.menubar.quit.connect(this.exit);
+      dialog.show_scrollbar_changed.connect(this.show_scrollbar);
+      dialog.show_all();
+    });
+    this.menubar.clear.connect(() => this.terminals[gridManager.index].reset(true, true));
+    this.menubar.copy.connect(() => this.terminals[gridManager.index].copy_clipboard());
+    this.menubar.paste.connect(() => this.terminals[gridManager.index].paste_clipboard());
+    this.menubar.select_all.connect(() => this.terminals[gridManager.index].select_all());
+    this.menubar.new_window.connect(this.new_window);
+    this.menubar.quit.connect(this.exit);
 
-		this.delete_event.connect(this.on_delete);
-		this.destroy.connect(this.on_destroy);
+    this.delete_event.connect(this.on_delete);
+    this.destroy.connect(this.on_destroy);
     
     foreach (Terminal t in terminals) {
       t.child_exited.connect(() => t.active_shell(GLib.Environment.get_home_dir()));
@@ -162,7 +162,7 @@ public class MainWindow : Gtk.Window
         return false;
       });
 
-		  t.title_changed.connect((term, title) => {
+      t.title_changed.connect((term, title) => {
         if (term == this.terminals[gridManager.index] && title != null)
           this.set_title(title);
       });
@@ -176,34 +176,34 @@ public class MainWindow : Gtk.Window
       });
     }
 
-		//this.terminals[gridManager.index].title_changed.connect(this.set_title);
-		this.terminals[gridManager.index].new_window.connect(this.new_window);
-		this.terminals[gridManager.index].display_menubar.connect(this.menubar.set_visible);
-	}
+    //this.terminals[gridManager.index].title_changed.connect(this.set_title);
+    this.terminals[gridManager.index].new_window.connect(this.new_window);
+    this.terminals[gridManager.index].display_menubar.connect(this.menubar.set_visible);
+  }
 
-	private void on_destroy()
-	{
-		if(this.window_count < 2)
-		{
-			Gtk.main_quit();
-		}
-		else
-		{
-			this.window_count--;
-		}
-	}
+  private void on_destroy()
+  {
+    if(this.window_count < 2)
+    {
+      Gtk.main_quit();
+    }
+    else
+    {
+      this.window_count--;
+    }
+  }
 
-	private void exit()
-	{
-		if(this.on_delete() == false)
-		{
-			this.destroy();
-		}
-	}
+  private void exit()
+  {
+    if(this.on_delete() == false)
+    {
+      this.destroy();
+    }
+  }
 
-	private bool on_delete()
-	{
-		bool return_value = false;
+  private bool on_delete()
+  {
+    bool return_value = false;
 
     foreach (Terminal t in terminals) {
       if(t.has_foreground_process())
@@ -220,22 +220,22 @@ public class MainWindow : Gtk.Window
       }
     }
 
-		return return_value;
-	}
+    return return_value;
+  }
 
-	private void new_window()
-	{
-		var window = new MainWindow();
-		window.display(this.terminals[gridManager.index].get_shell_cwd());
-	}
+  private void new_window()
+  {
+    var window = new MainWindow();
+    window.display(this.terminals[gridManager.index].get_shell_cwd());
+  }
 
-	private void show_scrollbar(bool show)
-	{
+  private void show_scrollbar(bool show)
+  {
     foreach (Gtk.ScrolledWindow sw in scrolled_windows) {
       if(show == true)
         sw.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
       else
         sw.set_policy(Gtk.PolicyType.NEVER, Gtk.PolicyType.NEVER);
     }
-	}
+  }
 }

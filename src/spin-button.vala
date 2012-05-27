@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,10 +17,10 @@
 
 public class SpinButton : Gtk.SpinButton
 {
-	public SpinButton(double value)
-	{
-		this.set_range(-1, 10000);
-		this.set_increments(1, 1);
-		this.value = value;
-	}
+  public SpinButton(double value)
+  {
+    this.set_range(-1, 10000);
+    this.set_increments(1, 1);
+    this.value = value;
+  }
 }

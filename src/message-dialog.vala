@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,15 +17,15 @@
 
 public class MessageDialog : Gtk.MessageDialog
 {
-	public MessageDialog(MainWindow parent, string message, string secondary_text)
-	{
-		Object(buttons: Gtk.ButtonsType.OK_CANCEL);
+  public MessageDialog(MainWindow parent, string message, string secondary_text)
+  {
+    Object(buttons: Gtk.ButtonsType.OK_CANCEL);
 
-		this.transient_for = parent;
-		this.text = message;
-		this.secondary_text = secondary_text;
-		this.title = secondary_text;
-		this.modal = true;
-		this.message_type = Gtk.MessageType.WARNING;
-	}
+    this.transient_for = parent;
+    this.text = message;
+    this.secondary_text = secondary_text;
+    this.title = secondary_text;
+    this.modal = true;
+    this.message_type = Gtk.MessageType.WARNING;
+  }
 }

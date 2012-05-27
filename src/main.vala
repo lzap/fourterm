@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,28 +17,28 @@
 
 void main(string[] args)
 {
-	Gtk.init(ref args);
+  Gtk.init(ref args);
 
-	var file = new ConfigFile();
-	Settings.init(file);
+  var file = new ConfigFile();
+  Settings.init(file);
 
 #if ENABLE_NLS
-	GLib.Intl.setlocale(GLib.LocaleCategory.ALL, "");
-	GLib.Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALE_DIR);
-	GLib.Intl.textdomain(Config.GETTEXT_PACKAGE);
+  GLib.Intl.setlocale(GLib.LocaleCategory.ALL, "");
+  GLib.Intl.bindtextdomain(Config.GETTEXT_PACKAGE, Config.LOCALE_DIR);
+  GLib.Intl.textdomain(Config.GETTEXT_PACKAGE);
 #endif
 
-	var window = new MainWindow();
-	window.display();
+  var window = new MainWindow();
+  window.display();
 
-	Gtk.main();
+  Gtk.main();
 }
 
 public unowned string tr(string str)
 {
 #if ENABLE_NLS
-	return GLib._(str);
+  return GLib._(str);
 #else
-	return str;
+  return str;
 #endif
 }

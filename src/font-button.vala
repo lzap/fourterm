@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,8 +17,8 @@
 
 public class FontButton : Gtk.FontButton
 {
-	public FontButton(string font)
-	{
-		this.font_name = font;
-	}
+  public FontButton(string font)
+  {
+    this.font_name = font;
+  }
 }

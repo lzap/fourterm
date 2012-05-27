@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,37 +17,37 @@
 
 public class ContextMenu : Gtk.Menu
 {
-	private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
-	private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
-	private CheckMenuItem item_display_menubar = new CheckMenuItem(tr("Menu Bar"), Settings.show_menubar);
-	private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
+  private ImageMenuItem item_copy = new ImageMenuItem(Icons.COPY);
+  private ImageMenuItem item_paste = new ImageMenuItem(Icons.PASTE);
+  private CheckMenuItem item_display_menubar = new CheckMenuItem(tr("Menu Bar"), Settings.show_menubar);
+  private ImageMenuItem item_new_window = new ImageMenuItem(Icons.NEW, tr("New Window"));
 
-	public signal void copy();
-	public signal void paste();
-	public signal void display_menubar(bool show);
-	public signal void new_window();
+  public signal void copy();
+  public signal void paste();
+  public signal void display_menubar(bool show);
+  public signal void new_window();
 
-	public ContextMenu()
-	{
-		this.append(this.item_copy);
-		this.append(this.item_paste);
-		this.append(new Gtk.SeparatorMenuItem());
-		this.append(this.item_display_menubar);
-		this.append(new Gtk.SeparatorMenuItem());
-		this.append(this.item_new_window);
+  public ContextMenu()
+  {
+    this.append(this.item_copy);
+    this.append(this.item_paste);
+    this.append(new Gtk.SeparatorMenuItem());
+    this.append(this.item_display_menubar);
+    this.append(new Gtk.SeparatorMenuItem());
+    this.append(this.item_new_window);
 
-		this.active_signals();
-	}
+    this.active_signals();
+  }
 
-	private void active_signals()
-	{
-		this.item_copy.activate.connect(() => this.copy());
-		this.item_paste.activate.connect(() => this.paste());
-		this.item_display_menubar.activate.connect(() =>
-		{
-			Settings.show_menubar = this.item_display_menubar.active;
-			this.display_menubar(this.item_display_menubar.active);
-		});
-		this.item_new_window.activate.connect(() => this.new_window());
-	}
+  private void active_signals()
+  {
+    this.item_copy.activate.connect(() => this.copy());
+    this.item_paste.activate.connect(() => this.paste());
+    this.item_display_menubar.activate.connect(() =>
+    {
+      Settings.show_menubar = this.item_display_menubar.active;
+      this.display_menubar(this.item_display_menubar.active);
+    });
+    this.item_new_window.activate.connect(() => this.new_window());
+  }
 }

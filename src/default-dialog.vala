@@ -1,5 +1,5 @@
 /****************************
-** Copyright © 2011 Jacques-Pascal Deplaix
+** Copyright © 2011 Jacques-Pascal Deplaix, Lukas Zapletal
 **
 ** ValaTerm is free software: you can redistribute it and/or modify
 ** it under the terms of the GNU General Public License as published by
@@ -17,21 +17,21 @@
 
 public abstract class DefaultDialog : Gtk.Dialog
 {
-	public DefaultDialog()
-	{
-		this.add_buttons(Icons.OK, Gtk.ResponseType.OK,
-						 Icons.CANCEL, Gtk.ResponseType.CANCEL);
-	}
+  public DefaultDialog()
+  {
+    this.add_buttons(Icons.OK, Gtk.ResponseType.OK,
+             Icons.CANCEL, Gtk.ResponseType.CANCEL);
+  }
 
-	protected abstract void ok_clicked();
+  protected abstract void ok_clicked();
 
-	protected override void response(int response_id)
-	{
-		if(response_id == Gtk.ResponseType.OK)
-		{
-			this.ok_clicked();
-		}
+  protected override void response(int response_id)
+  {
+    if(response_id == Gtk.ResponseType.OK)
+    {
+      this.ok_clicked();
+    }
 
-		this.destroy();
-	}
+    this.destroy();
+  }
 }
