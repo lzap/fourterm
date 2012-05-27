@@ -67,16 +67,19 @@ public class ParametersWindow : DefaultDialog
 
 	protected override void ok_clicked()
 	{
+    bool restart = false;
 		if(Settings.rows != this.rows_chooser.get_value_as_int())
 		{
 			Settings.rows = this.rows_chooser.get_value_as_int();
 			this.rows_changed(this.rows_chooser.get_value_as_int());
+      restart = true;
 		}
 
 		if(Settings.columns != this.columns_chooser.get_value_as_int())
 		{
 			Settings.columns = this.columns_chooser.get_value_as_int();
 			this.columns_changed(this.columns_chooser.get_value_as_int());
+      restart = true;
 		}
 
 		if(Settings.font != this.font_chooser.font_name)
@@ -102,5 +105,12 @@ public class ParametersWindow : DefaultDialog
 			Settings.show_scrollbar = this.show_scrollbar_chooser.active;
 			this.show_scrollbar_changed(this.show_scrollbar_chooser.active);
 		}
+
+    if (restart) {
+      var dialog = new Gtk.MessageDialog(this, Gtk.DialogFlags.MODAL, Gtk.MessageType.INFO, Gtk.ButtonsType.OK, tr("Please restart application"));
+      dialog.set_title(tr("Restart needed"));
+      dialog.run();
+      dialog.destroy();
+    }
 	}
 }
