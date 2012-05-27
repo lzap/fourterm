@@ -60,6 +60,9 @@ public class ParametersWindow : DefaultDialog
 		main_box.pack_start(scrollback_lines_box);
 		main_box.pack_start(transparency_box);
 		main_box.pack_start(show_scrollbar_box);
+
+    rows_chooser.set_range(2, 99);
+    columns_chooser.set_range(2, 99);
 	}
 
 	protected override void ok_clicked()

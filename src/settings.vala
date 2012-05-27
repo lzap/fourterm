@@ -127,7 +127,9 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			return file.get_integer_key(TERMINAL, ROWS, 2);
+			int v = file.get_integer_key(TERMINAL, ROWS, 2);
+      if (v < 2) v = 2;
+      return v;
 		}
 
 		set
@@ -141,7 +143,9 @@ public class Settings : GLib.Object
 	{
 		get
 		{
-			return file.get_integer_key(TERMINAL, COLUMNS, 2);
+			int v = file.get_integer_key(TERMINAL, COLUMNS, 2);
+      if (v < 2) v = 2;
+      return v;
 		}
 
 		set
