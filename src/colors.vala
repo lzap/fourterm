@@ -84,10 +84,16 @@ namespace Colors
   public Gdk.Color active_highlight_background_color()
   {
     Gdk.Color c;
+    /*
     if (Settings.daylight_palette)
-      c = { 0, 0xeded, 0xe6e6, 0xd3d3 }; // S_base3 - 0x10
+      c = { 0, 0xffff, 0xf8f8, 0xe5e5 }; // S_base3 + 1 hue point
     else
-      c = { 0, 0x0000, 0x1b1b, 0x2626 }; // S_base03 + 0x10
+      c = { 0, 0x0000, 0x2929, 0x3333 }; // S_base03 - 1 hue point
+    */
+    if (Settings.daylight_palette)
+      c = { 0, 0xffff, 0xffff, 0xffff };
+    else
+      c = { 0, 0x0000, 0x0000, 0x0000 };
     return c;
   }
 
