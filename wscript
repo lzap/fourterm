@@ -134,7 +134,6 @@ def build(bld):
                          'src/colors.vala',
                          'src/color-button.vala',
                          'src/config-file.vala',
-                         'src/context-menu.vala',
                          'src/default-dialog.vala',
                          'src/font-button.vala',
                          'src/icons.vala',
@@ -150,7 +149,8 @@ def build(bld):
                          'src/settings.vala',
                          'src/spin-button.vala',
                          'src/grid-manager.vala',
-                         'src/terminal.vala'])
+                         'src/terminal.vala',
+                         'src/matchers.vala'])
 
 def dist(ctx):
     ctx.excl = '**/.*'

@@ -17,8 +17,8 @@
 
 public class Terminal : Vte.Terminal
 {
-  private ContextMenu context_menu = new ContextMenu();
   private GLib.Pid? child_pid = null;
+  private MatcherManager matcher_manager;
 
 #if VTE_SUP_0_26 && VALAC_SUP_0_12_1
   private unowned string shell = Terminal.get_shell();
@@ -36,6 +36,7 @@ public class Terminal : Vte.Terminal
     this.set_font_from_string(Settings.font);
     this.setup_colors();
     this.active_signals();
+    this.matcher_manager = new MatcherManager(this);
   }
 
   public void setup_colors()
@@ -50,10 +51,6 @@ public class Terminal : Vte.Terminal
     this.button_press_event.connect(this.display_menu);
     this.window_title_changed.connect(() => this.title_changed(this.window_title));
 
-    this.context_menu.copy.connect(() => this.copy_clipboard());
-    this.context_menu.paste.connect(() => this.paste_clipboard());
-    this.context_menu.new_window.connect(() => this.new_window());
-    this.context_menu.display_menubar.connect((a) => this.display_menubar(a));
     this.focus_in_event.connect((event) => {
       this.set_color_background(Colors.active_highlight_background_color());
       return false;
@@ -96,11 +93,22 @@ public class Terminal : Vte.Terminal
 
   private bool display_menu(Gdk.EventButton event)
   {
-    if(event.button == 3) // 3 is the right button
+    if ((event.type == Gdk.EventType.BUTTON_PRESS || event.type == Gdk.EventType.2BUTTON_PRESS)
+       && event.button == 3)
     {
-      this.context_menu.show_all();
-      context_menu.popup(null, null, null, event.button, event.time);
-
+      int tag;
+      //GLib.stdout.printf("tag: %dx%d %d\n", (int) event.x, (int) event.y, tag);
+      //var bx = this.style.context.get_border().left;
+      //var by = this.style.context.get_border().top;
+      var match = this.match_check(
+        (int) (event.x / this.get_char_width()), 
+        (int) (event.y / this.get_char_height()),
+        out tag);
+      if (tag != -1) {
+        if (event.type == Gdk.EventType.BUTTON_PRESS) {
+          matcher_manager.apply_action(match, tag);
+        }
+      }
       return true;
     }
 

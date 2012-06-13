@@ -157,6 +157,7 @@ public class MainWindow : Gtk.Window
               tc.setup_colors();
           return true;
         }
+        //TODO: t.display_menubar()
         //GLib.stdout.printf("key: %s %u\n", event.str, event.keyval);
         //GLib.stdout.printf("active: %d, size: %d\n", gridManager.index, terminals.size);
         return false;
