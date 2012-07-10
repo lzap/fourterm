@@ -204,11 +204,11 @@ public class MainWindow : Gtk.Window
 
   private bool on_delete()
   {
-    bool return_value = true;
+    bool return_value = false;
 
     foreach (Terminal t in terminals) {
-      if(t.has_foreground_process())
-      {
+      if(t.has_foreground_process()) {
+        return_value = true;
         var dialog = new MessageDialog(this, tr("There is still a process running in this terminal. Closing the window will kill it."), tr("Would you closing this window ?"));
 
         if(dialog.run() == Gtk.ResponseType.OK)
