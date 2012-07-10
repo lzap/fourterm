@@ -106,7 +106,7 @@ def configure(conf):
         conf.env.VALAFLAGS.extend(['--define=ENABLE_NLS'])
 
     if conf.options.debug == True:
-        conf.env.CFLAGS.extend(['-g3', '-ggdb3'])
+        conf.env.CFLAGS.extend(['-ggdb3'])
         conf.env.VALAFLAGS.extend(['-g', '--define=DEBUG'])
     else:
         conf.env.CFLAGS.extend(['-O2'])
