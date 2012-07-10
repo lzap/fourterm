@@ -30,7 +30,8 @@ public class MatcherManager : GLib.Object
   public void apply_action(string match, int index) {
     var command = matchers[index].command(match);
     try {
-      GLib.Process.spawn_command_line_async(command);
+      if (command != null)
+        GLib.Process.spawn_command_line_async(command);
     } catch(GLib.SpawnError error) {
 #if DEBUG
       this.display_get_key_error(error.message);
