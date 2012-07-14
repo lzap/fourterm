@@ -28,15 +28,40 @@ public class MatcherManager : GLib.Object
   }
 
   public void apply_action(string match, int index) {
-    var command = matchers[index].command(match);
     try {
-      if (command != null)
-        GLib.Process.spawn_command_line_async(command);
-    } catch(GLib.SpawnError error) {
+      var matcher = matchers[index];
+      // create regex
+      Regex r = new Regex(matcher.regex());
+      MatchInfo info;
+      if (r.match(match, 0, out info)) {
+        // find groups
+        var groups = info.fetch_all();
+        // check if file exists
+        if (file_exists(matcher.matched_filename(groups))) {
+          // execute command
+          var command = matcher.command(groups);
+          if (command != null)
+            GLib.Process.spawn_command_line_async(command);
+        }
+      }
+    } catch (GLib.RegexError error) {
+#if DEBUG
+      this.display_get_key_error(error.message);
+#endif
+    } catch (GLib.SpawnError error) {
 #if DEBUG
       this.display_get_key_error(error.message);
 #endif
     }
+  }
+
+  // checks if file exists (incl. project dirs)
+  public bool file_exists(string filename) {
+    var file = File.new_for_path(filename);
+    if (file.query_exists())
+      return true;
+    else
+      return false;
   }
 
   private void add_matcher(IMatcher matcher) {
@@ -55,7 +80,9 @@ public interface IMatcher : GLib.Object
 {
   public abstract string name();
   public abstract string regex();
-  public abstract string command(string match);
+  public abstract string command(string[] groups);
+  public abstract string matched_filename(string[] groups);
+  public abstract string matched_line(string[] groups);
 }
 
 public class UrlMatcher : GLib.Object, IMatcher
@@ -68,8 +95,41 @@ public class UrlMatcher : GLib.Object, IMatcher
     return "(((file|http|ftp|https)://)|(www|ftp)[-A-Za-z0-9]*\\.)[-A-Za-z0-9\\.]+(:[0-9]*)?/[-A-Za-z0-9_\\$\\.\\+\\!\\*\\(\\),;:@&=\\?/~\\#\\%]*[^]'\\.}>\\) ,\\\"]";
   }
 
-  public string command(string match) {
-    return "google-chrome " + match;
+  public string matched_filename(string[] groups) {
+    return ""; // not used
+  }
+
+  public string matched_line(string[] groups) {
+    return ""; // not used
+  }
+
+  public string command(string[] groups) {
+    return "google-chrome " + groups[0];
+  }
+}
+
+public class PythonMatcher : GLib.Object, IMatcher
+{
+  public string name() {
+    return "python";
+  }
+
+  public string regex() {
+    return """File\s\"(.*)\",\sline\s(\d+)""";
+  }
+
+  public string matched_filename(string[] groups) {
+    return groups[1];
+  }
+
+  public string matched_line(string[] groups) {
+    return groups[2];
+  }
+
+  public string command(string[] groups) {
+    var filename = matched_filename(groups);
+    var line = matched_line(groups);
+    return @"gvim $filename +$line";
   }
 }
 
@@ -80,27 +140,21 @@ public class RubyMatcher : GLib.Object, IMatcher
   }
 
   public string regex() {
-    return """File\s\"(.*)\",\sline\s(\d+)""";
-  }
-
-  public string command(string match) {
-    return "gvim " + match;
-  }
-}
-
-// TODO - test this
-public class PythonMatcher : GLib.Object, IMatcher
-{
-  public string name() {
-    return "python";
-  }
-
-  public string regex() {
     return """(^|\s)(\S*):(\d+)""";
   }
 
-  public string command(string match) {
-    return "gvim " + match;
+  public string matched_filename(string[] groups) {
+    return groups[1] + groups[2];
+  }
+
+  public string matched_line(string[] groups) {
+    return groups[3];
+  }
+
+  public string command(string[] groups) {
+    var filename = matched_filename(groups);
+    var line = matched_line(groups);
+    return @"gvim $filename +$line";
   }
 }
 
