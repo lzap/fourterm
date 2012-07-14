@@ -29,7 +29,7 @@ public class MainWindow : Gtk.Window
   public MainWindow()
   {
     this.title = "FourTerm";
-    this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
+    //this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
     this.window_count++;
     this.terminals = new Gee.ArrayList<Terminal>();
     this.scrolled_windows = new Gee.ArrayList<Gtk.ScrolledWindow>();

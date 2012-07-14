@@ -145,7 +145,6 @@ def build(bld):
                          'src/message-dialog.vala',
                          'src/parameters-window.vala',
                          'src/parameter-box.vala',
-                         'src/pictures.vala',
                          'src/settings.vala',
                          'src/spin-button.vala',
                          'src/grid-manager.vala',
