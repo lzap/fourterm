@@ -150,6 +150,19 @@ def build(bld):
                          'src/grid-manager.vala',
                          'src/terminal.vala',
                          'src/matchers.vala'])
+    # install desktop file
+    bld.install_files('${PREFIX}/share/applications', 'data/' + APPNAME + '.desktop')
+   
+    # install icons
+    ICON_PATH='${PREFIX}/share/icons/hicolor/'
+    bld.install_files(ICON_PATH + 'scalable/apps', 'data/icons/scalable/apps/' + APPNAME + '.svg');
+    bld.install_files(ICON_PATH + '16x16/apps', 'data/icons/16x16/apps/' + APPNAME + '.png');
+    bld.install_files(ICON_PATH + '22x22/apps', 'data/icons/22x22/apps/' + APPNAME + '.png');
+    bld.install_files(ICON_PATH + '24x24/apps', 'data/icons/24x24/apps/' + APPNAME + '.png');
+    bld.install_files(ICON_PATH + '32x32/apps', 'data/icons/32x32/apps/' + APPNAME + '.png');
+    bld.install_files(ICON_PATH + '48x48/apps', 'data/icons/48x48/apps/' + APPNAME + '.png');
+    bld.install_files(ICON_PATH + '64x64/apps', 'data/icons/64x64/apps/' + APPNAME + '.png');
+    bld.install_files(ICON_PATH + '128x128/apps', 'data/icons/128x128/apps/' + APPNAME + '.png');
 
 def dist(ctx):
     ctx.excl = '**/.*'

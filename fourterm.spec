@@ -1,11 +1,11 @@
 Name:           fourterm
 Version:        1.0.0
 Release:        1%{?dist}
-Summary:        Lightweight split-screen terminal emulator with vim key-mappings
+Summary:        Lightweight split-screen terminal emulator with vim key mappings
 
 Group:          Development/Tools
 License:        GPLv3+
-URL:            https://gitorious.org/~lzap/valaterm/fourterm
+URL:            https://github.com/lzap/fourterm
 Source0:        http://lzap.fedorapeople.org/projects/fourterm/releases/%{name}-%{version}.tar.bz2
 
 BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
@@ -35,47 +35,48 @@ comparable to Terminator.
 
 
 %build
-waf configure --with-gtk3
+waf configure --with-gtk3 --prefix=%{_prefix}
 waf
 
 
 %install
 %{__rm} -rf $RPM_BUILD_ROOT
+waf install --destdir=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 cp build/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 
-#desktop-file-install --delete-original  \
-        #--dir $RPM_BUILD_ROOT%{_datadir}/applications   \
-        #--remove-category Application \
-        #$RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
+desktop-file-install --delete-original  \
+        --dir $RPM_BUILD_ROOT%{_datadir}/applications   \
+        --remove-category Application \
+        $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 
-#%find_lang %{name}
+%find_lang %{name}
 
 %post
-#touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
+touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %postun
-#if [ $1 -eq 0 ] ; then
-    #touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    #gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-#fi
+if [ $1 -eq 0 ] ; then
+    touch --no-create %{_datadir}/icons/hicolor &>/dev/null
+    gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+fi
 
 
 %posttrans
-#gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
+gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %clean
 %{__rm} -rf $RPM_BUILD_ROOT
 
 
-%files
+%files -f %{name}.lang
 %defattr(-,root,root,-)
 %doc AUTHORS COPYING INSTALL ChangeLog
 %{_bindir}/%{name}
-#%{_datadir}/icons/hicolor/*/apps/%{name}.*
-#%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
+%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
