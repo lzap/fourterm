@@ -1,14 +1,42 @@
 #! /usr/bin/env python
 # encoding: utf-8
-# Copyright © 2011 Jacques-Pascal Deplaix
+# Copyright © 2011 Jacques-Pascal Deplaix, 2012 Lukas Zapletal
 
 APPNAME = 'fourterm'
-VERSION = '1.0.0'
 
 top = '.'
 out = 'build'
 
 import waflib
+import subprocess
+import re
+import os
+
+def conf_get_git_revision():
+    try:
+        p = subprocess.Popen(['git', 'describe', '--abbrev=0', '--tags'], stdout=subprocess.PIPE, \
+                stderr=subprocess.STDOUT, close_fds=False, env={'LANG' : 'C'})
+        stdout = p.communicate()[0]
+
+        if p.returncode == 0:
+            lines = stdout.splitlines(True)
+            m = re.match(r"^fourterm-(?P<version>\d+\.\d+\.\d+).*", lines[0])
+            if m:
+                return m.group('version').strip()
+        return '1.0-git'
+    except:
+        return '1.0-git'
+
+def conf_get_dir_revision():
+    try:
+        m = re.match(r".*fourterm-(?P<version>\d+\.\d+\.\d+).*", os.path.realpath(__file__))
+        if m:
+            return m.group('version').strip()
+        return '1.0-git'
+    except:
+        return '1.0-git'
+
+VERSION = conf_get_dir_revision()
 
 def options(opt):
     opt.load(['compiler_c', 'vala'])
