@@ -19,7 +19,7 @@ public class About : Gtk.AboutDialog
 {
   const string[] all_authors = {
     "Jacques-Pascal Deplaix <jp.deplaix@gmail.com>",
-    "Lukas Zapletal <http://lukas.zapletalovi.com>",
+    "Lukas Zapletal <lzap@seznam.cz>",
     "" };
 
   private About(MainWindow parent_window)
