@@ -29,7 +29,7 @@ def conf_get_git_revision():
 
 def conf_get_dir_revision():
     try:
-        m = re.match(r".*fourterm-(?P<version>\d+\.\d+\.\d+).*", os.path.realpath(__file__))
+        m = re.match(r".*fourterm-(?P<version>\d+\.\d+\.\d+).*", os.getcwd())
         if m:
             return m.group('version').strip()
         return '1.0-git'
