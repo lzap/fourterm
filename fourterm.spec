@@ -6,9 +6,9 @@ Summary:        Lightweight split-screen terminal emulator with vim key mappings
 Group:          Development/Tools
 License:        GPLv3+
 URL:            https://github.com/lzap/fourterm
-Source0:        http://lzap.fedorapeople.org/projects/fourterm/releases/%{name}-%{version}.tar.bz2
+Source0:        http://lzap.fedorapeople.org/projects/fourterm/releases/%{name}-%{version}.tar.gz
 
-BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+#BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 Requires:       libgee glib2 gtk3 vte3
 Requires:       terminus-fonts
@@ -40,7 +40,7 @@ waf
 
 
 %install
-%{__rm} -rf $RPM_BUILD_ROOT
+#%{__rm} -rf $RPM_BUILD_ROOT
 waf install --destdir=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 cp build/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
@@ -68,11 +68,10 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %clean
-%{__rm} -rf $RPM_BUILD_ROOT
+#%{__rm} -rf $RPM_BUILD_ROOT
 
 
 %files -f %{name}.lang
-%defattr(-,root,root,-)
 %doc AUTHORS COPYING INSTALL ChangeLog
 %{_bindir}/%{name}
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
