@@ -24,4 +24,6 @@ namespace Config
 	public const string GETTEXT_PACKAGE;
 	[CCode (cname = "LOCALEDIR")]
 	public const string LOCALE_DIR;
+	[CCode (cname = "DATADIR")]
+	public const string DATA_DIR;
 }

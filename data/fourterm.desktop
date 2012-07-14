@@ -1,8 +1,8 @@
 [Desktop Entry]
 Type=Application
 Version=1.0
-Name=Four Term
-GenericName=Four Term
+Name=FourTerm
+GenericName=FourTerm
 Comment=Lightweight split-screen terminal emulator with vim key mappings
 Exec=fourterm
 Icon=fourterm

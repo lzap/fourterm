@@ -28,11 +28,17 @@ public class MainWindow : Gtk.Window
 
   public MainWindow()
   {
-    this.title = "FourTerm";
-    //this.icon = new Gdk.Pixbuf.from_xpm_data(Pictures.logo);
-    this.window_count++;
-    this.terminals = new Gee.ArrayList<Terminal>();
-    this.scrolled_windows = new Gee.ArrayList<Gtk.ScrolledWindow>();
+    try {
+      this.title = "FourTerm";
+      this.window_count++;
+      this.terminals = new Gee.ArrayList<Terminal>();
+      this.scrolled_windows = new Gee.ArrayList<Gtk.ScrolledWindow>();
+      set_icon_from_file(Path.build_filename(Config.DATA_DIR, "/icons/hicolor/128x128/apps/fourterm.png"));
+    } catch (GLib.Error error) {
+#if DEBUG
+      this.display_get_key_error(error.message);
+#endif
+    }
 
     int rows = Settings.rows;
     int cols = Settings.columns;
