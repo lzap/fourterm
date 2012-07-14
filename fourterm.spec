@@ -1,5 +1,5 @@
 Name:           fourterm
-Version:        1.0.2
+Version:        1.0.3
 Release:        1%{?dist}
 Summary:        Lightweight split-screen terminal emulator with vim key mappings
 
@@ -79,6 +79,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sat Jul 14 2012 Lukas Zapletal <lzap+git@redhat.com> 1.0.3-1
+- preparing upstream spec for fedora review
+
 * Sat Jul 14 2012 Lukas Zapletal <lzap+git@redhat.com> 1.0.2-1
 - adding version determination from git and dir
 - correcting e-mail address in about box
