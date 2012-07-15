@@ -138,8 +138,11 @@ def configure(conf):
         conf.env.VALAFLAGS.extend(['-g', '--define=DEBUG'])
     else:
         conf.env.CFLAGS.extend(['-O2'])
-        conf.env.VALAFLAGS.extend(['--thread', '-C'])
+        conf.env.VALAFLAGS.extend(['--thread'])
         conf.env.LINKFLAGS.extend(['-Wl,-O1', '-s'])
+
+    # -C option was removed from waf 1.7.0+
+    conf.env.VALAFLAGS.extend(['-C'])
 
     conf.env.debug = conf.options.debug
     conf.env.with_gtk3 = conf.options.with_gtk3
