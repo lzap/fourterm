@@ -12,21 +12,26 @@ comparable to Terminator.
 Features
 --------
 
- * Very small (only one 200 kB binary - including awesome icon).
+ * Very small (only about 35 kB binary on Intels).
  * Faster than Terminator (written in Vala/C).
+ * Four terminals setup by default.
  * Starts ultra-fast. Exits even faster!
  * Built-in [Solarized color scheme](http://ethanschoonover.com/solarized).
- * Vim-like key mapping. Try Super/Windows key + hjkl or np.
+ * Dark/light color scheme switch using Super/Win + c combination.
+ * Vim-like key mapping. Try Super/Windows key + hjkl.
  * Active terminal is highlighted.
- * Allows to choose your font and colors.
+ * Comes with Terminus font dependency and setting.
+ * Allows to choose your font, scrollback, scrollbar and optional transparency.
+ * Supports any number of terminal columns and rows.
+ * No context menu, no cursor changes (easy to select even links).
+ * Recognizes bactraces of Ruby and Python.
+ * Right click opens browser or editor.
 
 Planned features
 ----------------
 
- * Fedora 17 package.
- * Support for one, four and six terminals.
- * Dark/light color scheme switch using Super/Win + c combination.
- * Active http links and files. Open files from stacktraces in your editor quickly!
+ * More backtrace support (Perl, Java...) - SEND PATCHES!
+ * Fedora 16/17 package.
  * Effective searching in the history. No more scrolling.
 
 Download
@@ -58,8 +63,8 @@ Tutorial for Fedora:
     # yum -y install git waf vala glib2-devel gtk3-devel vte3-devel
     # git clone git://github.com/lzap/fourterm.git
     # cd fouterm
-    # waf configure --with-gtk3
-    # waf
+    # ./waf configure --with-gtk3
+    # ./waf
     # build/fourterm
 
 The same for other distributions. If you don't have waf package, you can use
