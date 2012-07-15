@@ -1,5 +1,5 @@
 Name:           fourterm
-Version:        1.0.4
+Version:        1.0.5
 Release:        1%{?dist}
 Summary:        Lightweight split-screen terminal emulator with vim key mappings
 
@@ -79,6 +79,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 
 
 %changelog
+* Sun Jul 15 2012 Lukas Zapletal <lzap+git@redhat.com> 1.0.5-1
+- upgrading to waf 1.7.0pre5 for rawhide compatibility
+
 * Sun Jul 15 2012 Lukas Zapletal <lzap+git@redhat.com> 1.0.4-1
 - correcting version fetcher in build script
 
