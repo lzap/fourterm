@@ -138,7 +138,7 @@ def configure(conf):
         conf.env.VALAFLAGS.extend(['-g', '--define=DEBUG'])
     else:
         conf.env.CFLAGS.extend(['-O2'])
-        conf.env.VALAFLAGS.extend(['--thread'])
+        conf.env.VALAFLAGS.extend(['--thread', '-C'])
         conf.env.LINKFLAGS.extend(['-Wl,-O1', '-s'])
 
     conf.env.debug = conf.options.debug
@@ -156,6 +156,7 @@ def build(bld):
         vapi_dirs     = 'vapi',
         target        = APPNAME,
         uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GEE', 'GTK', 'VTE'],
+        includes      = ['.', out],
         source        = ['src/about.vala',
                          'src/check-button.vala',
                          'src/check-menu-item.vala',
