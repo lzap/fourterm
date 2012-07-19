@@ -7,5 +7,5 @@ Comment=Lightweight split-screen terminal emulator with vim key mappings
 Exec=fourterm
 Icon=fourterm
 Terminal=false
-Categories=Development
+Categories=GNOME;GTK;Utility;TerminalEmulator;System;
 StartupNotify=true

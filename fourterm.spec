@@ -1,16 +1,16 @@
+%global debug_package %{nil}
+
 Name:           fourterm
 Version:        1.0.5
 Release:        1%{?dist}
 Summary:        Lightweight split-screen terminal emulator with vim key mappings
 
-Group:          Development/Tools
+Group:          User Interface/Desktop
 License:        GPLv3+
 URL:            https://github.com/lzap/fourterm
 Source0:        http://lzap.fedorapeople.org/projects/fourterm/releases/%{name}-%{version}.tar.gz
 
-#BuildRoot:      %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-
-Requires:       libgee glib2 gtk3 vte3
+Requires:       gtk3 vte3
 Requires:       terminus-fonts
 
 BuildRequires:  waf intltool gettext desktop-file-utils
@@ -40,7 +40,6 @@ waf
 
 
 %install
-#%{__rm} -rf $RPM_BUILD_ROOT
 waf install --destdir=$RPM_BUILD_ROOT
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
 cp build/%{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
@@ -65,10 +64,6 @@ fi
 
 %posttrans
 gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-
-
-%clean
-#%{__rm} -rf $RPM_BUILD_ROOT
 
 
 %files -f %{name}.lang
