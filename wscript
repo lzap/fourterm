@@ -62,7 +62,7 @@ def configure(conf):
     conf.env.VALAFLAGS = list()
     conf.env.LINKFLAGS = list()
 
-    conf.load(['compiler_c', 'gnu_dirs'])
+    conf.load(['compiler_c', 'vala'])
 
     if conf.options.disable_nls != True:
         conf.load(['intltool'])
@@ -141,8 +141,8 @@ def configure(conf):
         conf.env.VALAFLAGS.extend(['--thread'])
         conf.env.LINKFLAGS.extend(['-Wl,-O1', '-s'])
 
-    # -C option was removed from waf 1.7.0+
-    conf.env.VALAFLAGS.extend(['-C'])
+    # -C option was removed from waf 1.7.0+ (not needed anymore)
+    #conf.env.VALAFLAGS.extend(['-C'])
 
     conf.env.debug = conf.options.debug
     conf.env.with_gtk3 = conf.options.with_gtk3
@@ -159,7 +159,7 @@ def build(bld):
         vapi_dirs     = 'vapi',
         target        = APPNAME,
         uselib        = ['GLIB', 'GOBJECT', 'GTHREAD', 'GEE', 'GTK', 'VTE'],
-        includes      = ['.', out],
+        includes      = ['.'],
         source        = ['src/about.vala',
                          'src/check-button.vala',
                          'src/check-menu-item.vala',
