@@ -104,7 +104,8 @@ public class UrlMatcher : GLib.Object, IMatcher
   }
 
   public string command(string[] groups) {
-    return "google-chrome " + groups[0];
+    var url = groups[0];
+    return Settings.browser.replace("$url", url);
   }
 }
 
@@ -129,7 +130,7 @@ public class AbsoluteFilepathMatcher : GLib.Object, IMatcher
   public string command(string[] groups) {
     var filename = matched_filename(groups);
     var line = matched_line(groups);
-    return @"gvim $filename +$line";
+    return Settings.editor.replace("$filename", filename).replace("$line", line);
   }
 }
 
@@ -154,7 +155,7 @@ public class PythonMatcher : GLib.Object, IMatcher
   public string command(string[] groups) {
     var filename = matched_filename(groups);
     var line = matched_line(groups);
-    return @"gvim $filename +$line";
+    return Settings.editor.replace("$filename", filename).replace("$line", line);
   }
 }
 
@@ -179,7 +180,7 @@ public class RubyMatcher : GLib.Object, IMatcher
   public string command(string[] groups) {
     var filename = matched_filename(groups);
     var line = matched_line(groups);
-    return @"gvim $filename +$line";
+    return Settings.editor.replace("$filename", filename).replace("$line", line);
   }
 }
 
