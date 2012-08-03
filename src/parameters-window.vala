@@ -23,6 +23,8 @@ public class ParametersWindow : DefaultDialog
   private CheckButton show_scrollbar_chooser = new CheckButton(Settings.show_scrollbar);
   private SpinButton rows_chooser = new SpinButton(Settings.rows);
   private SpinButton columns_chooser = new SpinButton(Settings.columns);
+  private Entry editor_entry = new Entry(Settings.editor);
+  private Entry browser_entry = new Entry(Settings.browser);
 
   public signal void font_changed(string font);
   public signal void scrollback_lines_changed(long lines);
@@ -30,6 +32,8 @@ public class ParametersWindow : DefaultDialog
   public signal void show_scrollbar_changed(bool show);
   public signal void rows_changed(int lines);
   public signal void columns_changed(int lines);
+  public signal void editor_changed(string entry);
+  public signal void browser_changed(string entry);
 
   public ParametersWindow(MainWindow parent_window)
   {
@@ -53,6 +57,9 @@ public class ParametersWindow : DefaultDialog
     var show_scrollbar_box = new ParameterBox(tr("Show scrollbar:"),
                           this.show_scrollbar_chooser);
 
+    var editor_box = new ParameterBox(tr("Editor:"), this.editor_entry);
+    var browser_box = new ParameterBox(tr("Browser:"), this.browser_entry);
+
     var main_box = (Gtk.Box)(this.get_content_area());
     main_box.pack_start(rows_box);
     main_box.pack_start(columns_box);
@@ -60,6 +67,8 @@ public class ParametersWindow : DefaultDialog
     main_box.pack_start(scrollback_lines_box);
     main_box.pack_start(transparency_box);
     main_box.pack_start(show_scrollbar_box);
+    main_box.pack_start(editor_box);
+    main_box.pack_start(browser_box);
 
     rows_chooser.set_range(2, 99);
     columns_chooser.set_range(2, 99);
@@ -104,6 +113,18 @@ public class ParametersWindow : DefaultDialog
     {
       Settings.show_scrollbar = this.show_scrollbar_chooser.active;
       this.show_scrollbar_changed(this.show_scrollbar_chooser.active);
+    }
+
+    if(Settings.editor != this.editor_entry.text)
+    {
+      Settings.editor = this.editor_entry.text;
+      this.editor_changed(this.editor_entry.text);
+    }
+
+    if(Settings.browser != this.browser_entry.text)
+    {
+      Settings.browser = this.browser_entry.text;
+      this.editor_changed(this.browser_entry.text);
     }
 
     if (restart) {

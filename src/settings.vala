@@ -30,6 +30,8 @@ public class Settings : GLib.Object
   private const string SHOW_SCROLLBAR = "Show-Scrollbar";
   private const string ROWS = "Rows";
   private const string COLUMNS = "Columns";
+  private const string EDITOR = "Editor";
+  private const string BROWSER = "Browser";
 
   private static unowned ConfigFile file;
 
@@ -151,6 +153,34 @@ public class Settings : GLib.Object
     set
     {
       file.set_integer(TERMINAL, COLUMNS, value);
+      file.write();
+    }
+  }
+  
+  public static string editor
+  {
+    owned get
+    {
+      return file.get_string_key(TERMINAL, EDITOR, "gvim $filename +$line");
+    }
+
+    set
+    {
+      file.set_string(TERMINAL, EDITOR, value);
+      file.write();
+    }
+  }
+  
+  public static string browser
+  {
+    owned get
+    {
+      return file.get_string_key(TERMINAL, BROWSER, "xdg-open $url");
+    }
+
+    set
+    {
+      file.set_string(TERMINAL, BROWSER, value);
       file.write();
     }
   }
