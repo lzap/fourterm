@@ -100,11 +100,36 @@ public class UrlMatcher : GLib.Object, IMatcher
   }
 
   public string matched_line(string[] groups) {
-    return ""; // not used
+    return "0"; // not used
   }
 
   public string command(string[] groups) {
     return "google-chrome " + groups[0];
+  }
+}
+
+public class AbsoluteFilepathMatcher : GLib.Object, IMatcher
+{
+  public string name() {
+    return "file";
+  }
+
+  public string regex() {
+    return """^(/[a-zA-Z0-9_-]+(/[a-zA-Z0-9_-]+))""";
+  }
+
+  public string matched_filename(string[] groups) {
+    return groups[1];
+  }
+
+  public string matched_line(string[] groups) {
+    return "0"; // not used
+  }
+
+  public string command(string[] groups) {
+    var filename = matched_filename(groups);
+    var line = matched_line(groups);
+    return @"gvim $filename +$line";
   }
 }
 
