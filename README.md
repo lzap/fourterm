@@ -7,7 +7,7 @@ for window navigation, active web and file links, search feature and sexy color
 "Solarized" scheme with day/night fast switching. It is based on ValaTerm and
 comparable to Terminator.
 
-![fouterm](/lzap/fourterm/raw/master/doc/fourterm-screen1.png "FourTerm")
+![fouterm](https://raw.githubusercontent.com/lzap/fourterm/master/doc/fourterm-screen1.png "fourterm")
 
 Features
 --------
@@ -31,7 +31,7 @@ Planned features
 ----------------
 
  * More backtrace support (Perl, Java...) - SEND PATCHES!
- * Fedora 16/17 package.
+ * Fedora packages.
  * Effective searching in the history. No more scrolling.
 
 Download
