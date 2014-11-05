@@ -27,6 +27,19 @@ Features
  * Recognizes bactraces of Ruby and Python.
  * Right click opens browser or editor.
 
+Keyboard shortcuts
+------------------
+ * previous term (ALT+LEFT, WIN+H, WIN+P)
+ * next term (ALT+RIGHT, WIN+H, WIN+N)
+ * bellow term (ALT+DOWN, WIN+J)
+ * above term (ALT+UP, WIN+K)
+
+Known bugs
+----------
+
+ * Resizing do not work after upgrade to GTK+ 3.X. Do not resize. Send
+ patches!
+
 Planned features
 ----------------
 
