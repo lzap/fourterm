@@ -1,6 +1,7 @@
-
 Lightweight split-screen terminal emulator with vim keys
 ========================================================
+
+*This project needs maintainer, drop me a mail if interested.*
 
 *FourTerm* is ultra-lightweight terminal emulator with vim-like keyboard shortcuts
 for window navigation, active web and file links, search feature and sexy color
